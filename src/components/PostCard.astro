@@ -24,15 +24,15 @@ const formattedDate = pubDate.toLocaleDateString('en-GB', {
 const termDate = pubDate.toISOString().split('T')[0].replace(/-/g, '.');
 ---
 
-<article class="post-card group relative border border-stone-200 dark:border-[#1a1a1a] rounded-lg p-5 transition-all duration-300 bg-white dark:bg-[#111111] hover:border-[#8BBFAA]/50 dark:hover:border-[#8BBFAA]/30">
-  <a href={`/blog/${slug}`} class="absolute inset-0 rounded-lg" aria-label={title}></a>
+<article class="post-card group relative border border-stone-200 dark:border-[#a8d3bf]/15 rounded-xl p-5 transition-all duration-300 bg-white dark:bg-[#0f3d32] hover:border-[#a8d3bf]/50 dark:hover:border-[#a8d3bf]/30" style="box-shadow: 0 4px 24px rgba(15,61,50,0.15);">
+  <a href={`/blog/${slug}`} class="absolute inset-0 rounded-xl" aria-label={title}></a>
 
   <!-- Scan line effect on hover -->
   <div class="scan-line" aria-hidden="true"></div>
 
   <!-- Meta row — monospace terminal style -->
   <div class="flex items-center gap-2 mb-3 text-[11px] tracking-wide" style="font-family: var(--font-mono); color: var(--color-muted); opacity: 0.7;">
-    <span>{termDate}</span>
+    <span style="color: #ffb700;">{termDate}</span>
     <span aria-hidden="true">//</span>
     <span>{formatReadingTime(readingTime)}</span>
     {postType && (
@@ -44,7 +44,7 @@ const termDate = pubDate.toISOString().split('T')[0].replace(/-/g, '.');
   </div>
 
   <!-- Title -->
-  <h2 class="text-lg font-semibold leading-snug mb-2 transition-colors duration-200 text-stone-900 dark:text-stone-100 group-hover:text-[#1A3D2B] dark:group-hover:text-[#8BBFAA]">
+  <h2 class="text-lg font-semibold leading-snug mb-2 transition-all duration-200 text-stone-900 dark:text-stone-100 group-hover:text-[#0f3d32] dark:group-hover:text-[#a8d3bf] group-hover:[text-shadow:0_0_8px_#a8d3bf]">
     {title}
   </h2>
 
@@ -71,7 +71,7 @@ const termDate = pubDate.toISOString().split('T')[0].replace(/-/g, '.');
     left: -100%;
     width: 100%;
     height: 1px;
-    background: linear-gradient(90deg, transparent, #8BBFAA, transparent);
+    background: linear-gradient(90deg, transparent, #a8d3bf, transparent);
     opacity: 0;
     transition: opacity 0.3s ease;
   }

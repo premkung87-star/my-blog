@@ -19,7 +19,7 @@ export async function generateOgImage(title: string): Promise<Buffer> {
           flexDirection: 'column',
           justifyContent: 'space-between',
           padding: '60px 80px',
-          backgroundColor: '#1A3D2B',
+          backgroundColor: '#0f3d32',
           fontFamily: 'NotoSansThai',
         },
         children: [
@@ -39,7 +39,7 @@ export async function generateOgImage(title: string): Promise<Buffer> {
                       width: '40px',
                       height: '40px',
                       borderRadius: '50%',
-                      backgroundColor: '#8BBFAA',
+                      backgroundColor: '#a8d3bf',
                       display: 'flex',
                     },
                     children: [],
@@ -50,7 +50,7 @@ export async function generateOgImage(title: string): Promise<Buffer> {
                   props: {
                     style: {
                       fontSize: '28px',
-                      color: '#8BBFAA',
+                      color: '#a8d3bf',
                       fontWeight: 700,
                     },
                     children: siteConfig.name,
@@ -65,7 +65,7 @@ export async function generateOgImage(title: string): Promise<Buffer> {
               style: {
                 display: 'flex',
                 fontSize: title.length > 40 ? '44px' : '52px',
-                color: '#F5F5F0',
+                color: '#fafafa',
                 lineHeight: 1.3,
                 fontWeight: 700,
                 maxWidth: '900px',
@@ -79,7 +79,7 @@ export async function generateOgImage(title: string): Promise<Buffer> {
               style: {
                 display: 'flex',
                 fontSize: '20px',
-                color: '#8BBFAA',
+                color: '#a8d3bf',
                 opacity: 0.8,
               },
               children: siteConfig.url.replace('https://', ''),

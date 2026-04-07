@@ -29,73 +29,35 @@ const websiteJsonLd = {
   description="Solo entrepreneur in Chiang Mai building VerdeX Farm — a smart hydroponic system for commercial herb growers. Writing about entrepreneurship, technology, and building in public."
   jsonLd={websiteJsonLd}
 >
-  <!-- Caveat font — only used on this page -->
-  <link slot="head" href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet" />
 
   <!-- Hero -->
   <section class="hero-section max-w-5xl mx-auto px-4 sm:px-6 pt-20 sm:pt-28 pb-10 sm:pb-14" style="position: relative; overflow: hidden;">
 
-    <!-- Y2K dot matrix — upper right -->
-    <svg class="hidden sm:block" aria-hidden="true" style="position: absolute; top: 20px; right: 24px; width: 150px; height: 150px;" viewBox="0 0 150 150" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="132" cy="18" r="2" fill="#1A3D2B" opacity="0.35"/>
-      <circle cx="118" cy="12" r="1.5" fill="#1A3D2B" opacity="0.2"/>
-      <circle cx="140" cy="32" r="1.5" fill="#1A3D2B" opacity="0.15"/>
-      <circle cx="125" cy="28" r="2" fill="#1A3D2B" opacity="0.3"/>
-      <circle cx="110" cy="22" r="1.5" fill="#1A3D2B" opacity="0.1"/>
-      <circle cx="138" cy="45" r="2" fill="#1A3D2B" opacity="0.25"/>
-      <circle cx="145" cy="55" r="1.5" fill="#1A3D2B" opacity="0.12"/>
-      <circle cx="128" cy="42" r="1.5" fill="#1A3D2B" opacity="0.35"/>
-      <circle cx="115" cy="35" r="2" fill="#1A3D2B" opacity="0.18"/>
-      <circle cx="105" cy="30" r="1.5" fill="#1A3D2B" opacity="0.1"/>
-      <circle cx="135" cy="60" r="2" fill="#1A3D2B" opacity="0.2"/>
-      <circle cx="122" cy="55" r="1.5" fill="#1A3D2B" opacity="0.3"/>
-      <circle cx="142" cy="72" r="1.5" fill="#1A3D2B" opacity="0.15"/>
-      <circle cx="130" cy="68" r="2" fill="#1A3D2B" opacity="0.25"/>
-      <circle cx="112" cy="48" r="2" fill="#1A3D2B" opacity="0.12"/>
-      <circle cx="100" cy="40" r="1.5" fill="#1A3D2B" opacity="0.1"/>
-      <circle cx="120" cy="75" r="1.5" fill="#1A3D2B" opacity="0.2"/>
-      <circle cx="138" cy="85" r="2" fill="#1A3D2B" opacity="0.15"/>
-      <circle cx="108" cy="62" r="1.5" fill="#1A3D2B" opacity="0.18"/>
-      <circle cx="126" cy="88" r="1.5" fill="#1A3D2B" opacity="0.12"/>
-      <circle cx="95" cy="45" r="2" fill="#1A3D2B" opacity="0.1"/>
-      <circle cx="133" cy="95" r="2" fill="#1A3D2B" opacity="0.1"/>
-      <circle cx="115" cy="82" r="1.5" fill="#1A3D2B" opacity="0.15"/>
-      <circle cx="143" cy="40" r="2" fill="#1A3D2B" opacity="0.4"/>
-      <circle cx="130" cy="52" r="1.5" fill="#1A3D2B" opacity="0.28"/>
-      <circle cx="120" cy="65" r="2" fill="#1A3D2B" opacity="0.22"/>
+    <!-- Y2K dot matrix — upper right (2px circles, 12px gap, 30% opacity) -->
+    <svg class="hidden sm:block" aria-hidden="true" style="position: absolute; top: 20px; right: 24px; width: 110px; height: 110px; opacity: 0.3;" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="2" cy="2" r="2" fill="#0f3d32"/><circle cx="14" cy="2" r="2" fill="#0f3d32"/><circle cx="26" cy="2" r="2" fill="#0f3d32"/><circle cx="38" cy="2" r="2" fill="#0f3d32"/><circle cx="50" cy="2" r="2" fill="#0f3d32"/><circle cx="62" cy="2" r="2" fill="#0f3d32"/><circle cx="74" cy="2" r="2" fill="#0f3d32"/><circle cx="86" cy="2" r="2" fill="#0f3d32"/>
+      <circle cx="2" cy="14" r="2" fill="#0f3d32"/><circle cx="14" cy="14" r="2" fill="#0f3d32"/><circle cx="26" cy="14" r="2" fill="#0f3d32"/><circle cx="38" cy="14" r="2" fill="#0f3d32"/><circle cx="50" cy="14" r="2" fill="#0f3d32"/><circle cx="62" cy="14" r="2" fill="#0f3d32"/><circle cx="74" cy="14" r="2" fill="#0f3d32"/><circle cx="86" cy="14" r="2" fill="#0f3d32"/>
+      <circle cx="2" cy="26" r="2" fill="#0f3d32"/><circle cx="14" cy="26" r="2" fill="#0f3d32"/><circle cx="26" cy="26" r="2" fill="#0f3d32"/><circle cx="38" cy="26" r="2" fill="#0f3d32"/><circle cx="50" cy="26" r="2" fill="#0f3d32"/><circle cx="62" cy="26" r="2" fill="#0f3d32"/><circle cx="74" cy="26" r="2" fill="#0f3d32"/><circle cx="86" cy="26" r="2" fill="#0f3d32"/>
+      <circle cx="2" cy="38" r="2" fill="#0f3d32"/><circle cx="14" cy="38" r="2" fill="#0f3d32"/><circle cx="26" cy="38" r="2" fill="#0f3d32"/><circle cx="38" cy="38" r="2" fill="#0f3d32"/><circle cx="50" cy="38" r="2" fill="#0f3d32"/><circle cx="62" cy="38" r="2" fill="#0f3d32"/><circle cx="74" cy="38" r="2" fill="#0f3d32"/><circle cx="86" cy="38" r="2" fill="#0f3d32"/>
+      <circle cx="2" cy="50" r="2" fill="#0f3d32"/><circle cx="14" cy="50" r="2" fill="#0f3d32"/><circle cx="26" cy="50" r="2" fill="#0f3d32"/><circle cx="38" cy="50" r="2" fill="#0f3d32"/><circle cx="50" cy="50" r="2" fill="#0f3d32"/><circle cx="62" cy="50" r="2" fill="#0f3d32"/><circle cx="74" cy="50" r="2" fill="#0f3d32"/><circle cx="86" cy="50" r="2" fill="#0f3d32"/>
+      <circle cx="2" cy="62" r="2" fill="#0f3d32"/><circle cx="14" cy="62" r="2" fill="#0f3d32"/><circle cx="26" cy="62" r="2" fill="#0f3d32"/><circle cx="38" cy="62" r="2" fill="#0f3d32"/><circle cx="50" cy="62" r="2" fill="#0f3d32"/><circle cx="62" cy="62" r="2" fill="#0f3d32"/><circle cx="74" cy="62" r="2" fill="#0f3d32"/><circle cx="86" cy="62" r="2" fill="#0f3d32"/>
+      <circle cx="2" cy="74" r="2" fill="#0f3d32"/><circle cx="14" cy="74" r="2" fill="#0f3d32"/><circle cx="26" cy="74" r="2" fill="#0f3d32"/><circle cx="38" cy="74" r="2" fill="#0f3d32"/><circle cx="50" cy="74" r="2" fill="#0f3d32"/><circle cx="62" cy="74" r="2" fill="#0f3d32"/><circle cx="74" cy="74" r="2" fill="#0f3d32"/><circle cx="86" cy="74" r="2" fill="#0f3d32"/>
+      <circle cx="2" cy="86" r="2" fill="#0f3d32"/><circle cx="14" cy="86" r="2" fill="#0f3d32"/><circle cx="26" cy="86" r="2" fill="#0f3d32"/><circle cx="38" cy="86" r="2" fill="#0f3d32"/><circle cx="50" cy="86" r="2" fill="#0f3d32"/><circle cx="62" cy="86" r="2" fill="#0f3d32"/><circle cx="74" cy="86" r="2" fill="#0f3d32"/><circle cx="86" cy="86" r="2" fill="#0f3d32"/>
     </svg>
 
-    <!-- Y2K dot matrix — lower left -->
-    <svg class="hidden sm:block" aria-hidden="true" style="position: absolute; bottom: 16px; left: 24px; width: 150px; height: 150px;" viewBox="0 0 150 150" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="12" cy="135" r="2" fill="#1A3D2B" opacity="0.3"/>
-      <circle cx="25" cy="140" r="1.5" fill="#1A3D2B" opacity="0.2"/>
-      <circle cx="8" cy="120" r="1.5" fill="#1A3D2B" opacity="0.15"/>
-      <circle cx="20" cy="125" r="2" fill="#1A3D2B" opacity="0.35"/>
-      <circle cx="35" cy="132" r="1.5" fill="#1A3D2B" opacity="0.12"/>
-      <circle cx="15" cy="108" r="2" fill="#1A3D2B" opacity="0.25"/>
-      <circle cx="5" cy="100" r="1.5" fill="#1A3D2B" opacity="0.1"/>
-      <circle cx="28" cy="115" r="1.5" fill="#1A3D2B" opacity="0.3"/>
-      <circle cx="40" cy="122" r="2" fill="#1A3D2B" opacity="0.18"/>
-      <circle cx="48" cy="130" r="1.5" fill="#1A3D2B" opacity="0.1"/>
-      <circle cx="18" cy="95" r="2" fill="#1A3D2B" opacity="0.22"/>
-      <circle cx="32" cy="105" r="1.5" fill="#1A3D2B" opacity="0.28"/>
-      <circle cx="10" cy="85" r="1.5" fill="#1A3D2B" opacity="0.12"/>
-      <circle cx="22" cy="90" r="2" fill="#1A3D2B" opacity="0.2"/>
-      <circle cx="42" cy="110" r="2" fill="#1A3D2B" opacity="0.15"/>
-      <circle cx="55" cy="125" r="1.5" fill="#1A3D2B" opacity="0.1"/>
-      <circle cx="30" cy="95" r="1.5" fill="#1A3D2B" opacity="0.18"/>
-      <circle cx="14" cy="78" r="2" fill="#1A3D2B" opacity="0.12"/>
-      <circle cx="38" cy="100" r="1.5" fill="#1A3D2B" opacity="0.15"/>
-      <circle cx="25" cy="82" r="1.5" fill="#1A3D2B" opacity="0.1"/>
-      <circle cx="50" cy="115" r="2" fill="#1A3D2B" opacity="0.12"/>
-      <circle cx="8" cy="68" r="2" fill="#1A3D2B" opacity="0.1"/>
-      <circle cx="35" cy="88" r="1.5" fill="#1A3D2B" opacity="0.15"/>
-      <circle cx="6" cy="130" r="2" fill="#1A3D2B" opacity="0.4"/>
-      <circle cx="18" cy="118" r="1.5" fill="#1A3D2B" opacity="0.32"/>
-      <circle cx="28" cy="128" r="2" fill="#1A3D2B" opacity="0.25"/>
+    <!-- Y2K dot matrix — lower left (2px circles, 12px gap, 30% opacity) -->
+    <svg class="hidden sm:block" aria-hidden="true" style="position: absolute; bottom: 16px; left: 24px; width: 110px; height: 110px; opacity: 0.3;" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="2" cy="2" r="2" fill="#0f3d32"/><circle cx="14" cy="2" r="2" fill="#0f3d32"/><circle cx="26" cy="2" r="2" fill="#0f3d32"/><circle cx="38" cy="2" r="2" fill="#0f3d32"/><circle cx="50" cy="2" r="2" fill="#0f3d32"/><circle cx="62" cy="2" r="2" fill="#0f3d32"/><circle cx="74" cy="2" r="2" fill="#0f3d32"/><circle cx="86" cy="2" r="2" fill="#0f3d32"/>
+      <circle cx="2" cy="14" r="2" fill="#0f3d32"/><circle cx="14" cy="14" r="2" fill="#0f3d32"/><circle cx="26" cy="14" r="2" fill="#0f3d32"/><circle cx="38" cy="14" r="2" fill="#0f3d32"/><circle cx="50" cy="14" r="2" fill="#0f3d32"/><circle cx="62" cy="14" r="2" fill="#0f3d32"/><circle cx="74" cy="14" r="2" fill="#0f3d32"/><circle cx="86" cy="14" r="2" fill="#0f3d32"/>
+      <circle cx="2" cy="26" r="2" fill="#0f3d32"/><circle cx="14" cy="26" r="2" fill="#0f3d32"/><circle cx="26" cy="26" r="2" fill="#0f3d32"/><circle cx="38" cy="26" r="2" fill="#0f3d32"/><circle cx="50" cy="26" r="2" fill="#0f3d32"/><circle cx="62" cy="26" r="2" fill="#0f3d32"/><circle cx="74" cy="26" r="2" fill="#0f3d32"/><circle cx="86" cy="26" r="2" fill="#0f3d32"/>
+      <circle cx="2" cy="38" r="2" fill="#0f3d32"/><circle cx="14" cy="38" r="2" fill="#0f3d32"/><circle cx="26" cy="38" r="2" fill="#0f3d32"/><circle cx="38" cy="38" r="2" fill="#0f3d32"/><circle cx="50" cy="38" r="2" fill="#0f3d32"/><circle cx="62" cy="38" r="2" fill="#0f3d32"/><circle cx="74" cy="38" r="2" fill="#0f3d32"/><circle cx="86" cy="38" r="2" fill="#0f3d32"/>
+      <circle cx="2" cy="50" r="2" fill="#0f3d32"/><circle cx="14" cy="50" r="2" fill="#0f3d32"/><circle cx="26" cy="50" r="2" fill="#0f3d32"/><circle cx="38" cy="50" r="2" fill="#0f3d32"/><circle cx="50" cy="50" r="2" fill="#0f3d32"/><circle cx="62" cy="50" r="2" fill="#0f3d32"/><circle cx="74" cy="50" r="2" fill="#0f3d32"/><circle cx="86" cy="50" r="2" fill="#0f3d32"/>
+      <circle cx="2" cy="62" r="2" fill="#0f3d32"/><circle cx="14" cy="62" r="2" fill="#0f3d32"/><circle cx="26" cy="62" r="2" fill="#0f3d32"/><circle cx="38" cy="62" r="2" fill="#0f3d32"/><circle cx="50" cy="62" r="2" fill="#0f3d32"/><circle cx="62" cy="62" r="2" fill="#0f3d32"/><circle cx="74" cy="62" r="2" fill="#0f3d32"/><circle cx="86" cy="62" r="2" fill="#0f3d32"/>
+      <circle cx="2" cy="74" r="2" fill="#0f3d32"/><circle cx="14" cy="74" r="2" fill="#0f3d32"/><circle cx="26" cy="74" r="2" fill="#0f3d32"/><circle cx="38" cy="74" r="2" fill="#0f3d32"/><circle cx="50" cy="74" r="2" fill="#0f3d32"/><circle cx="62" cy="74" r="2" fill="#0f3d32"/><circle cx="74" cy="74" r="2" fill="#0f3d32"/><circle cx="86" cy="74" r="2" fill="#0f3d32"/>
+      <circle cx="2" cy="86" r="2" fill="#0f3d32"/><circle cx="14" cy="86" r="2" fill="#0f3d32"/><circle cx="26" cy="86" r="2" fill="#0f3d32"/><circle cx="38" cy="86" r="2" fill="#0f3d32"/><circle cx="50" cy="86" r="2" fill="#0f3d32"/><circle cx="62" cy="86" r="2" fill="#0f3d32"/><circle cx="74" cy="86" r="2" fill="#0f3d32"/><circle cx="86" cy="86" r="2" fill="#0f3d32"/>
     </svg>
 
-    <h1 class="text-5xl sm:text-7xl md:text-8xl font-bold leading-[1.1] tracking-tight mb-6" style="color: #1A3D2B; font-family: Georgia, 'Times New Roman', serif;">
+    <h1 class="font-bold mb-6" style="color: #0f3d32; font-family: 'Space Mono', monospace; font-size: clamp(36px, 8vw, 72px); line-height: 1.0; letter-spacing: -0.03em;">
       Read Then Write<br/>
       Then Read Then Write.....
     </h1>
@@ -114,7 +76,7 @@ const websiteJsonLd = {
     </p>
     <a
       href="/blog"
-      class="inline-flex items-center px-8 py-3 rounded-full text-white font-medium text-base transition-all duration-200 hover:scale-105 hover:shadow-lg bg-[#1A3D2B] dark:bg-[#8BBFAA] dark:text-[#0A0A0A]"
+      class="neon-glow inline-flex items-center px-8 py-3 rounded-full text-[#fafafa] font-medium text-base transition-all duration-200 hover:scale-105 hover:shadow-lg bg-[#0f3d32] dark:bg-[#a8d3bf] dark:text-[#0f3d32]"
       style="font-family: var(--font-mono); font-size: 14px;"
     >
       Let goooo!
@@ -122,12 +84,12 @@ const websiteJsonLd = {
   </section>
 
   <!-- Stoic quote — dark section -->
-  <section class="w-full py-16 sm:py-20" style="background-color: #1A3D2B;">
+  <section class="w-full py-16 sm:py-20 scanline-overlay" style="background-color: #0f3d32;">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center">
-      <blockquote class="text-3xl sm:text-4xl md:text-5xl leading-snug mb-6" style="font-family: 'Caveat', cursive; color: #8BBFAA;">
-        "The impediment to action advances action. What stands in the way becomes the way."
+      <blockquote class="text-xl sm:text-2xl md:text-3xl leading-snug mb-6" style="font-family: 'Space Mono', monospace; color: #a8d3bf;">
+<span style="opacity: 0.5;">&gt; </span>"The impediment to action advances action. What stands in the way becomes the way."
         <footer class="mt-4">
-          <cite class="not-italic text-sm sm:text-base tracking-wide" style="font-family: 'Courier New', Courier, monospace; color: rgba(255,255,255,0.8);">
+          <cite class="not-italic text-sm sm:text-base tracking-wide" style="font-family: 'Space Mono', monospace; color: rgba(168,211,191,0.7);">
             — Marcus Aurelius, Meditations
           </cite>
         </footer>
@@ -142,8 +104,8 @@ const websiteJsonLd = {
           <span class="w-3 h-3 rounded-full" style="background-color: #febc2e;"></span>
           <span class="w-3 h-3 rounded-full" style="background-color: #28c840;"></span>
         </div>
-        <p class="text-base sm:text-lg" style="font-family: 'Courier New', Courier, monospace; color: #8BBFAA;">
-          <span class="opacity-60">&gt; </span><span id="typewriter-text"></span><span id="typewriter-cursor" style="color: #8BBFAA;">|</span>
+        <p class="text-base sm:text-lg" style="font-family: 'Space Mono', monospace; color: #a8d3bf;">
+          <span class="opacity-60">&gt; </span><span id="typewriter-text"></span><span id="typewriter-cursor" style="color: #39ff14;">|</span>
         </p>
       </div>
       <span class="sr-only">Building VerdeX. Writing notes. Figuring it out.</span>
@@ -175,7 +137,7 @@ const websiteJsonLd = {
       <div class="mt-6 text-center">
         <a
           href="/blog"
-          class="text-sm text-stone-500 dark:text-stone-400 transition-colors duration-150 hover:opacity-70"
+          class="neon-glow text-sm text-stone-500 dark:text-stone-400 transition-all duration-150 hover:opacity-70"
         >
           View all {allPosts.length} posts →
         </a>
@@ -191,16 +153,16 @@ const websiteJsonLd = {
     position: absolute;
     inset: 0;
     background-image:
-      linear-gradient(rgba(26, 61, 43, 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(26, 61, 43, 0.04) 1px, transparent 1px);
+      linear-gradient(rgba(15, 61, 50, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(15, 61, 50, 0.04) 1px, transparent 1px);
     background-size: 24px 24px;
     pointer-events: none;
   }
 
   :global(.dark) .hero-section::before {
     background-image:
-      linear-gradient(rgba(139, 191, 170, 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(139, 191, 170, 0.04) 1px, transparent 1px);
+      linear-gradient(rgba(168, 211, 191, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(168, 211, 191, 0.04) 1px, transparent 1px);
   }
 
   /* Y2K tattoo dots */
@@ -209,14 +171,14 @@ const websiteJsonLd = {
     width: 3px;
     height: 3px;
     border-radius: 50%;
-    background-color: rgba(26, 61, 43, 0.3);
+    background-color: rgba(15, 61, 50, 0.3);
     margin: 0 3px;
   }
   .line-seg {
     display: inline-block;
     width: 28px;
     height: 1px;
-    background-color: rgba(26, 61, 43, 0.3);
+    background-color: rgba(15, 61, 50, 0.3);
     margin: 0 3px;
     vertical-align: middle;
   }
@@ -227,7 +189,7 @@ const websiteJsonLd = {
     50% { opacity: 0; }
   }
   #typewriter-cursor {
-    animation: blink 0.5s step-end infinite;
+    animation: blink 1s step-end infinite;
   }
 
   /* Respect reduced motion */

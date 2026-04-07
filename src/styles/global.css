@@ -14,34 +14,53 @@
 
 @layer base {
   :root {
-    --color-bg: #F5F5F0;
+    --color-bg: #fafafa;
     --color-surface: theme('colors.white');
     --color-text: theme('colors.stone.800');
     --color-muted: theme('colors.stone.500');
     --color-border: theme('colors.stone.200');
-    --color-accent: #1A3D2B;
-    --color-accent-light: #8BBFAA;
-    --font-mono: 'JetBrains Mono', ui-monospace, 'Courier New', monospace;
+    --color-accent: #0f3d32;
+    --color-accent-light: #a8d3bf;
+    --font-mono: 'Space Mono', ui-monospace, 'Courier New', monospace;
   }
 
   .dark {
-    --color-bg: #0A0A0A;
-    --color-surface: #111111;
-    --color-text: #e0e0e0;
-    --color-muted: #8BBFAA;
-    --color-border: #1a1a1a;
-    --color-accent: #8BBFAA;
-    --color-accent-light: #1A3D2B;
+    --color-bg: #0f3d32;
+    --color-surface: #0a2e24;
+    --color-text: #a8d3bf;
+    --color-muted: #a8d3bf;
+    --color-border: rgba(168, 211, 191, 0.15);
+    --color-accent: #a8d3bf;
+    --color-accent-light: #0f3d32;
   }
 
   html {
     @apply antialiased;
+    font-size: 18px;
+    line-height: 1.7;
   }
 
   /* Better Thai text rendering */
   body {
     font-feature-settings: "kern" 1, "liga" 1;
     text-rendering: optimizeLegibility;
+  }
+
+  /* Brand typography scale */
+  h1 {
+    font-family: var(--font-mono);
+    font-size: 48px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+  }
+
+  h2 {
+    font-family: var(--font-mono);
+    font-size: 32px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    font-weight: 600;
   }
 
   /* Thai text needs more line-height */
@@ -79,13 +98,13 @@
   .post-type-badge {
     @apply inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold uppercase tracking-wide;
     font-family: var(--font-mono);
-    background-color: rgba(26, 61, 43, 0.1);
-    color: #1A3D2B;
+    background-color: rgba(15, 61, 50, 0.1);
+    color: #0f3d32;
   }
 
   .dark .post-type-badge {
-    background-color: rgba(139, 191, 170, 0.15);
-    color: #8BBFAA;
+    background-color: rgba(168, 211, 191, 0.15);
+    color: #a8d3bf;
   }
 
   .tag-pill {
@@ -94,7 +113,7 @@
     font-family: var(--font-mono);
     font-size: 11px;
     letter-spacing: 0.02em;
-    color: #1A3D2B;
+    color: #0f3d32;
     background: transparent;
   }
 
@@ -111,15 +130,17 @@
   }
 
   .dark .tag-pill {
-    color: #8BBFAA;
+    color: #a8d3bf;
   }
 
   .tag-pill:hover {
-    background-color: rgba(26, 61, 43, 0.08);
+    background-color: rgba(15, 61, 50, 0.08);
+    text-shadow: 0 0 8px #a8d3bf;
   }
 
   .dark .tag-pill:hover {
-    background-color: rgba(139, 191, 170, 0.1);
+    background-color: rgba(168, 211, 191, 0.1);
+    text-shadow: 0 0 8px #a8d3bf;
   }
 
   /* Footnote superscript links */
@@ -149,11 +170,11 @@
 
   .prose-content .footnotes li:target {
     @apply -mx-2 px-2 py-1 rounded;
-    background-color: rgba(26, 61, 43, 0.06);
+    background-color: rgba(15, 61, 50, 0.06);
   }
 
   .dark .prose-content .footnotes li:target {
-    background-color: rgba(139, 191, 170, 0.08);
+    background-color: rgba(168, 211, 191, 0.08);
   }
 
   .prose-content [data-footnote-backref] {
@@ -171,25 +192,34 @@
            max-w-none;
   }
 
+  .prose-content :where(a):hover {
+    text-shadow: 0 0 8px #a8d3bf;
+  }
+
   .prose-content :where(blockquote) {
     border-left-color: var(--color-accent);
   }
 
   .prose-content :where(code) {
     font-family: var(--font-mono);
-    background-color: rgba(26, 61, 43, 0.06);
+    background-color: #0f3d32;
+    color: #a8d3bf;
+    border-radius: 4px;
   }
 
   .dark .prose-content :where(code) {
-    background-color: rgba(139, 191, 170, 0.1);
+    background-color: rgba(168, 211, 191, 0.12);
+    color: #a8d3bf;
   }
 
   /* Section labels — system style */
   .section-label {
-    @apply text-xs font-semibold uppercase tracking-widest mb-6;
+    @apply font-semibold uppercase mb-6;
     font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: 0.05em;
     color: var(--color-muted);
-    letter-spacing: 0.15em;
   }
 
   /* Code-comment divider */
@@ -199,5 +229,31 @@
     font-size: 11px;
     color: var(--color-muted);
     opacity: 0.5;
+  }
+
+  /* CRT / Phosphor glow — hover states & active links */
+  .neon-glow {
+    transition: text-shadow 0.2s ease;
+  }
+  .neon-glow:hover {
+    text-shadow: 0 0 8px #a8d3bf;
+  }
+
+  /* Scanline overlay for dark sections */
+  .scanline-overlay {
+    position: relative;
+  }
+  .scanline-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.03) 0px,
+      rgba(0, 0, 0, 0.03) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    pointer-events: none;
   }
 }

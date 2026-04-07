@@ -9,7 +9,7 @@ const recentPosts = (await getCollection('blog', ({ data }) => !data.draft))
 
 <BaseLayout title="404 — Page Not Found" description="This page doesn't exist.">
   <div class="max-w-2xl mx-auto px-4 sm:px-6 py-20 text-center">
-    <h1 class="text-7xl sm:text-9xl font-bold mb-4" style="color: #1A3D2B; font-family: Georgia, serif;">
+    <h1 class="text-7xl sm:text-9xl font-bold mb-4" style="color: #0f3d32; font-family: 'Space Mono', monospace;">
       404
     </h1>
     <p class="text-xl text-stone-600 dark:text-stone-400 mb-2">
@@ -22,14 +22,15 @@ const recentPosts = (await getCollection('blog', ({ data }) => !data.draft))
     <div class="flex flex-col sm:flex-row items-center justify-center gap-3 mb-12">
       <a
         href="/"
-        class="inline-flex items-center px-6 py-2.5 rounded-full text-white font-medium text-sm transition-all duration-200 hover:opacity-90"
-        style="background-color: #1A3D2B;"
+        class="neon-glow inline-flex items-center px-6 py-2.5 rounded-full text-[#fafafa] font-medium text-sm transition-all duration-200 hover:opacity-90"
+        style="background-color: #0f3d32; font-family: var(--font-mono);"
       >
         Go home
       </a>
       <a
         href="/blog"
-        class="inline-flex items-center px-6 py-2.5 rounded-full text-sm font-medium border border-stone-300 dark:border-stone-700 text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors"
+        class="neon-glow inline-flex items-center px-6 py-2.5 rounded-full text-sm font-medium border border-stone-300 dark:border-stone-700 text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800 transition-all"
+        style="font-family: var(--font-mono);"
       >
         Browse all posts
       </a>
@@ -44,7 +45,7 @@ const recentPosts = (await getCollection('blog', ({ data }) => !data.draft))
           {recentPosts.map((post) => (
             <a
               href={`/blog/${post.slug}/`}
-              class="block p-4 rounded-lg border border-stone-200 dark:border-stone-800 hover:bg-stone-100 dark:hover:bg-stone-900 transition-colors"
+              class="block p-4 rounded-xl border border-stone-200 dark:border-stone-800 hover:bg-stone-100 dark:hover:bg-stone-900 transition-colors"
             >
               <p class="font-medium text-stone-900 dark:text-stone-100 text-sm mb-1">
                 {post.data.title}
