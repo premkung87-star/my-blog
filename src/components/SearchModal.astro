@@ -1,0 +1,201 @@
+---
+// Search modal — opens with Cmd+K / Ctrl+K, closes with Esc or backdrop click.
+// Powered by Pagefind (static, no backend).
+// The /_pagefind/ bundle is generated after `astro build` by `pagefind --site dist`.
+---
+
+<!-- Trigger button (added to Header) -->
+<button
+  id="search-trigger"
+  aria-label="Search (Cmd+K)"
+  title="Search (Cmd+K)"
+  class="p-3 rounded-lg text-stone-500 hover:text-stone-800 dark:text-stone-400 dark:hover:text-stone-100 hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors duration-150"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <circle cx="11" cy="11" r="8"/>
+    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35"/>
+  </svg>
+</button>
+
+<!-- Modal overlay -->
+<div
+  id="search-modal"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Search"
+  class="fixed inset-0 z-[100] hidden"
+>
+  <!-- Backdrop -->
+  <div id="search-backdrop" class="absolute inset-0 bg-stone-900/50 backdrop-blur-sm"></div>
+
+  <!-- Panel -->
+  <div class="relative z-10 flex items-start justify-center pt-[15vh] px-4">
+    <div class="w-full max-w-xl bg-white dark:bg-stone-900 rounded-2xl shadow-2xl border border-stone-200 dark:border-stone-700 overflow-hidden">
+
+      <!-- Search input row -->
+      <div class="flex items-center gap-3 px-4 border-b border-stone-200 dark:border-stone-800">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-stone-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35"/>
+        </svg>
+        <input
+          id="search-input"
+          type="text"
+          placeholder="Search posts…"
+          autocomplete="off"
+          spellcheck="false"
+          class="flex-1 py-4 bg-transparent text-stone-900 dark:text-stone-100 placeholder-stone-400 dark:placeholder-stone-500 text-base outline-none"
+        />
+        <kbd class="hidden sm:inline-flex items-center gap-1 px-2 py-1 text-xs text-stone-400 dark:text-stone-500 bg-stone-100 dark:bg-stone-800 rounded border border-stone-200 dark:border-stone-700">
+          Esc
+        </kbd>
+      </div>
+
+      <!-- Results -->
+      <div id="search-results" class="max-h-[60vh] overflow-y-auto py-2">
+        <p id="search-empty" class="px-4 py-8 text-center text-sm text-stone-400 dark:text-stone-500">
+          Type to search posts…
+        </p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+(function () {
+  const modal     = document.getElementById('search-modal');
+  const backdrop  = document.getElementById('search-backdrop');
+  const input     = document.getElementById('search-input');
+  const results   = document.getElementById('search-results');
+  const empty     = document.getElementById('search-empty');
+  const trigger   = document.getElementById('search-trigger');
+
+  let pagefind    = null;
+  let debounce    = null;
+  let activeIndex = -1;
+
+  // ── Open / Close ────────────────────────────────────────────
+  function openModal() {
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    input.focus();
+    input.select();
+    loadPagefind();
+  }
+
+  function closeModal() {
+    modal.classList.add('hidden');
+    document.body.style.overflow = '';
+    input.value = '';
+    results.innerHTML = '';
+    results.appendChild(empty);
+    empty.textContent = 'Type to search posts…';
+    activeIndex = -1;
+  }
+
+  // ── Load Pagefind once ───────────────────────────────────────
+  async function loadPagefind() {
+    if (pagefind) return;
+    try {
+      pagefind = await import('/_pagefind/pagefind.js');
+      await pagefind.options({ excerptLength: 30 });
+    } catch (e) {
+      // Pagefind bundle not yet built (dev mode — run `npm run build` first)
+      pagefind = null;
+    }
+  }
+
+  // ── Search ───────────────────────────────────────────────────
+  async function runSearch(query) {
+    if (!pagefind || !query.trim()) {
+      results.innerHTML = '';
+      results.appendChild(empty);
+      empty.textContent = query.trim() ? 'No results.' : 'Type to search posts…';
+      activeIndex = -1;
+      return;
+    }
+
+    const search = await pagefind.search(query);
+    const top    = search.results.slice(0, 8);
+    const data   = await Promise.all(top.map((r) => r.data()));
+
+    if (data.length === 0) {
+      results.innerHTML = '';
+      results.appendChild(empty);
+      empty.textContent = 'No results found.';
+      activeIndex = -1;
+      return;
+    }
+
+    results.innerHTML = data.map((item, i) => `
+      <a
+        href="${item.url}"
+        data-result-index="${i}"
+        class="result-item flex flex-col gap-1 px-4 py-3 hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors duration-100 border-b border-stone-100 dark:border-stone-800 last:border-0"
+      >
+        <span class="text-sm font-medium text-stone-900 dark:text-stone-100 leading-snug">
+          ${item.meta?.title || 'Untitled'}
+        </span>
+        ${item.excerpt ? `<span class="text-xs text-stone-500 dark:text-stone-400 leading-relaxed line-clamp-2">${item.excerpt}</span>` : ''}
+      </a>
+    `).join('');
+
+    activeIndex = -1;
+  }
+
+  // ── Keyboard navigation inside results ───────────────────────
+  function getItems() {
+    return Array.from(results.querySelectorAll('.result-item'));
+  }
+
+  function setActive(index) {
+    const items = getItems();
+    items.forEach((el, i) => {
+      if (i === index) {
+        el.classList.add('bg-stone-50', 'dark:bg-stone-800');
+        el.focus();
+      } else {
+        el.classList.remove('bg-stone-50', 'dark:bg-stone-800');
+      }
+    });
+    activeIndex = index;
+  }
+
+  // ── Events ───────────────────────────────────────────────────
+  trigger.addEventListener('click', openModal);
+  backdrop.addEventListener('click', closeModal);
+
+  input.addEventListener('input', () => {
+    clearTimeout(debounce);
+    debounce = setTimeout(() => runSearch(input.value), 200);
+  });
+
+  input.addEventListener('keydown', (e) => {
+    const items = getItems();
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setActive(Math.min(activeIndex + 1, items.length - 1));
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setActive(Math.max(activeIndex - 1, -1));
+      if (activeIndex === -1) input.focus();
+    } else if (e.key === 'Enter' && activeIndex >= 0) {
+      e.preventDefault();
+      items[activeIndex]?.click();
+    } else if (e.key === 'Escape') {
+      closeModal();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault();
+      modal.classList.contains('hidden') ? openModal() : closeModal();
+    }
+    if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+      closeModal();
+    }
+  });
+})();
+</script>

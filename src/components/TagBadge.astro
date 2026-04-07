@@ -1,0 +1,16 @@
+---
+interface Props {
+  tag: string;
+  /** If true, renders as a plain span instead of a link */
+  static?: boolean;
+}
+
+const { tag, static: isStatic = false } = Astro.props;
+const href = `/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`;
+---
+
+{isStatic ? (
+  <span class="tag-pill">{tag}</span>
+) : (
+  <a href={href} class="tag-pill">{tag}</a>
+)}

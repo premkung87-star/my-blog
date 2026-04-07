@@ -1,0 +1,100 @@
+---
+// Table of Contents — desktop sticky sidebar only.
+// The mobile collapsible is rendered directly in PostLayout (above the content).
+// A shared script populates both from the article's H2/H3 headings.
+---
+
+<aside class="hidden xl:block w-56 flex-shrink-0">
+  <nav
+    id="toc-desktop"
+    aria-label="Table of contents"
+    class="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto pr-1"
+  >
+    <p class="text-xs font-semibold uppercase tracking-widest text-stone-400 dark:text-stone-500 mb-3 flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h10M4 18h7"/>
+      </svg>
+      Contents
+    </p>
+    <ul id="toc-list" class="space-y-0.5 text-sm">
+      <li class="text-stone-400 dark:text-stone-500 text-xs italic">Loading…</li>
+    </ul>
+  </nav>
+</aside>
+
+<script is:inline>
+(function () {
+  // ── Build heading list from article ─────────────────────────
+  function buildItems() {
+    const article = document.querySelector('[data-pagefind-body]');
+    if (!article) return [];
+    return Array.from(article.querySelectorAll('h2, h3'))
+      .filter((h) => h.id)
+      .map((h) => ({ id: h.id, text: h.textContent.trim(), level: parseInt(h.tagName[1], 10) }));
+  }
+
+  // ── Render items into a <ul> ─────────────────────────────────
+  function renderItems(items, ulEl) {
+    if (!ulEl) return;
+    if (!items.length) {
+      ulEl.innerHTML = '<li class="text-stone-400 dark:text-stone-500 text-xs italic">No headings.</li>';
+      return;
+    }
+    ulEl.innerHTML = items.map((item) => `
+      <li class="${item.level === 3 ? 'pl-3' : ''}">
+        <a
+          href="#${item.id}"
+          data-toc-id="${item.id}"
+          class="toc-link block py-1 text-xs leading-snug text-stone-500 dark:text-stone-400
+                 hover:text-amber-700 dark:hover:text-amber-400 transition-colors duration-150
+                 ${item.level === 3 ? 'border-l border-stone-200 dark:border-stone-800 pl-3' : ''}"
+        >${item.text}</a>
+      </li>
+    `).join('');
+  }
+
+  // ── Active heading highlight (IntersectionObserver) ──────────
+  function setupScrollSpy(items) {
+    if (!items.length) return;
+    const setActive = (id) => {
+      document.querySelectorAll('[data-toc-id]').forEach((link) => {
+        const active = link.dataset.tocId === id;
+        link.classList.toggle('!text-amber-700', active);
+        link.classList.toggle('dark:!text-amber-400', active);
+        link.classList.toggle('font-medium', active);
+      });
+    };
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) { setActive(entry.target.id); break; }
+        }
+      },
+      { rootMargin: '-10% 0% -75% 0%', threshold: 0 }
+    );
+    items.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+  }
+
+  // ── Init ─────────────────────────────────────────────────────
+  function init() {
+    const items = buildItems();
+
+    // Desktop list
+    renderItems(items, document.getElementById('toc-list'));
+
+    // Mobile list (inside the <details> rendered by PostLayout)
+    renderItems(items, document.getElementById('toc-mobile-list'));
+
+    setupScrollSpy(items);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>

@@ -1,0 +1,96 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// Build a map: tag slug → { label, count, latestDate }
+const tagMap = new Map<string, { label: string; count: number; latestDate: Date }>();
+
+for (const post of allPosts) {
+  for (const tag of post.data.tags) {
+    const slug = tag.toLowerCase().replace(/\s+/g, '-');
+    if (!tagMap.has(slug)) {
+      tagMap.set(slug, { label: tag, count: 0, latestDate: post.data.pubDate });
+    }
+    const entry = tagMap.get(slug)!;
+    entry.count += 1;
+    if (post.data.pubDate > entry.latestDate) {
+      entry.latestDate = post.data.pubDate;
+    }
+  }
+}
+
+// Sort by post count descending
+const categories = [...tagMap.entries()]
+  .map(([slug, data]) => ({ slug, ...data }))
+  .sort((a, b) => b.count - a.count);
+---
+
+<BaseLayout
+  title="Categories"
+  description="Browse all topics on Prem's Notes."
+>
+  <div class="max-w-2xl mx-auto px-4 sm:px-6 py-12">
+
+    <!-- Page header -->
+    <div class="mb-10">
+      <h1 class="text-3xl font-bold text-stone-900 dark:text-stone-50 mb-2">Categories</h1>
+      <p class="text-stone-500 dark:text-stone-400">
+        {categories.length} {categories.length === 1 ? 'topic' : 'topics'} · {allPosts.length} posts total
+      </p>
+    </div>
+
+    <!-- Category cards grid -->
+    {categories.length > 0 ? (
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {categories.map(({ slug, label, count, latestDate }) => {
+          const formattedDate = latestDate.toLocaleDateString('en-GB', {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric',
+          });
+          return (
+            <a
+              href={`/tags/${slug}`}
+              class="group relative bg-white dark:bg-stone-900 rounded-xl border border-stone-200 dark:border-stone-800 p-6 hover:border-amber-300 dark:hover:border-amber-700 transition-all duration-200 hover:shadow-md hover:shadow-amber-100/50 dark:hover:shadow-amber-900/20 flex flex-col gap-3"
+            >
+              <!-- Tag label -->
+              <div class="flex items-start justify-between gap-2">
+                <span class="tag-pill">
+                  {label}
+                </span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-4 h-4 text-stone-300 dark:text-stone-700 group-hover:text-amber-400 dark:group-hover:text-amber-600 transition-colors duration-150 flex-shrink-0 mt-1"
+                  fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+                </svg>
+              </div>
+
+              <!-- Post count -->
+              <p class="text-2xl font-bold text-stone-900 dark:text-stone-50 leading-none">
+                {count}
+                <span class="text-sm font-normal text-stone-400 dark:text-stone-500 ml-1">
+                  {count === 1 ? 'post' : 'posts'}
+                </span>
+              </p>
+
+              <!-- Latest post date -->
+              <p class="text-xs text-stone-400 dark:text-stone-500">
+                Latest: {formattedDate}
+              </p>
+            </a>
+          );
+        })}
+      </div>
+    ) : (
+      <p class="text-stone-400 dark:text-stone-500 text-center py-16">
+        No categories yet — check back soon.
+      </p>
+    )}
+
+  </div>
+</BaseLayout>

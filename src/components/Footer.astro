@@ -1,0 +1,65 @@
+---
+const year = new Date().getFullYear();
+
+// Replace # placeholders with real URLs when ready
+const socials = [
+  { label: 'X / Twitter', href: '#', title: 'Follow on X' },
+  { label: 'GitHub',      href: '#', title: 'GitHub profile' },
+  { label: 'LinkedIn',    href: '#', title: 'LinkedIn profile' },
+];
+---
+
+<footer class="border-t border-stone-200 dark:border-stone-800 mt-16">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 py-8 text-sm text-stone-400 dark:text-stone-500">
+
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+
+      <!-- Left: identity -->
+      <div>
+        <p class="font-medium text-stone-500 dark:text-stone-400 mb-1">Prem</p>
+        <p class="text-xs leading-relaxed max-w-xs">
+          Building <a href="#" class="text-amber-600 dark:text-amber-400 hover:underline">VerdeX Farm</a> —
+          smart hydroponics for commercial herb growers. Based in Chiang Mai.
+        </p>
+      </div>
+
+      <!-- Right: links -->
+      <div class="flex flex-col items-start sm:items-end gap-3">
+        <!-- Social placeholders -->
+        <nav class="flex items-center gap-3" aria-label="Social links">
+          {socials.map(({ label, href, title }) => (
+            <a
+              href={href}
+              title={title}
+              class="hover:text-stone-700 dark:hover:text-stone-300 transition-colors duration-150 py-2 inline-block"
+            >
+              {label}
+            </a>
+          ))}
+        </nav>
+        <!-- Site links -->
+        <nav class="flex items-center gap-3 flex-wrap" aria-label="Site links">
+          <a href="/blog" class="hover:text-stone-700 dark:hover:text-stone-300 transition-colors duration-150 py-2 inline-block">
+            Blog
+          </a>
+          <a href="/categories" class="hover:text-stone-700 dark:hover:text-stone-300 transition-colors duration-150 py-2 inline-block">
+            Categories
+          </a>
+          <a href="/about" class="hover:text-stone-700 dark:hover:text-stone-300 transition-colors duration-150 py-2 inline-block">
+            About
+          </a>
+          <a href="/contact" class="hover:text-stone-700 dark:hover:text-stone-300 transition-colors duration-150 py-2 inline-block">
+            Contact
+          </a>
+          <a href="/sitemap-index.xml" class="hover:text-stone-700 dark:hover:text-stone-300 transition-colors duration-150 py-2 inline-block">
+            Sitemap
+          </a>
+        </nav>
+      </div>
+
+    </div>
+
+    <p class="mt-6 text-xs">&copy; {year} Prem · Chiang Mai, Thailand</p>
+
+  </div>
+</footer>

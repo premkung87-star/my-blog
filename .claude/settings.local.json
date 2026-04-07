@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(echo \"---exit:$?---\")",
+      "Bash(npm run:*)",
+      "Bash(node -e \"const p = require\\('./node_modules/astro/package.json'\\); console.log\\('astro:', p.version\\)\")",
+      "Bash(node -e \"const p = require\\('./node_modules/@astrojs/sitemap/package.json'\\); console.log\\('@astrojs/sitemap:', p.version\\)\")",
+      "Bash(node:*)",
+      "Bash(npm view:*)",
+      "Bash(grep ^tags::*)"
+    ]
+  }
+}

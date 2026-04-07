@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import TagBadge from '../../components/TagBadge.astro';
+import { getCollection } from 'astro:content';
+import { getReadingTime } from '../../utils/reading-time';
+
+const allPosts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const allTags = [...new Set(allPosts.flatMap((p) => p.data.tags))].sort();
+
+// Group posts by year for the timeline feel
+const byYear: Record<number, typeof allPosts> = {};
+for (const post of allPosts) {
+  const y = post.data.pubDate.getFullYear();
+  if (!byYear[y]) byYear[y] = [];
+  byYear[y].push(post);
+}
+const years = Object.keys(byYear).map(Number).sort((a, b) => b - a);
+---
+
+<BaseLayout
+  title="Blog"
+  description="All writing on entrepreneurship, hydroponics, and technology."
+>
+  <div class="max-w-2xl mx-auto px-4 sm:px-6 py-12">
+
+    <!-- Page header -->
+    <div class="mb-10">
+      <h1 class="text-3xl font-bold text-stone-900 dark:text-stone-50 mb-2">Blog</h1>
+      <p class="text-stone-500 dark:text-stone-400">
+        {allPosts.length} {allPosts.length === 1 ? 'post' : 'posts'} · honest notes from the process
+      </p>
+    </div>
+
+    <!-- Tag filter row -->
+    {allTags.length > 0 && (
+      <div class="flex flex-wrap gap-2 mb-8">
+        {allTags.map((tag) => <TagBadge tag={tag} />)}
+      </div>
+    )}
+
+    <!-- Posts grouped by year -->
+    {years.map((year) => (
+      <section class="mb-10">
+        <h2 class="text-xs font-semibold uppercase tracking-widest text-stone-400 dark:text-stone-500 mb-4 flex items-center gap-3">
+          {year}
+          <span class="flex-1 border-t border-stone-200 dark:border-stone-800"></span>
+        </h2>
+        <div class="flex flex-col gap-4">
+          {byYear[year].map((post) => (
+            <PostCard
+              slug={post.slug}
+              title={post.data.title}
+              description={post.data.description}
+              pubDate={post.data.pubDate}
+              tags={post.data.tags}
+              readingTime={getReadingTime(post.body)}
+            />
+          ))}
+        </div>
+      </section>
+    ))}
+
+    {allPosts.length === 0 && (
+      <p class="text-stone-400 dark:text-stone-500 text-center py-16">
+        No posts yet — check back soon.
+      </p>
+    )}
+
+  </div>
+</BaseLayout>

@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-bg: theme('colors.stone.50');
+    --color-surface: theme('colors.white');
+    --color-text: theme('colors.stone.800');
+    --color-muted: theme('colors.stone.500');
+    --color-border: theme('colors.stone.200');
+    --color-accent: theme('colors.amber.600');
+  }
+
+  .dark {
+    --color-bg: theme('colors.stone.950');
+    --color-surface: theme('colors.stone.900');
+    --color-text: theme('colors.stone.100');
+    --color-muted: theme('colors.stone.400');
+    --color-border: theme('colors.stone.800');
+    --color-accent: theme('colors.amber.400');
+  }
+
+  html {
+    @apply antialiased;
+  }
+
+  /* Better Thai text rendering */
+  body {
+    font-feature-settings: "kern" 1, "liga" 1;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Smooth focus rings */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-amber-500 rounded;
+  }
+
+  /* Code block dual-theme (Shiki) */
+  .astro-code,
+  .astro-code span {
+    @apply transition-colors duration-200;
+  }
+
+  html.dark .astro-code[data-theme="github-light"],
+  html.dark .astro-code[data-theme="github-light"] span {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+  }
+
+  html:not(.dark) .astro-code[data-theme="github-dark"],
+  html:not(.dark) .astro-code[data-theme="github-dark"] span {
+    color: var(--shiki-light) !important;
+    background-color: var(--shiki-light-bg) !important;
+  }
+}
+
+@layer components {
+  .tag-pill {
+    @apply inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium
+           bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300
+           hover:bg-amber-200 dark:hover:bg-amber-800/60 transition-colors duration-150
+           min-h-[2rem];
+  }
+
+  .prose-content {
+    @apply prose prose-stone dark:prose-invert
+           prose-headings:font-semibold
+           prose-a:no-underline hover:prose-a:underline
+           prose-blockquote:border-l-amber-400
+           prose-code:before:content-none prose-code:after:content-none
+           prose-code:bg-stone-100 prose-code:dark:bg-stone-800
+           prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
+           prose-code:text-sm prose-code:font-mono
+           max-w-none;
+  }
+}

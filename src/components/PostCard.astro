@@ -1,0 +1,49 @@
+---
+import TagBadge from './TagBadge.astro';
+import { formatReadingTime } from '../utils/reading-time';
+
+interface Props {
+  slug: string;
+  title: string;
+  description: string;
+  pubDate: Date;
+  tags: string[];
+  readingTime: number;
+}
+
+const { slug, title, description, pubDate, tags, readingTime } = Astro.props;
+
+const formattedDate = pubDate.toLocaleDateString('en-GB', {
+  day: 'numeric',
+  month: 'short',
+  year: 'numeric',
+});
+---
+
+<article class="group relative bg-white dark:bg-stone-900 rounded-xl border border-stone-200 dark:border-stone-800 p-6 hover:border-amber-300 dark:hover:border-amber-700 transition-all duration-200 hover:shadow-md hover:shadow-amber-100/50 dark:hover:shadow-amber-900/20">
+  <a href={`/blog/${slug}`} class="absolute inset-0 rounded-xl" aria-label={title}></a>
+
+  <!-- Tags row -->
+  {tags.length > 0 && (
+    <div class="flex flex-wrap gap-1.5 mb-3 relative z-10">
+      {tags.map((tag) => <TagBadge tag={tag} />)}
+    </div>
+  )}
+
+  <!-- Title -->
+  <h2 class="text-lg font-semibold text-stone-900 dark:text-stone-50 group-hover:text-amber-700 dark:group-hover:text-amber-400 transition-colors duration-150 leading-snug mb-2">
+    {title}
+  </h2>
+
+  <!-- Description -->
+  <p class="text-stone-600 dark:text-stone-400 text-sm leading-relaxed line-clamp-2 mb-4">
+    {description}
+  </p>
+
+  <!-- Meta row -->
+  <div class="flex items-center gap-3 text-xs text-stone-400 dark:text-stone-500">
+    <time datetime={pubDate.toISOString()}>{formattedDate}</time>
+    <span aria-hidden="true">·</span>
+    <span>{formatReadingTime(readingTime)}</span>
+  </div>
+</article>
