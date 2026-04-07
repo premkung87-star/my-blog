@@ -4,7 +4,17 @@ import TagBadge from '../components/TagBadge.astro';
 import TableOfContents from '../components/TableOfContents.astro';
 import ShareButtons from '../components/ShareButtons.astro';
 import Giscus from '../components/Giscus.astro';
+import ReadingProgress from '../components/ReadingProgress.astro';
+import RelatedPosts from '../components/RelatedPosts.astro';
 import { formatReadingTime } from '../utils/reading-time';
+
+interface RelatedPost {
+  slug: string;
+  title: string;
+  description: string;
+  pubDate: Date;
+  postType?: string;
+}
 
 interface Props {
   title: string;
@@ -13,9 +23,11 @@ interface Props {
   tags: string[];
   readingTime: number;
   lang?: 'en' | 'th';
+  postType?: string;
+  relatedPosts?: RelatedPost[];
 }
 
-const { title, description, pubDate, tags, readingTime, lang = 'en' } = Astro.props;
+const { title, description, pubDate, tags, readingTime, lang = 'en', postType, relatedPosts = [] } = Astro.props;
 
 // ToC shown only for posts > 5 min reading time
 const showToC = readingTime > 5;
@@ -34,6 +46,9 @@ const formattedDate = pubDate.toLocaleDateString('en-GB', {
   ogType="article"
   pubDate={pubDate}
 >
+  <!-- Reading progress bar -->
+  <ReadingProgress />
+
   <!--
     Outer wrapper:
     - showToC  → max-w-5xl, xl:flex (article + sticky sidebar side by side)
@@ -60,11 +75,12 @@ const formattedDate = pubDate.toLocaleDateString('en-GB', {
 
       <!-- Post header -->
       <header class="mb-10">
-        {tags.length > 0 && (
-          <div class="flex flex-wrap gap-1.5 mb-4">
-            {tags.map((tag) => <TagBadge tag={tag} />)}
-          </div>
-        )}
+        <div class="flex flex-wrap items-center gap-1.5 mb-4">
+          {postType && (
+            <span class="post-type-badge">{postType}</span>
+          )}
+          {tags.map((tag) => <TagBadge tag={tag} />)}
+        </div>
 
         <h1 class="text-3xl sm:text-4xl font-bold text-stone-900 dark:text-stone-50 leading-tight mb-4">
           {title}
@@ -115,6 +131,9 @@ const formattedDate = pubDate.toLocaleDateString('en-GB', {
 
       <!-- Share buttons -->
       <ShareButtons title={title} />
+
+      <!-- Related posts -->
+      {relatedPosts.length > 0 && <RelatedPosts posts={relatedPosts} />}
 
       <!-- Footer nav -->
       <footer class="mt-12 pt-8 border-t border-stone-200 dark:border-stone-800">

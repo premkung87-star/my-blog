@@ -65,6 +65,7 @@ const { tagLabel, posts } = Astro.props;
           pubDate={post.data.pubDate}
           tags={post.data.tags}
           readingTime={getReadingTime(post.body)}
+          postType={post.data.postType}
         />
       ))}
     </div>

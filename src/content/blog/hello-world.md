@@ -3,6 +3,7 @@ title: "Starting This Blog"
 description: "Why I'm writing in public about the messy, non-linear reality of building things solo in Chiang Mai."
 pubDate: 2025-01-15
 tags: ["Personal", "Entrepreneurship", "Building in Public"]
+postType: Note
 lang: en
 ---
 

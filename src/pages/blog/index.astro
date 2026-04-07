@@ -57,6 +57,7 @@ const years = Object.keys(byYear).map(Number).sort((a, b) => b - a);
               pubDate={post.data.pubDate}
               tags={post.data.tags}
               readingTime={getReadingTime(post.body)}
+              postType={post.data.postType}
             />
           ))}
         </div>

@@ -56,11 +56,47 @@
 }
 
 @layer components {
+  .post-type-badge {
+    @apply inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold uppercase tracking-wide
+           bg-stone-200 text-stone-600 dark:bg-stone-800 dark:text-stone-400;
+  }
+
   .tag-pill {
     @apply inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium
            bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300
            hover:bg-amber-200 dark:hover:bg-amber-800/60 transition-colors duration-150
            min-h-[2rem];
+  }
+
+  /* Footnote superscript links */
+  .prose-content [data-footnote-ref] {
+    @apply text-amber-600 dark:text-amber-400 font-semibold text-xs
+           no-underline hover:underline align-super ml-0.5;
+  }
+
+  /* Footnote section at bottom of post */
+  .prose-content .footnotes {
+    @apply mt-12 pt-8 border-t border-stone-200 dark:border-stone-800 text-sm;
+  }
+
+  .prose-content .footnotes h2 {
+    @apply sr-only;
+  }
+
+  .prose-content .footnotes ol {
+    @apply list-decimal pl-5 space-y-2 text-stone-600 dark:text-stone-400;
+  }
+
+  .prose-content .footnotes li {
+    @apply pl-1;
+  }
+
+  .prose-content .footnotes li:target {
+    @apply bg-amber-50 dark:bg-amber-900/20 -mx-2 px-2 py-1 rounded;
+  }
+
+  .prose-content [data-footnote-backref] {
+    @apply text-amber-600 dark:text-amber-400 no-underline hover:underline ml-1;
   }
 
   .prose-content {

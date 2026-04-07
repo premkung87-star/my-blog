@@ -1,0 +1,50 @@
+---
+/**
+ * Reading progress bar — thin amber bar fixed at the very top of the viewport.
+ * Measures scroll progress through the <article> element only.
+ */
+---
+
+<div
+  id="reading-progress"
+  class="fixed top-0 left-0 h-[3px] bg-amber-500 z-[60] transition-[width] duration-75 ease-out"
+  style="width: 0%;"
+  role="progressbar"
+  aria-label="Reading progress"
+  aria-valuemin="0"
+  aria-valuemax="100"
+  aria-valuenow="0"
+></div>
+
+<script is:inline>
+  (function () {
+    var bar = document.getElementById('reading-progress');
+    var article = document.querySelector('article');
+    if (!bar || !article) return;
+
+    function update() {
+      var rect = article.getBoundingClientRect();
+      var articleTop = rect.top + window.scrollY;
+      var articleHeight = rect.height;
+      var viewportHeight = window.innerHeight;
+      var scrollY = window.scrollY;
+
+      // Progress from article top to article bottom leaving the viewport
+      var start = articleTop;
+      var end = articleTop + articleHeight - viewportHeight;
+      var progress = 0;
+
+      if (end > start) {
+        progress = (scrollY - start) / (end - start);
+      }
+
+      progress = Math.min(Math.max(progress, 0), 1);
+      bar.style.width = (progress * 100) + '%';
+      bar.setAttribute('aria-valuenow', Math.round(progress * 100));
+    }
+
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update, { passive: true });
+    update();
+  })();
+</script>

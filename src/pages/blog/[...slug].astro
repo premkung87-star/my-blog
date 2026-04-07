@@ -4,16 +4,35 @@ import PostLayout from '../../layouts/PostLayout.astro';
 import { getReadingTime } from '../../utils/reading-time';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog', ({ data }) => !data.draft);
-  return posts.map((post) => ({
+  const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+  return allPosts.map((post) => ({
     params: { slug: post.slug },
-    props: { post },
+    props: { post, allPosts },
   }));
 }
 
-const { post } = Astro.props;
+const { post, allPosts } = Astro.props;
 const { Content } = await post.render();
 const readingTime = getReadingTime(post.body);
+
+// Find related posts: ranked by number of shared tags, exclude current post
+const currentTags = new Set(post.data.tags);
+const related = allPosts
+  .filter((p) => p.slug !== post.slug)
+  .map((p) => ({
+    post: p,
+    shared: p.data.tags.filter((t) => currentTags.has(t)).length,
+  }))
+  .filter((r) => r.shared > 0)
+  .sort((a, b) => b.shared - a.shared || b.post.data.pubDate.valueOf() - a.post.data.pubDate.valueOf())
+  .slice(0, 3)
+  .map((r) => ({
+    slug: r.post.slug,
+    title: r.post.data.title,
+    description: r.post.data.description,
+    pubDate: r.post.data.pubDate,
+    postType: r.post.data.postType,
+  }));
 ---
 
 <PostLayout
@@ -23,6 +42,8 @@ const readingTime = getReadingTime(post.body);
   tags={post.data.tags}
   readingTime={readingTime}
   lang={post.data.lang}
+  postType={post.data.postType}
+  relatedPosts={related}
 >
   <Content />
 </PostLayout>

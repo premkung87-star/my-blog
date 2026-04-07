@@ -3,6 +3,7 @@ title: "What Year One as a Solo Entrepreneur Actually Taught Me"
 description: "Twelve months in — the habits that helped, the mental models that didn't, and what I'd tell myself at the start."
 pubDate: 2025-04-01
 tags: ["Entrepreneurship", "Personal", "Building in Public"]
+postType: Lesson
 lang: en
 ---
 

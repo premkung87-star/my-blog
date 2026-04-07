@@ -10,6 +10,8 @@ const blog = defineCollection({
     draft: z.boolean().default(false),
     /** 'en' | 'th' — used for html[lang] and og:locale */
     lang: z.enum(['en', 'th']).default('en'),
+    /** Post format type */
+    postType: z.enum(['Essay', 'Note', 'Lesson', 'Story']).optional(),
     /** Optional cover image path relative to /public */
     cover: z.string().optional(),
   }),

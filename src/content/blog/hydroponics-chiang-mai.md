@@ -3,6 +3,7 @@ title: "Eight Months of Growing Without Soil"
 description: "What I've learned building and running a small NFT hydroponic system on a rooftop in Chiang Mai — the failures, the fixes, and why I'm still doing it."
 pubDate: 2025-02-28
 tags: ["Hydroponics", "Technology", "Chiang Mai"]
+postType: Essay
 lang: en
 ---
 

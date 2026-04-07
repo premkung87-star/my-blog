@@ -9,9 +9,10 @@ interface Props {
   pubDate: Date;
   tags: string[];
   readingTime: number;
+  postType?: string;
 }
 
-const { slug, title, description, pubDate, tags, readingTime } = Astro.props;
+const { slug, title, description, pubDate, tags, readingTime, postType } = Astro.props;
 
 const formattedDate = pubDate.toLocaleDateString('en-GB', {
   day: 'numeric',
@@ -24,11 +25,12 @@ const formattedDate = pubDate.toLocaleDateString('en-GB', {
   <a href={`/blog/${slug}`} class="absolute inset-0 rounded-xl" aria-label={title}></a>
 
   <!-- Tags row -->
-  {tags.length > 0 && (
-    <div class="flex flex-wrap gap-1.5 mb-3 relative z-10">
-      {tags.map((tag) => <TagBadge tag={tag} />)}
-    </div>
-  )}
+  <div class="flex flex-wrap items-center gap-1.5 mb-3 relative z-10">
+    {postType && (
+      <span class="post-type-badge">{postType}</span>
+    )}
+    {tags.map((tag) => <TagBadge tag={tag} />)}
+  </div>
 
   <!-- Title -->
   <h2 class="text-lg font-semibold text-stone-900 dark:text-stone-50 group-hover:text-amber-700 dark:group-hover:text-amber-400 transition-colors duration-150 leading-snug mb-2">
