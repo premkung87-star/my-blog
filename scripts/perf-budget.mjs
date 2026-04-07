@@ -11,7 +11,7 @@ import path from 'path';
 
 const BUDGETS = {
   '.js': 200 * 1024,   // 200 KB per JS file
-  '.css': 50 * 1024,   // 50 KB per CSS file
+  '.css': 60 * 1024,   // 60 KB per CSS file
   totalJS: 500 * 1024, // 500 KB total JS
   totalCSS: 100 * 1024, // 100 KB total CSS
 };

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
 
 const milestones = [
   { status: 'done',    label: 'Research & concept validation' },
@@ -17,23 +18,7 @@ const milestones = [
   description="VerdeX — a smart greenhouse farm for growing Sweet Basil, powered by AI. Project status and milestones."
 >
   <div class="max-w-2xl mx-auto px-4 sm:px-6 py-12">
-    <header class="mb-10">
-      <div class="flex items-center gap-3 mb-4">
-        <img src="/verdex-icon.png" alt="" style="width: 48px; height: 48px; border-radius: 50%;" />
-        <div>
-          <h1 class="text-3xl font-bold text-stone-900 dark:text-stone-50">VerdeX</h1>
-          <p class="text-sm text-stone-500 dark:text-stone-400">Smart Greenhouse Farm</p>
-        </div>
-      </div>
-      <p class="text-stone-600 dark:text-stone-400 leading-relaxed" lang="th">
-        ฟาร์ม Sweet Basil อัจฉริยะที่ควบคุมด้วย AI ผ่าน Sensor ต่างๆ
-        เพื่อให้ได้ผลผลิตสูงสุดโดยอัตโนมัติ
-      </p>
-      <p class="text-stone-500 dark:text-stone-400 text-sm mt-2">
-        A smart Sweet Basil farm powered by AI, using sensors to automate
-        farm management for maximum yield.
-      </p>
-    </header>
+    <PageHeader title="VerdeX" breadcrumb="verdex / status" description="Smart Greenhouse Farm — Chiang Mai, Thailand" />
 
     <!-- Tech Stack -->
     <section class="mb-10">

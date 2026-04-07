@@ -7,6 +7,7 @@ import Lightbox from '../components/Lightbox.astro';
 import ScrollToTop from '../components/ScrollToTop.astro';
 import LoadingSkeleton from '../components/LoadingSkeleton.astro';
 import ErrorReporter from '../components/ErrorReporter.astro';
+import CornerMark from '../components/CornerMark.astro';
 import { siteConfig } from '../config';
 import '../styles/global.css';
 
@@ -157,5 +158,6 @@ const finalJsonLd = jsonLd || articleJsonLd;
     <ScrollToTop />
     <LoadingSkeleton />
     <ErrorReporter />
+    <CornerMark />
   </body>
 </html>

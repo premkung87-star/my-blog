@@ -1,0 +1,40 @@
+---
+/**
+ * Persistent corner signature element — visual watermark on every page.
+ * Bottom-left dot cluster + line, always visible.
+ */
+---
+
+<div class="corner-mark" aria-hidden="true">
+  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Dot cluster -->
+    <circle cx="6" cy="6" r="2" fill="currentColor"/>
+    <circle cx="14" cy="6" r="2" fill="currentColor"/>
+    <circle cx="22" cy="6" r="2" fill="currentColor"/>
+    <circle cx="6" cy="14" r="2" fill="currentColor"/>
+    <circle cx="14" cy="14" r="1.5" fill="currentColor"/>
+    <!-- Connecting line -->
+    <line x1="6" y1="22" x2="6" y2="44" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+  </svg>
+</div>
+
+<style>
+  .corner-mark {
+    position: fixed;
+    bottom: 16px;
+    left: 16px;
+    z-index: 80;
+    color: rgba(26, 61, 43, 0.15);
+    pointer-events: none;
+  }
+
+  :global(.dark) .corner-mark {
+    color: rgba(139, 191, 170, 0.12);
+  }
+
+  @media (max-width: 639px) {
+    .corner-mark {
+      display: none;
+    }
+  }
+</style>

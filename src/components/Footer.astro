@@ -3,13 +3,14 @@ import { siteConfig } from '../config';
 const year = new Date().getFullYear();
 ---
 
-<footer class="border-t border-stone-200 dark:border-stone-800 mt-16">
-  <div class="max-w-3xl mx-auto px-4 sm:px-6 py-8 text-sm text-stone-400 dark:text-stone-500">
+<footer class="mt-16" style="border-top: 1px solid var(--color-accent); opacity: 1;">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 py-10 text-sm" style="font-family: var(--font-mono);">
 
     <!-- Newsletter -->
-    <div class="mb-8 pb-8 border-b border-stone-200 dark:border-stone-800">
-      <p class="font-medium text-stone-500 dark:text-stone-400 mb-2">Subscribe to VerdeX Notes</p>
-      <p class="text-xs text-stone-400 dark:text-stone-500 mb-3">
+    <div class="mb-8 pb-8" style="border-bottom: 1px solid var(--color-border);">
+      <p class="text-[11px] mb-3" style="color: var(--color-muted); opacity: 0.5;">// subscribe</p>
+      <p class="font-medium mb-1" style="color: var(--color-accent);">VerdeX Notes</p>
+      <p class="text-xs mb-4" style="color: var(--color-muted);">
         บทความใหม่ตรงถึง inbox — no spam, unsubscribe anytime.
       </p>
       <form
@@ -24,60 +25,66 @@ const year = new Date().getFullYear();
           id="bd-email-footer"
           required
           placeholder="you@example.com"
-          class="flex-1 px-3 py-2 rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100 text-sm placeholder-stone-400 dark:placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-[#1A3D2B]/40 min-h-[44px]"
+          class="flex-1 px-3 py-2 rounded border text-sm min-h-[44px] bg-white dark:bg-[#111111] text-stone-900 dark:text-stone-100 placeholder-stone-400 dark:placeholder-stone-500 focus:outline-none focus:ring-1"
+          style="border-color: var(--color-border); font-family: var(--font-mono); font-size: 13px;"
         />
         <button
           type="submit"
-          class="px-5 py-2 rounded-lg text-white text-sm font-medium transition-all duration-200 hover:opacity-90 min-h-[44px] bg-[#1A3D2B] dark:bg-[#8BBFAA] dark:text-[#0A0A0A]"
+          class="px-5 py-2 rounded text-sm font-medium transition-all duration-200 hover:opacity-90 min-h-[44px] bg-[#1A3D2B] dark:bg-[#8BBFAA] text-white dark:text-[#0A0A0A]"
           style="font-family: var(--font-mono);"
         >
-          Subscribe
+          subscribe
         </button>
       </form>
     </div>
 
-    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+    <!-- Links grid -->
+    <div class="flex flex-col sm:flex-row items-start justify-between gap-8 mb-8">
 
       <!-- Left: identity -->
       <div>
-        <p class="font-medium text-stone-500 dark:text-stone-400 mb-1">VerdeX</p>
-        <p class="text-xs leading-relaxed max-w-xs">
-          Smart greenhouse farm for growing Sweet Basil, powered by AI.
-          Based in Chiang Mai, Thailand.
+        <p class="text-[11px] mb-3" style="color: var(--color-muted); opacity: 0.5;">// about</p>
+        <p class="font-medium mb-1" style="color: var(--color-accent);">VerdeX</p>
+        <p class="text-xs leading-relaxed max-w-xs" style="color: var(--color-muted);">
+          Smart greenhouse farm for Sweet Basil,<br/>
+          powered by AI · Chiang Mai, Thailand
         </p>
       </div>
 
-      <!-- Right: links -->
-      <div class="flex flex-col items-start sm:items-end gap-3">
-        <!-- Site links -->
-        <nav class="flex items-center gap-3 flex-wrap" aria-label="Site links">
-          <a href="/blog" class="hover:text-stone-700 dark:hover:text-stone-300 transition-colors duration-150 py-2 inline-block">
-            Blog
-          </a>
-          <a href="/books" class="hover:text-stone-700 dark:hover:text-stone-300 transition-colors duration-150 py-2 inline-block">
-            Books
-          </a>
-          <a href="/categories" class="hover:text-stone-700 dark:hover:text-stone-300 transition-colors duration-150 py-2 inline-block">
-            Categories
-          </a>
-          <a href="/about" class="hover:text-stone-700 dark:hover:text-stone-300 transition-colors duration-150 py-2 inline-block">
-            About
-          </a>
-          <a href="/contact" class="hover:text-stone-700 dark:hover:text-stone-300 transition-colors duration-150 py-2 inline-block">
-            Contact
-          </a>
-          <a href="/rss.xml" class="hover:text-stone-700 dark:hover:text-stone-300 transition-colors duration-150 py-2 inline-block">
-            RSS
-          </a>
-          <a href="/sitemap-index.xml" class="hover:text-stone-700 dark:hover:text-stone-300 transition-colors duration-150 py-2 inline-block">
-            Sitemap
-          </a>
+      <!-- Right: nav links -->
+      <div>
+        <p class="text-[11px] mb-3" style="color: var(--color-muted); opacity: 0.5;">// navigate</p>
+        <nav class="flex flex-col gap-1" aria-label="Footer navigation">
+          {[
+            { href: '/blog', label: 'blog' },
+            { href: '/books', label: 'books' },
+            { href: '/categories', label: 'categories' },
+            { href: '/about', label: 'about' },
+            { href: '/contact', label: 'contact' },
+            { href: '/rss.xml', label: 'rss' },
+          ].map(({ href, label }) => (
+            <a
+              href={href}
+              class="text-xs transition-colors duration-150 py-0.5 hover:text-[#1A3D2B] dark:hover:text-[#8BBFAA]"
+              style="color: var(--color-muted);"
+            >
+              ./{label}
+            </a>
+          ))}
         </nav>
       </div>
 
     </div>
 
-    <p class="mt-6 text-xs">&copy; {year} VerdeX · Chiang Mai, Thailand</p>
+    <!-- Bottom bar -->
+    <div class="pt-4 flex items-center justify-between" style="border-top: 1px solid var(--color-border);">
+      <p class="text-[11px]" style="color: var(--color-muted); opacity: 0.4;">
+        &copy; {year} VerdeX · Chiang Mai
+      </p>
+      <p class="text-[11px]" style="color: var(--color-muted); opacity: 0.3;">
+        v1.0 — built with astro
+      </p>
+    </div>
 
   </div>
 </footer>
