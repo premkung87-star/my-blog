@@ -14,6 +14,10 @@ const blog = defineCollection({
     postType: z.enum(['Essay', 'Note', 'Lesson', 'Story']).optional(),
     /** Optional cover image path relative to /public */
     cover: z.string().optional(),
+    /** Series name — groups posts into a series with prev/next nav */
+    series: z.string().optional(),
+    /** Order within series (1, 2, 3...) */
+    seriesOrder: z.number().optional(),
   }),
 });
 

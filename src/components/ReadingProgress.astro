@@ -1,6 +1,7 @@
 ---
 /**
  * Reading progress bar — 4px amber bar fixed at the very top of the viewport.
+ * Shows percentage text that appears after scrolling begins.
  * Uses only inline styles to avoid any Tailwind/CSS conflicts.
  * Script deferred until DOM is fully parsed.
  */
@@ -11,10 +12,16 @@
   style="position:fixed;top:0;left:0;width:0%;height:4px;background:#d97706;z-index:9999;pointer-events:none;transition:width 80ms linear;transform:translateZ(0);"
 ></div>
 
+<div
+  id="reading-progress-pct"
+  style="position:fixed;top:8px;right:16px;z-index:9999;pointer-events:none;font-size:11px;font-weight:600;color:#d97706;opacity:0;transition:opacity 200ms ease;font-family:ui-monospace,monospace;background:rgba(245,245,240,0.85);padding:2px 6px;border-radius:4px;"
+></div>
+
 <script is:inline>
   document.addEventListener('DOMContentLoaded', function () {
     var bar = document.getElementById('reading-progress-bar');
-    if (!bar) return;
+    var pct = document.getElementById('reading-progress-pct');
+    if (!bar || !pct) return;
 
     var article = document.querySelector('article');
     if (!article) return;
@@ -32,17 +39,23 @@
       // End point: when article bottom reaches viewport bottom
       var end = articleBottom - winHeight;
 
+      var progress;
       if (end <= 0) {
-        // Article fits on screen — full bar if scrolled at all
-        bar.style.width = scrollY > 10 ? '100%' : '0%';
-        return;
+        progress = scrollY > 10 ? 1 : 0;
+      } else {
+        progress = scrollY / end;
+        if (progress < 0) progress = 0;
+        if (progress > 1) progress = 1;
       }
 
-      var progress = scrollY / end;
-      if (progress < 0) progress = 0;
-      if (progress > 1) progress = 1;
-
       bar.style.width = (progress * 100) + '%';
+
+      if (scrollY > 100) {
+        pct.style.opacity = '1';
+        pct.textContent = Math.round(progress * 100) + '%';
+      } else {
+        pct.style.opacity = '0';
+      }
     }
 
     function onScroll() {

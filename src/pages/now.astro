@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Now"
+  description="What I'm focused on right now — updated monthly."
+>
+  <div class="max-w-2xl mx-auto px-4 sm:px-6 py-12">
+    <header class="mb-10">
+      <h1 class="text-3xl font-bold text-stone-900 dark:text-stone-50 mb-2">Now</h1>
+      <p class="text-stone-500 dark:text-stone-400 text-sm">
+        Last updated: April 2026 · Chiang Mai, Thailand
+      </p>
+    </header>
+
+    <div class="prose-content">
+      <h2 lang="th">กำลังทำอะไรอยู่ตอนนี้</h2>
+
+      <h3>🌿 Building VerdeX</h3>
+      <p lang="th">
+        กำลังสร้าง prototype ฟาร์มโรงเรือนอัจฉริยะสำหรับปลูก Sweet Basil
+        โดยใช้ AI ควบคุมผ่าน Sensor ต่างๆ อยู่ในขั้นตอนการสร้าง greenhouse
+        และทดสอบระบบ sensor
+      </p>
+
+      <h3>📝 Writing</h3>
+      <p lang="th">
+        เขียน blog เกี่ยวกับการอ่าน การเขียน และการสร้างธุรกิจ
+        เป้าหมายคือเขียนอย่างน้อย 2 บทความต่อเดือน
+      </p>
+
+      <h3>📚 Reading</h3>
+      <ul>
+        <li><em>Stillness Is the Key</em> — Ryan Holiday</li>
+        <li><em>How to Be Better at Almost Everything</em> — Pat Flynn</li>
+      </ul>
+
+      <h3>🧠 Learning</h3>
+      <p lang="th">
+        ศึกษาเรื่อง AI/ML สำหรับ agriculture, IoT sensor integration,
+        และการทำ smart farming ในประเทศไทย
+      </p>
+
+      <hr />
+
+      <p class="text-sm text-stone-500 dark:text-stone-400">
+        This page is inspired by <a href="https://nownownow.com/about" target="_blank" rel="noopener">nownownow.com</a>.
+        It's a snapshot of what I'm doing right now, not a permanent record.
+      </p>
+    </div>
+  </div>
+</BaseLayout>

@@ -33,6 +33,18 @@ const related = allPosts
     pubDate: r.post.data.pubDate,
     postType: r.post.data.postType,
   }));
+
+// Build series data if this post belongs to a series
+const seriesName = post.data.series;
+const seriesPosts = seriesName
+  ? allPosts
+      .filter((p) => p.data.series === seriesName)
+      .map((p) => ({
+        slug: p.slug,
+        title: p.data.title,
+        order: p.data.seriesOrder ?? 0,
+      }))
+  : [];
 ---
 
 <PostLayout
@@ -44,6 +56,10 @@ const related = allPosts
   lang={post.data.lang}
   postType={post.data.postType}
   relatedPosts={related}
+  series={seriesName}
+  seriesSlug={post.slug}
+  seriesPosts={seriesPosts}
+  ogImage={`/og/${post.slug}.png`}
 >
   <Content />
 </PostLayout>

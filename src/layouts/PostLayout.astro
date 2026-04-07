@@ -4,6 +4,7 @@ import TagBadge from '../components/TagBadge.astro';
 import TableOfContents from '../components/TableOfContents.astro';
 import ShareButtons from '../components/ShareButtons.astro';
 import Newsletter from '../components/Newsletter.astro';
+import SeriesNav from '../components/SeriesNav.astro';
 import Giscus from '../components/Giscus.astro';
 import RelatedPosts from '../components/RelatedPosts.astro';
 import { formatReadingTime } from '../utils/reading-time';
@@ -16,6 +17,12 @@ interface RelatedPost {
   postType?: string;
 }
 
+interface SeriesPost {
+  slug: string;
+  title: string;
+  order: number;
+}
+
 interface Props {
   title: string;
   description: string;
@@ -25,9 +32,13 @@ interface Props {
   lang?: 'en' | 'th';
   postType?: string;
   relatedPosts?: RelatedPost[];
+  series?: string;
+  seriesSlug?: string;
+  seriesPosts?: SeriesPost[];
+  ogImage?: string;
 }
 
-const { title, description, pubDate, tags, readingTime, lang = 'en', postType, relatedPosts = [] } = Astro.props;
+const { title, description, pubDate, tags, readingTime, lang = 'en', postType, relatedPosts = [], series, seriesSlug, seriesPosts = [], ogImage } = Astro.props;
 
 // ToC shown only for posts > 5 min reading time
 const showToC = readingTime > 5;
@@ -46,6 +57,7 @@ const formattedDate = pubDate.toLocaleDateString('en-GB', {
   ogType="article"
   pubDate={pubDate}
   tags={tags}
+  ogImage={ogImage}
 >
   <!--
     Outer wrapper:
@@ -129,6 +141,11 @@ const formattedDate = pubDate.toLocaleDateString('en-GB', {
 
       <!-- Share buttons -->
       <ShareButtons title={title} />
+
+      <!-- Series navigation -->
+      {series && seriesSlug && seriesPosts.length > 1 && (
+        <SeriesNav seriesName={series} currentSlug={seriesSlug} posts={seriesPosts} />
+      )}
 
       <!-- Newsletter -->
       <Newsletter />

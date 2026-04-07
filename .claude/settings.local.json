@@ -12,7 +12,12 @@
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(git push:*)",
-      "Bash(cat /Users/premmynotnerdyboy/my-blog/dist/_astro/*.css)"
+      "Bash(cat /Users/premmynotnerdyboy/my-blog/dist/_astro/*.css)",
+      "Bash(git rm:*)",
+      "Bash(sips:*)",
+      "Bash(ls:*)",
+      "Bash(git checkout:*)",
+      "Bash(npm ls:*)"
     ]
   }
 }
