@@ -20,33 +20,43 @@ const websiteJsonLd = {
   description="Solo entrepreneur in Chiang Mai building VerdeX Farm — a smart hydroponic system for commercial herb growers. Writing about entrepreneurship, technology, and building in public."
   jsonLd={websiteJsonLd}
 >
-  <!-- Hero — Medium-style oversized text -->
-  <section class="max-w-5xl mx-auto px-4 sm:px-6 pt-20 sm:pt-28 pb-10 sm:pb-14">
-    <h1 class="text-5xl sm:text-7xl md:text-8xl font-bold leading-[1.1] tracking-tight mb-6" style="color: #1A3D2B; font-family: Georgia, 'Times New Roman', serif;">
-      Read Then Write<br/>
-      Then Read Then Write.....
-    </h1>
+  <!-- Hero — Medium-style text with left border -->
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 pt-24 sm:pt-32 pb-14 sm:pb-20">
+    <div style="border-left: 1px solid rgba(26, 61, 43, 0.2); padding-left: 24px;">
+      <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.15] tracking-tight mb-6" style="color: #1A3D2B; font-family: Georgia, 'Times New Roman', serif;">
+        Read Then Write<br/>
+        Then Read Then Write.....
+      </h1>
 
-    <!-- Y2K tattoo dots decoration -->
-    <div class="flex items-center gap-0 my-8 select-none" aria-hidden="true">
-      <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-      <span class="line-seg"></span>
-      <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-      <span class="line-seg"></span>
-      <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      <!-- Y2K tattoo dots decoration -->
+      <div class="flex items-center gap-0 my-8 select-none" aria-hidden="true">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="line-seg"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="line-seg"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      </div>
+
+      <p class="text-stone-500 dark:text-stone-400 text-base sm:text-lg mb-8">
+        Shared about me
+      </p>
+      <a
+        href="/blog"
+        class="inline-flex items-center px-8 py-3 rounded-full text-white font-medium text-base transition-all duration-200 hover:scale-105 hover:shadow-lg"
+        style="background-color: #1A3D2B;"
+      >
+        Let goooo!
+      </a>
     </div>
-
-    <p class="text-stone-500 dark:text-stone-400 text-base sm:text-lg mb-8">
-      Shared about me
-    </p>
-    <a
-      href="/blog"
-      class="inline-flex items-center px-8 py-3 rounded-full text-white font-medium text-base transition-all duration-200 hover:scale-105 hover:shadow-lg"
-      style="background-color: #1A3D2B;"
-    >
-      Let goooo!
-    </a>
   </section>
+
+  <!-- Leading line to quote section -->
+  <div class="flex flex-col items-center gap-1 py-4 select-none" aria-hidden="true" style="color: rgba(26, 61, 43, 0.4); font-size: 10px; line-height: 1;">
+    <span>·</span>
+    <span>·</span>
+    <span>·</span>
+    <span class="text-sm">↓</span>
+  </div>
 
   <!-- Stoic quote — dark section -->
   <section class="w-full py-16 sm:py-20" style="background-color: #1A3D2B;">
@@ -82,14 +92,14 @@ const websiteJsonLd = {
     width: 3px;
     height: 3px;
     border-radius: 50%;
-    background-color: rgba(26, 61, 43, 0.3);
+    background-color: rgba(26, 61, 43, 0.45);
     margin: 0 3px;
   }
   .line-seg {
     display: inline-block;
     width: 28px;
     height: 1px;
-    background-color: rgba(26, 61, 43, 0.3);
+    background-color: rgba(26, 61, 43, 0.45);
     margin: 0 3px;
     vertical-align: middle;
   }
