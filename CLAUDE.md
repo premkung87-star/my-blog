@@ -88,3 +88,70 @@ When spawning Reviewer, always pass:
 2. List of modified files with paths
 3. Specific features to verify (not generic)
 4. Any known edge cases to check
+
+---
+
+## Subagent Orchestration
+
+### Routing Rules
+Classify every prompt before acting:
+
+RESEARCH → facts, trends, SEO, competitors, data
+DESIGN   → colors, CI, brand, visual consistency
+BUILD    → code, features, fixes, content (handle directly)
+ALWAYS   → spawn Reviewer before every push
+
+---
+
+### Researcher Subagent
+Trigger: research / data / trends / SEO / competitors
+
+Spawn command:
+claude --print -p "
+You are a research specialist for VerdeX blog.
+Task: [specific question]
+Rules:
+- Output max 20 lines
+- Bullet points only
+- Include sources where possible
+- No code, no file modifications
+" 2>&1
+
+---
+
+### Designer Subagent (Art Director)
+Trigger: colors / CI / brand consistency / visual audit
+
+Spawn command:
+claude --print -p "
+You are the Art Director for VerdeX blog.
+Brand system: ~/my-blog-designer/CLAUDE.md
+
+Task: [specific design question]
+Rules:
+- CI colors only: #0f3d32 / #a8d3bf / #fafafa
+- Output specs for Builder to implement — never modify files
+- Format each fix as:
+  FILE: [path]
+  FIND: [current value]
+  REPLACE: [new value]
+  REASON: [one line]
+" 2>&1
+
+---
+
+### Decision Table
+
+| Prompt Type                    | Route To   |
+|-------------------------------|------------|
+| Add/fix feature or content     | Builder    |
+| Colors, brand, visual feel     | Designer   |
+| Research, data, trends, SEO    | Researcher |
+| After every completed task     | Reviewer   |
+
+---
+
+### Output Handling
+- Researcher → use findings, cite in commit message
+- Designer   → implement specs exactly, no interpretation
+- Reviewer   → PASS: push | FAIL: fix + retry max 2x
