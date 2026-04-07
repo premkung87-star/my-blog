@@ -7,6 +7,7 @@ import Lightbox from '../components/Lightbox.astro';
 import ScrollToTop from '../components/ScrollToTop.astro';
 import LoadingSkeleton from '../components/LoadingSkeleton.astro';
 import ErrorReporter from '../components/ErrorReporter.astro';
+import MobileBottomNav from '../components/MobileBottomNav.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -124,7 +125,7 @@ const finalJsonLd = jsonLd || articleJsonLd;
       href="https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&subset=latin,thai&display=swap"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&subset=latin,thai&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&subset=latin,thai&family=Lora:ital,wght@0,400;0,600;0,700;1,400&display=swap"
       rel="stylesheet"
     />
     <!--
@@ -152,6 +153,8 @@ const finalJsonLd = jsonLd || articleJsonLd;
       <slot />
     </main>
     <Footer />
+    <MobileBottomNav />
+    <div class="h-14 sm:hidden" aria-hidden="true"></div>
     <Lightbox />
     <ScrollToTop />
     <LoadingSkeleton />

@@ -21,31 +21,55 @@ const formattedDate = pubDate.toLocaleDateString('en-GB', {
 });
 ---
 
-<article class="group relative bg-white dark:bg-stone-900 rounded-xl border border-stone-200 dark:border-stone-800 p-6 hover:border-amber-300 dark:hover:border-amber-700 transition-all duration-200 hover:shadow-md hover:shadow-amber-100/50 dark:hover:shadow-amber-900/20">
-  <a href={`/blog/${slug}`} class="absolute inset-0 rounded-xl" aria-label={title}></a>
+<article class="post-card group relative flex">
+  <!-- Accent bar -->
+  <div class="w-1 rounded-full flex-shrink-0 mr-5 transition-all duration-300 bg-stone-200 dark:bg-stone-800 group-hover:bg-[#1A3D2B] dark:group-hover:bg-[#8BBFAA]"></div>
 
-  <!-- Tags row -->
-  <div class="flex flex-wrap items-center gap-1.5 mb-3 relative z-10">
-    {postType && (
-      <span class="post-type-badge">{postType}</span>
-    )}
-    {tags.map((tag) => <TagBadge tag={tag} />)}
-  </div>
+  <div class="flex-1 py-5">
+    <a href={`/blog/${slug}`} class="absolute inset-0" aria-label={title}></a>
 
-  <!-- Title -->
-  <h2 class="text-lg font-semibold text-stone-900 dark:text-stone-50 group-hover:text-amber-700 dark:group-hover:text-amber-400 transition-colors duration-150 leading-snug mb-2">
-    {title}
-  </h2>
+    <!-- Meta row -->
+    <div class="flex items-center gap-2 mb-2 text-xs text-stone-400 dark:text-stone-500">
+      <time datetime={pubDate.toISOString()}>{formattedDate}</time>
+      <span aria-hidden="true">·</span>
+      <span>{formatReadingTime(readingTime)}</span>
+      {postType && (
+        <>
+          <span aria-hidden="true">·</span>
+          <span class="uppercase tracking-wide font-semibold text-[10px]" style="color: #1A3D2B; opacity: 0.6;">{postType}</span>
+        </>
+      )}
+    </div>
 
-  <!-- Description -->
-  <p class="text-stone-600 dark:text-stone-400 text-sm leading-relaxed line-clamp-2 mb-4">
-    {description}
-  </p>
+    <!-- Title -->
+    <h2 class="text-lg font-semibold text-stone-900 dark:text-stone-50 leading-snug mb-1.5 transition-colors duration-200 group-hover:text-[#1A3D2B] dark:group-hover:text-[#8BBFAA]">
+      {title}
+    </h2>
 
-  <!-- Meta row -->
-  <div class="flex items-center gap-3 text-xs text-stone-400 dark:text-stone-500">
-    <time datetime={pubDate.toISOString()}>{formattedDate}</time>
-    <span aria-hidden="true">·</span>
-    <span>{formatReadingTime(readingTime)}</span>
+    <!-- Description -->
+    <p class="text-stone-500 dark:text-stone-400 text-sm leading-relaxed line-clamp-2 mb-3">
+      {description}
+    </p>
+
+    <!-- Tags -->
+    <div class="flex flex-wrap items-center gap-1.5 relative z-10">
+      {tags.map((tag) => <TagBadge tag={tag} />)}
+    </div>
   </div>
 </article>
+
+<style>
+  .post-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 8px;
+    padding-left: 4px;
+  }
+  .post-card:hover {
+    transform: translateX(4px);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .post-card:hover {
+      transform: none;
+    }
+  }
+</style>
