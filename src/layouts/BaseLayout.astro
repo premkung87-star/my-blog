@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import ReadingProgress from '../components/ReadingProgress.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -80,6 +81,7 @@ const ogLocale = lang === 'th' ? 'th_TH' : 'en_US';
   </head>
 
   <body class="bg-stone-50 text-stone-800 dark:bg-stone-950 dark:text-stone-100 transition-colors duration-200 min-h-screen flex flex-col font-sans">
+    {ogType === 'article' && <ReadingProgress />}
     <Header />
     <main class="flex-1">
       <slot />
