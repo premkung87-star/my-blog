@@ -3,7 +3,6 @@ import ThemeToggle from './ThemeToggle.astro';
 import SearchModal from './SearchModal.astro';
 
 const navLinks = [
-  { href: '/',            label: 'Home'       },
   { href: '/blog',        label: 'Blog'       },
   { href: '/categories',  label: 'Categories' },
   { href: '/about',       label: 'About'      },
@@ -18,31 +17,31 @@ function isActive(href: string) {
 }
 ---
 
-<header class="sticky top-0 z-50 bg-stone-50/80 dark:bg-stone-950/80 backdrop-blur-sm border-b border-stone-200/60 dark:border-stone-800/60">
-  <div class="max-w-3xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+<header class="sticky top-0 z-50 bg-[#F5F5F0]/80 dark:bg-stone-950/80 backdrop-blur-sm border-b border-stone-300/40 dark:border-stone-800/60">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
 
-    <!-- Wordmark / logo -->
-    <a href="/" class="font-semibold text-stone-900 dark:text-stone-50 hover:text-amber-700 dark:hover:text-amber-400 transition-colors duration-150 flex items-center gap-2">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-amber-600 dark:text-amber-400" viewBox="0 0 32 32" fill="currentColor">
-        <path d="M16 28 C16 28 16 14 16 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-        <path d="M16 20 C16 20 10 17 9 11 C9 11 15 11 16 20Z" opacity="0.9"/>
-        <path d="M16 16 C16 16 22 12 23 6 C23 6 17 8 16 16Z"/>
+    <!-- VerdeX logo -->
+    <a href="/" class="flex items-center gap-2 transition-opacity duration-150 hover:opacity-70">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 32 32" fill="none">
+        <path d="M16 4C16 4 8 14 8 20C8 24.4183 11.5817 28 16 28C20.4183 28 24 24.4183 24 20C24 14 16 4 16 4Z" fill="#1A3D2B"/>
+        <path d="M16 12C16 12 12 18 12 21C12 23.2091 13.7909 25 16 25C18.2091 25 20 23.2091 20 21C20 18 16 12 16 12Z" fill="#8BBFAA" opacity="0.6"/>
       </svg>
-      <span>Prem's Notes</span>
+      <span class="font-bold text-lg" style="color: #1A3D2B;">VerdeX</span>
     </a>
 
     <!-- Nav + search + toggle -->
     <div class="flex items-center gap-1">
-      <nav class="flex items-center gap-1 mr-1">
+      <nav class="hidden sm:flex items-center gap-1 mr-1">
         {navLinks.map(({ href, label }) => (
           <a
             href={href}
             class:list={[
               'px-3 py-2.5 rounded-lg text-sm transition-colors duration-150 min-h-[44px] inline-flex items-center',
               isActive(href)
-                ? 'text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/30 font-medium'
-                : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 hover:bg-stone-100 dark:hover:bg-stone-800',
+                ? 'font-medium'
+                : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100',
             ]}
+            style={isActive(href) ? 'color: #1A3D2B;' : ''}
           >
             {label}
           </a>
