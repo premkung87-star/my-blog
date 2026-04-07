@@ -1,5 +1,6 @@
 import satori from 'satori';
 import { Resvg } from '@resvg/resvg-js';
+import { siteConfig } from '../config';
 
 export async function generateOgImage(title: string): Promise<Buffer> {
   // Fetch Noto Sans Thai — supports both Thai and Latin glyphs
@@ -52,7 +53,7 @@ export async function generateOgImage(title: string): Promise<Buffer> {
                       color: '#8BBFAA',
                       fontWeight: 700,
                     },
-                    children: 'VerdeX',
+                    children: siteConfig.name,
                   },
                 },
               ],
@@ -81,7 +82,7 @@ export async function generateOgImage(title: string): Promise<Buffer> {
                 color: '#8BBFAA',
                 opacity: 0.8,
               },
-              children: 'my-blog-kohl-one.vercel.app',
+              children: siteConfig.url.replace('https://', ''),
             },
           },
         ],

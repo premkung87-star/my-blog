@@ -1,4 +1,5 @@
 ---
+import { siteConfig } from '../config';
 const year = new Date().getFullYear();
 ---
 
@@ -12,7 +13,7 @@ const year = new Date().getFullYear();
         บทความใหม่ตรงถึง inbox — no spam, unsubscribe anytime.
       </p>
       <form
-        action="https://buttondown.com/api/emails/embed-subscribe/verdex"
+        action={siteConfig.buttondown.action}
         method="post"
         class="flex flex-col sm:flex-row gap-2 max-w-md"
       >

@@ -7,6 +7,7 @@ import Lightbox from '../components/Lightbox.astro';
 import ScrollToTop from '../components/ScrollToTop.astro';
 import LoadingSkeleton from '../components/LoadingSkeleton.astro';
 import ErrorReporter from '../components/ErrorReporter.astro';
+import { siteConfig } from '../config';
 import '../styles/global.css';
 
 interface Props {
@@ -33,8 +34,8 @@ const {
   jsonLd,
 } = Astro.props;
 
-const siteName = "VerdeX";
-const siteUrl = 'https://my-blog-kohl-one.vercel.app';
+const siteName = siteConfig.name;
+const siteUrl = siteConfig.url;
 const fullTitle = title === siteName ? title : `${title} — ${siteName}`;
 const ogLocale = lang === 'th' ? 'th_TH' : 'en_US';
 

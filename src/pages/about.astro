@@ -1,11 +1,12 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../config';
 
 const personJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
-  name: 'Prem',
-  url: 'https://my-blog-kohl-one.vercel.app/about',
+  name: siteConfig.author,
+  url: `${siteConfig.url}/about`,
   jobTitle: 'Solo Entrepreneur',
   description: 'Building VerdeX Farm — a smart hydroponic system for commercial herb growers. Writing about entrepreneurship, hydroponics, and technology.',
   address: {
