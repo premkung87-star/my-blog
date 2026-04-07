@@ -144,7 +144,7 @@
         var excerptSpan = document.createElement('span');
         excerptSpan.className = 'text-xs text-stone-500 dark:text-stone-400 leading-relaxed line-clamp-2';
         // Only allow <mark> tags from Pagefind, strip everything else
-        excerptSpan.innerHTML = item.excerpt.replace(/<(?!\/?mark\b)[^>]*>/gi, '');
+        excerptSpan.innerHTML = item.excerpt.replace(/<(?!\/?mark\b)[^>]*>/gi, '').replace(/<mark[^>]*>/gi, '<mark>');
         link.appendChild(excerptSpan);
       }
 
