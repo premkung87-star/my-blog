@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHeader from '../components/PageHeader.astro';
 import { siteConfig } from '../config';
 
 const personJsonLd = {
@@ -25,7 +24,18 @@ const personJsonLd = {
 >
   <div class="max-w-2xl mx-auto px-4 sm:px-6 py-12">
 
-    <PageHeader title="เปรม / Prem" breadcrumb="about" description="Solo Entrepreneur · Chiang Mai, Thailand" />
+    <!-- Header -->
+    <div class="mb-10">
+      <div class="flex items-start gap-4 mb-6">
+        <div class="flex-shrink-0">
+          <img src="/verdex-icon.png" alt="VerdeX" style="width: 64px; height: 64px; border-radius: 50%;" />
+        </div>
+        <div>
+          <h1 class="text-3xl font-bold text-stone-900 dark:text-stone-50 mb-1">เปรม / Prem</h1>
+          <p class="text-stone-500 dark:text-stone-400">Solo Entrepreneur · Chiang Mai, Thailand</p>
+        </div>
+      </div>
+    </div>
 
     <!-- Bio content -->
     <div class="prose-content">

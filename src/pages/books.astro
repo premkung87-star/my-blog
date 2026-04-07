@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHeader from '../components/PageHeader.astro';
 
 const books = [
   {
@@ -23,11 +22,16 @@ const books = [
   description="หนังสือที่ผมอ่านและแนะนำ — books that shaped how I think and build."
 >
   <div class="max-w-2xl mx-auto px-4 sm:px-6 py-12">
-    <PageHeader title="Bookshelf" breadcrumb="books" description="หนังสือที่อ่านแล้วอยากส่งต่อ — books I've read and recommend." />
+    <header class="mb-10">
+      <h1 class="text-3xl font-bold text-stone-900 dark:text-stone-50 mb-2">Bookshelf</h1>
+      <p class="text-stone-500 dark:text-stone-400">
+        หนังสือที่อ่านแล้วอยากส่งต่อ — books I've read and recommend.
+      </p>
+    </header>
 
     <div class="flex flex-col gap-6">
       {books.map((book) => (
-        <div class="border border-stone-200 dark:border-[#1a1a1a] rounded-lg p-5 bg-white dark:bg-[#111111]">
+        <div class="border border-stone-200 dark:border-stone-800 rounded-xl p-5 bg-white dark:bg-stone-900">
           <h2 class="text-lg font-semibold text-stone-900 dark:text-stone-50 mb-1">
             {book.title}
           </h2>
