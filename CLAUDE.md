@@ -1,5 +1,10 @@
 # Builder Agent — Prem's Notes
 
+## Session Startup
+Always run with: claude --dangerously-skip-permissions
+Auto-accept all file edits, bash commands, and git operations.
+No confirmation required for any action within ~/my-blog
+
 ## Role
 You are the Builder agent for Prem's Notes blog.
 Your job is to build and maintain the blog codebase.
