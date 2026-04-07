@@ -19,33 +19,78 @@ const formattedDate = pubDate.toLocaleDateString('en-GB', {
   month: 'short',
   year: 'numeric',
 });
+
+// Terminal-style date
+const termDate = pubDate.toISOString().split('T')[0].replace(/-/g, '.');
 ---
 
-<article class="group relative bg-white dark:bg-stone-900 rounded-xl border border-stone-200 dark:border-stone-800 p-6 hover:border-amber-300 dark:hover:border-amber-700 transition-all duration-200 hover:shadow-md hover:shadow-amber-100/50 dark:hover:shadow-amber-900/20">
-  <a href={`/blog/${slug}`} class="absolute inset-0 rounded-xl" aria-label={title}></a>
+<article class="post-card group relative border border-stone-200 dark:border-[#1a1a1a] rounded-lg p-5 transition-all duration-300 bg-white dark:bg-[#111111] hover:border-[#8BBFAA]/50 dark:hover:border-[#8BBFAA]/30">
+  <a href={`/blog/${slug}`} class="absolute inset-0 rounded-lg" aria-label={title}></a>
 
-  <!-- Tags row -->
-  <div class="flex flex-wrap items-center gap-1.5 mb-3 relative z-10">
+  <!-- Scan line effect on hover -->
+  <div class="scan-line" aria-hidden="true"></div>
+
+  <!-- Meta row — monospace terminal style -->
+  <div class="flex items-center gap-2 mb-3 text-[11px] tracking-wide" style="font-family: var(--font-mono); color: var(--color-muted); opacity: 0.7;">
+    <span>{termDate}</span>
+    <span aria-hidden="true">//</span>
+    <span>{formatReadingTime(readingTime)}</span>
     {postType && (
-      <span class="post-type-badge">{postType}</span>
+      <>
+        <span aria-hidden="true">//</span>
+        <span class="uppercase">{postType}</span>
+      </>
     )}
-    {tags.map((tag) => <TagBadge tag={tag} />)}
   </div>
 
   <!-- Title -->
-  <h2 class="text-lg font-semibold text-stone-900 dark:text-stone-50 group-hover:text-amber-700 dark:group-hover:text-amber-400 transition-colors duration-150 leading-snug mb-2">
+  <h2 class="text-lg font-semibold leading-snug mb-2 transition-colors duration-200 text-stone-900 dark:text-stone-100 group-hover:text-[#1A3D2B] dark:group-hover:text-[#8BBFAA]">
     {title}
   </h2>
 
   <!-- Description -->
-  <p class="text-stone-600 dark:text-stone-400 text-sm leading-relaxed line-clamp-2 mb-4">
+  <p class="text-stone-500 dark:text-stone-400 text-sm leading-relaxed line-clamp-2 mb-3">
     {description}
   </p>
 
-  <!-- Meta row -->
-  <div class="flex items-center gap-3 text-xs text-stone-400 dark:text-stone-500">
-    <time datetime={pubDate.toISOString()}>{formattedDate}</time>
-    <span aria-hidden="true">·</span>
-    <span>{formatReadingTime(readingTime)}</span>
+  <!-- Tags -->
+  <div class="flex flex-wrap items-center gap-1 relative z-10">
+    {tags.map((tag) => <TagBadge tag={tag} />)}
   </div>
 </article>
+
+<style>
+  .post-card {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scan-line {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #8BBFAA, transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .post-card:hover .scan-line {
+    opacity: 0.6;
+    animation: scan 1.5s ease-in-out infinite;
+  }
+
+  @keyframes scan {
+    0% { left: -100%; top: 0; }
+    50% { left: 100%; top: 50%; }
+    100% { left: -100%; top: 100%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .post-card:hover .scan-line {
+      animation: none;
+      opacity: 0;
+    }
+  }
+</style>

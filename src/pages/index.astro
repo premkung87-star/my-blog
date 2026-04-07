@@ -32,20 +32,8 @@ const websiteJsonLd = {
   <!-- Caveat font — only used on this page -->
   <link slot="head" href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet" />
 
-  <!-- Hero — Medium-style oversized text -->
-  <section class="max-w-5xl mx-auto px-4 sm:px-6 pt-20 sm:pt-28 pb-10 sm:pb-14" style="position: relative; overflow: hidden;">
-
-    <!-- Top-left squiggle -->
-    <svg class="hidden sm:block" aria-hidden="true" style="position: absolute; top: 32px; left: 32px; width: 120px; height: 60px; opacity: 0.6;" viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M2 30C12 10 28 50 40 30C52 10 68 50 80 30C92 10 108 50 118 30" stroke="#8BBFAA" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-    </svg>
-
-    <!-- Bottom-right dot cluster -->
-    <svg class="hidden sm:block" aria-hidden="true" style="position: absolute; bottom: 32px; right: 32px; opacity: 0.3;" width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="4" cy="4" r="2" fill="#1A3D2B"/><circle cx="16" cy="4" r="2" fill="#1A3D2B"/><circle cx="28" cy="4" r="2" fill="#1A3D2B"/>
-      <circle cx="4" cy="16" r="2" fill="#1A3D2B"/><circle cx="16" cy="16" r="2" fill="#1A3D2B"/><circle cx="28" cy="16" r="2" fill="#1A3D2B"/>
-      <circle cx="4" cy="28" r="2" fill="#1A3D2B"/><circle cx="16" cy="28" r="2" fill="#1A3D2B"/><circle cx="28" cy="28" r="2" fill="#1A3D2B"/>
-    </svg>
+  <!-- Hero -->
+  <section class="hero-section max-w-5xl mx-auto px-4 sm:px-6 pt-20 sm:pt-28 pb-10 sm:pb-14" style="position: relative; overflow: hidden;">
 
     <h1 class="text-5xl sm:text-7xl md:text-8xl font-bold leading-[1.1] tracking-tight mb-6" style="color: #1A3D2B; font-family: Georgia, 'Times New Roman', serif;">
       Read Then Write<br/>
@@ -66,8 +54,8 @@ const websiteJsonLd = {
     </p>
     <a
       href="/blog"
-      class="inline-flex items-center px-8 py-3 rounded-full text-white font-medium text-base transition-all duration-200 hover:scale-105 hover:shadow-lg"
-      style="background-color: #1A3D2B;"
+      class="inline-flex items-center px-8 py-3 rounded-full text-white font-medium text-base transition-all duration-200 hover:scale-105 hover:shadow-lg bg-[#1A3D2B] dark:bg-[#8BBFAA] dark:text-[#0A0A0A]"
+      style="font-family: var(--font-mono); font-size: 14px;"
     >
       Let goooo!
     </a>
@@ -102,16 +90,12 @@ const websiteJsonLd = {
     </div>
   </section>
 
-  <!-- Thin divider -->
-  <div class="max-w-5xl mx-auto px-4 sm:px-6">
-    <hr class="border-stone-300/60 dark:border-stone-800" />
-  </div>
+  <!-- Divider -->
+  <div class="divider-comment">// recent_writing</div>
 
   <!-- Recent Writing -->
   <section class="max-w-5xl mx-auto px-4 sm:px-6 py-10">
-    <h2 class="text-xs font-semibold uppercase tracking-widest text-stone-400 dark:text-stone-500 mb-6">
-      Recent Writing
-    </h2>
+    <h2 class="section-label">Recent Writing</h2>
 
     <div class="flex flex-col gap-4">
       {recentPosts.map((post) => (
@@ -141,6 +125,24 @@ const websiteJsonLd = {
 </BaseLayout>
 
 <style>
+  /* Grid pattern background */
+  .hero-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(26, 61, 43, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(26, 61, 43, 0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+    pointer-events: none;
+  }
+
+  :global(.dark) .hero-section::before {
+    background-image:
+      linear-gradient(rgba(139, 191, 170, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(139, 191, 170, 0.04) 1px, transparent 1px);
+  }
+
   /* Y2K tattoo dots */
   .dot {
     display: inline-block;

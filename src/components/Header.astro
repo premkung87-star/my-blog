@@ -20,19 +20,19 @@ function isActive(href: string) {
 }
 ---
 
-<header class="sticky top-0 z-50 bg-[#F5F5F0]/80 dark:bg-stone-950/80 backdrop-blur-sm border-b border-stone-300/40 dark:border-stone-800/60">
+<header class="sticky top-0 z-50 bg-[#F5F5F0]/80 dark:bg-[#0A0A0A]/90 backdrop-blur-sm border-b border-stone-300/40 dark:border-[#1a1a1a]">
   <div class="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
 
     <!-- VerdeX logo -->
     <a href="/" class="flex items-center gap-2 transition-opacity duration-150 hover:opacity-70">
       <img src="/verdex-icon.png" alt="VerdeX" style="height: 28px; width: 28px; border-radius: 50%; object-fit: cover;" />
-      <span class="font-bold text-lg" style="color: #1A3D2B;">VerdeX</span>
+      <span class="font-bold text-lg text-[#1A3D2B] dark:text-[#8BBFAA]">VerdeX</span>
     </a>
 
     <!-- Nav + search + toggle -->
     <div class="flex items-center gap-1">
       <!-- Desktop nav -->
-      <nav class="hidden sm:flex items-center gap-1 mr-1">
+      <nav class="hidden sm:flex items-center gap-1 mr-1" aria-label="Primary navigation">
         {navLinks.map(({ href, label }) => (
           <a
             href={href}
@@ -40,9 +40,9 @@ function isActive(href: string) {
               'px-3 py-2.5 rounded-lg text-sm transition-colors duration-150 min-h-[44px] inline-flex items-center',
               isActive(href)
                 ? 'font-medium'
-                : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100',
+                : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-[#8BBFAA]',
             ]}
-            style={isActive(href) ? 'color: #1A3D2B;' : ''}
+            style={isActive(href) ? 'color: #1A3D2B; font-family: var(--font-mono);' : 'font-family: var(--font-mono); font-size: 13px;'}
           >
             {label}
           </a>
@@ -64,38 +64,128 @@ function isActive(href: string) {
     </div>
 
   </div>
+</header>
 
-  <!-- Mobile menu dropdown -->
-  <nav id="mobile-menu" class="hidden sm:hidden border-t border-stone-200 dark:border-stone-800" aria-label="Mobile navigation">
-    <div class="max-w-5xl mx-auto px-4 py-2 flex flex-col">
-      {navLinks.map(({ href, label }) => (
+<!-- Fullscreen mobile menu overlay -->
+<div id="mobile-menu" class="mobile-menu-overlay" aria-hidden="true">
+  <div class="mobile-menu-inner">
+    <!-- Close button -->
+    <button id="mobile-menu-close" class="absolute top-4 right-4 w-10 h-10 flex items-center justify-center" aria-label="Close menu" style="color: #8BBFAA;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+
+    <!-- Terminal header -->
+    <p class="text-xs mb-8" style="font-family: var(--font-mono); color: #8BBFAA; opacity: 0.5;">
+      // navigation
+    </p>
+
+    <nav class="flex flex-col gap-1" aria-label="Mobile navigation">
+      {navLinks.map(({ href, label }, i) => (
         <a
           href={href}
           class:list={[
-            'px-3 py-3 rounded-lg text-sm transition-colors duration-150',
-            isActive(href)
-              ? 'font-medium'
-              : 'text-stone-600 dark:text-stone-400',
+            'mobile-nav-link',
+            isActive(href) ? 'active' : '',
           ]}
-          style={isActive(href) ? 'color: #1A3D2B;' : ''}
         >
-          {label}
+          <span class="nav-index">{String(i + 1).padStart(2, '0')}</span>
+          <span>{label}</span>
         </a>
       ))}
-    </div>
-  </nav>
-</header>
+    </nav>
+
+    <!-- Bottom info -->
+    <p class="absolute bottom-8 left-6 text-xs" style="font-family: var(--font-mono); color: #8BBFAA; opacity: 0.3;">
+      VerdeX — Chiang Mai, Thailand
+    </p>
+  </div>
+</div>
+
+<style>
+  .mobile-menu-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background-color: #1A3D2B;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  .mobile-menu-overlay.open {
+    display: block;
+    opacity: 1;
+  }
+
+  .mobile-menu-inner {
+    position: relative;
+    padding: 60px 24px;
+    height: 100%;
+  }
+
+  .mobile-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 0;
+    font-family: var(--font-mono);
+    font-size: 20px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: color 0.15s ease;
+    border-bottom: 1px solid rgba(139, 191, 170, 0.1);
+  }
+
+  .mobile-nav-link:hover,
+  .mobile-nav-link.active {
+    color: #8BBFAA;
+  }
+
+  .nav-index {
+    font-size: 12px;
+    color: #8BBFAA;
+    opacity: 0.4;
+    min-width: 20px;
+  }
+
+  @media (min-width: 640px) {
+    .mobile-menu-overlay {
+      display: none !important;
+    }
+  }
+</style>
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     var btn = document.getElementById('mobile-menu-btn');
     var menu = document.getElementById('mobile-menu');
-    if (!btn || !menu) return;
+    var closeBtn = document.getElementById('mobile-menu-close');
+    if (!btn || !menu || !closeBtn) return;
 
-    btn.addEventListener('click', function () {
-      var isOpen = !menu.classList.contains('hidden');
-      menu.classList.toggle('hidden');
-      btn.setAttribute('aria-expanded', String(!isOpen));
+    function open() {
+      menu.style.display = 'block';
+      requestAnimationFrame(function () { menu.classList.add('open'); });
+      menu.setAttribute('aria-hidden', 'false');
+      btn.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function close() {
+      menu.classList.remove('open');
+      menu.setAttribute('aria-hidden', 'true');
+      btn.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      setTimeout(function () { menu.style.display = 'none'; }, 250);
+    }
+
+    btn.addEventListener('click', open);
+    closeBtn.addEventListener('click', close);
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && menu.classList.contains('open')) close();
     });
   });
 </script>
