@@ -5,7 +5,7 @@ import mdx from '@astrojs/mdx';
 
 // Replace with your actual Vercel domain after deployment
 export default defineConfig({
-  site: 'https://my-blog.vercel.app',
+  site: 'https://my-blog-kohl-one.vercel.app',
   integrations: [
     tailwind({ applyBaseStyles: false }),
     sitemap(),

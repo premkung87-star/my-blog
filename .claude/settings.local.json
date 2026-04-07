@@ -8,7 +8,10 @@
       "Bash(node -e \"const p = require\\('./node_modules/@astrojs/sitemap/package.json'\\); console.log\\('@astrojs/sitemap:', p.version\\)\")",
       "Bash(node:*)",
       "Bash(npm view:*)",
-      "Bash(grep ^tags::*)"
+      "Bash(grep ^tags::*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
     ]
   }
 }
