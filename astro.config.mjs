@@ -38,8 +38,7 @@ export default defineConfig({
       },
     }),
     mdx(),
-    react(),
-    ...(isKeystatic ? [keystatic()] : []),
+    ...(isKeystatic ? [react(), keystatic()] : []),
   ],
   image: {
     service: { entrypoint: 'astro/assets/services/sharp' },

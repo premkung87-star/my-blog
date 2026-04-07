@@ -2,9 +2,9 @@ import satori from 'satori';
 import { Resvg } from '@resvg/resvg-js';
 
 export async function generateOgImage(title: string): Promise<Buffer> {
-  // Fetch Noto Sans font in TTF format (satori requires ttf/otf/woff, not woff2)
+  // Fetch Noto Sans Thai — supports both Thai and Latin glyphs
   const fontBuffer = await fetch(
-    'https://cdn.jsdelivr.net/fontsource/fonts/noto-sans@latest/latin-700-normal.ttf'
+    'https://cdn.jsdelivr.net/fontsource/fonts/noto-sans-thai@latest/thai-700-normal.ttf'
   ).then((r) => r.arrayBuffer());
 
   const svg = await satori(
@@ -19,7 +19,7 @@ export async function generateOgImage(title: string): Promise<Buffer> {
           justifyContent: 'space-between',
           padding: '60px 80px',
           backgroundColor: '#1A3D2B',
-          fontFamily: 'Inter',
+          fontFamily: 'NotoSansThai',
         },
         children: [
           {
@@ -92,7 +92,7 @@ export async function generateOgImage(title: string): Promise<Buffer> {
       height: 630,
       fonts: [
         {
-          name: 'Inter',
+          name: 'NotoSansThai',
           data: fontBuffer,
           weight: 700,
           style: 'normal' as const,
