@@ -7,8 +7,8 @@
 
 <div
   id="reading-progress"
-  class="fixed top-0 left-0 h-[3px] bg-amber-500 z-[60] transition-[width] duration-75 ease-out"
-  style="width: 0%;"
+  class="fixed top-0 left-0 w-0 h-1 bg-amber-500 z-[100] pointer-events-none"
+  style="will-change: width; transform: translateZ(0);"
   role="progressbar"
   aria-label="Reading progress"
   aria-valuemin="0"
@@ -22,28 +22,51 @@
     var article = document.querySelector('article');
     if (!bar || !article) return;
 
+    var ticking = false;
+
     function update() {
-      var rect = article.getBoundingClientRect();
-      var articleTop = rect.top + window.scrollY;
-      var articleHeight = rect.height;
-      var viewportHeight = window.innerHeight;
-      var scrollY = window.scrollY;
+      ticking = false;
+      var scrollY = window.scrollY || window.pageYOffset;
+      var docHeight = document.documentElement.scrollHeight;
+      var winHeight = window.innerHeight;
+      var maxScroll = docHeight - winHeight;
 
-      // Progress from article top to article bottom leaving the viewport
-      var start = articleTop;
-      var end = articleTop + articleHeight - viewportHeight;
-      var progress = 0;
-
-      if (end > start) {
-        progress = (scrollY - start) / (end - start);
+      if (maxScroll <= 0) {
+        bar.style.width = '0%';
+        return;
       }
 
+      // Use the article boundaries to scope progress
+      var rect = article.getBoundingClientRect();
+      var articleTop = rect.top + scrollY;
+      var articleBottom = rect.bottom + scrollY;
+
+      // Start: when user begins scrolling (top of page)
+      // End: when article bottom reaches the viewport bottom
+      var start = 0;
+      var end = articleBottom - winHeight;
+
+      if (end <= start) {
+        // Article fits entirely on screen — show full bar if any scroll happened
+        bar.style.width = scrollY > 10 ? '100%' : '0%';
+        return;
+      }
+
+      var progress = (scrollY - start) / (end - start);
       progress = Math.min(Math.max(progress, 0), 1);
-      bar.style.width = (progress * 100) + '%';
-      bar.setAttribute('aria-valuenow', Math.round(progress * 100));
+
+      bar.style.width = progress * 100 + '%';
+      bar.setAttribute('aria-valuenow', String(Math.round(progress * 100)));
     }
 
-    window.addEventListener('scroll', update, { passive: true });
+    function onScroll() {
+      if (!ticking) {
+        requestAnimationFrame(update);
+        ticking = true;
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', update, { passive: true });
     update();
   })();
