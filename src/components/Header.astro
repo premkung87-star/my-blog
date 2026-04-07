@@ -50,8 +50,52 @@ function isActive(href: string) {
       </nav>
       <SearchModal />
       <ThemeToggle />
+      <!-- Mobile hamburger -->
+      <button
+        id="mobile-menu-btn"
+        class="sm:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg text-stone-600 dark:text-stone-400 hover:bg-stone-200 dark:hover:bg-stone-800 transition-colors duration-150"
+        aria-label="Open menu"
+        aria-expanded="false"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
     </div>
 
   </div>
 
+  <!-- Mobile menu dropdown -->
+  <nav id="mobile-menu" class="hidden sm:hidden border-t border-stone-200 dark:border-stone-800" aria-label="Mobile navigation">
+    <div class="max-w-5xl mx-auto px-4 py-2 flex flex-col">
+      {navLinks.map(({ href, label }) => (
+        <a
+          href={href}
+          class:list={[
+            'px-3 py-3 rounded-lg text-sm transition-colors duration-150',
+            isActive(href)
+              ? 'font-medium'
+              : 'text-stone-600 dark:text-stone-400',
+          ]}
+          style={isActive(href) ? 'color: #1A3D2B;' : ''}
+        >
+          {label}
+        </a>
+      ))}
+    </div>
+  </nav>
 </header>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var btn = document.getElementById('mobile-menu-btn');
+    var menu = document.getElementById('mobile-menu');
+    if (!btn || !menu) return;
+
+    btn.addEventListener('click', function () {
+      var isOpen = !menu.classList.contains('hidden');
+      menu.classList.toggle('hidden');
+      btn.setAttribute('aria-expanded', String(!isOpen));
+    });
+  });
+</script>

@@ -41,12 +41,6 @@
     text-rendering: optimizeLegibility;
   }
 
-  /* Thai text needs more line-height */
-  [lang="th"],
-  :lang(th) {
-    line-height: 1.9;
-  }
-
   /* Smooth focus rings */
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-amber-500 rounded;
@@ -116,9 +110,8 @@
   }
 
   .prose-content {
-    font-family: 'Lora', Georgia, serif;
     @apply prose prose-stone dark:prose-invert
-           prose-headings:font-sans prose-headings:font-semibold
+           prose-headings:font-semibold
            prose-a:no-underline hover:prose-a:underline
            prose-blockquote:border-l-amber-400
            prose-code:before:content-none prose-code:after:content-none
