@@ -3,6 +3,7 @@ import BaseLayout from './BaseLayout.astro';
 import TagBadge from '../components/TagBadge.astro';
 import TableOfContents from '../components/TableOfContents.astro';
 import ShareButtons from '../components/ShareButtons.astro';
+import Newsletter from '../components/Newsletter.astro';
 import Giscus from '../components/Giscus.astro';
 import RelatedPosts from '../components/RelatedPosts.astro';
 import { formatReadingTime } from '../utils/reading-time';
@@ -128,6 +129,9 @@ const formattedDate = pubDate.toLocaleDateString('en-GB', {
 
       <!-- Share buttons -->
       <ShareButtons title={title} />
+
+      <!-- Newsletter -->
+      <Newsletter />
 
       <!-- Related posts -->
       {relatedPosts.length > 0 && <RelatedPosts posts={relatedPosts} />}

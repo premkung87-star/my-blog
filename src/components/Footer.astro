@@ -5,6 +5,36 @@ const year = new Date().getFullYear();
 <footer class="border-t border-stone-200 dark:border-stone-800 mt-16">
   <div class="max-w-3xl mx-auto px-4 sm:px-6 py-8 text-sm text-stone-400 dark:text-stone-500">
 
+    <!-- Newsletter -->
+    <div class="mb-8 pb-8 border-b border-stone-200 dark:border-stone-800">
+      <p class="font-medium text-stone-500 dark:text-stone-400 mb-2">Subscribe to VerdeX Notes</p>
+      <p class="text-xs text-stone-400 dark:text-stone-500 mb-3">
+        บทความใหม่ตรงถึง inbox — no spam, unsubscribe anytime.
+      </p>
+      <form
+        action="https://buttondown.com/api/emails/embed-subscribe/verdex"
+        method="post"
+        class="flex flex-col sm:flex-row gap-2 max-w-md"
+      >
+        <label for="bd-email-footer" class="sr-only">Email</label>
+        <input
+          type="email"
+          name="email"
+          id="bd-email-footer"
+          required
+          placeholder="you@example.com"
+          class="flex-1 px-3 py-2 rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100 text-sm placeholder-stone-400 dark:placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-[#1A3D2B]/40 min-h-[44px]"
+        />
+        <button
+          type="submit"
+          class="px-5 py-2 rounded-lg text-white text-sm font-medium transition-all duration-200 hover:opacity-90 min-h-[44px]"
+          style="background-color: #1A3D2B;"
+        >
+          Subscribe
+        </button>
+      </form>
+    </div>
+
     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
 
       <!-- Left: identity -->
@@ -23,6 +53,9 @@ const year = new Date().getFullYear();
           <a href="/blog" class="hover:text-stone-700 dark:hover:text-stone-300 transition-colors duration-150 py-2 inline-block">
             Blog
           </a>
+          <a href="/books" class="hover:text-stone-700 dark:hover:text-stone-300 transition-colors duration-150 py-2 inline-block">
+            Books
+          </a>
           <a href="/categories" class="hover:text-stone-700 dark:hover:text-stone-300 transition-colors duration-150 py-2 inline-block">
             Categories
           </a>
@@ -31,6 +64,9 @@ const year = new Date().getFullYear();
           </a>
           <a href="/contact" class="hover:text-stone-700 dark:hover:text-stone-300 transition-colors duration-150 py-2 inline-block">
             Contact
+          </a>
+          <a href="/rss.xml" class="hover:text-stone-700 dark:hover:text-stone-300 transition-colors duration-150 py-2 inline-block">
+            RSS
           </a>
           <a href="/sitemap-index.xml" class="hover:text-stone-700 dark:hover:text-stone-300 transition-colors duration-150 py-2 inline-block">
             Sitemap
