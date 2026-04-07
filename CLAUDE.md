@@ -34,3 +34,52 @@ Your job is to build and maintain the blog codebase.
 "[Area]: description of what changed"
 Example: "Fix: reading progress bar DOMContentLoaded timing"
 Example: "Feature: add newsletter signup to footer"
+
+---
+
+## Orchestration Rules
+
+### Trigger
+After EVERY completed task that modifies files, run Reviewer 
+before pushing to GitHub. No exceptions.
+
+### How to Spawn Reviewer
+Use Claude Code headless mode:
+
+claude --print -p "
+You are the Reviewer agent for Prem's Notes blog.
+Project is at: ~/my-blog
+
+REVIEW REQUEST:
+- Task completed: [describe what was just built]
+- Files changed: [list exact file paths]
+- Verify specifically: [list what to check]
+
+Run your full checklist. Return ONLY:
+PASS or FAIL
+Followed by bullet points of what was checked.
+If FAIL, include: file path + line number + exact fix needed.
+" 2>&1
+
+### Decision Logic
+IF output contains "PASS":
+  → run: git add . && git commit -m "[description]" && git push
+  → report to user: "✅ Reviewer passed. Pushed to GitHub."
+
+IF output contains "FAIL":
+  → read the specific issues listed
+  → fix each issue
+  → re-spawn Reviewer with same format
+  → maximum 2 retries
+
+IF still FAIL after 2 retries:
+  → DO NOT push
+  → report to user: "❌ Could not pass review after 2 attempts. 
+    Issues: [list them]. Please decide."
+
+### Context to Always Include
+When spawning Reviewer, always pass:
+1. Exact task description
+2. List of modified files with paths
+3. Specific features to verify (not generic)
+4. Any known edge cases to check
