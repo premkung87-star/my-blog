@@ -1,0 +1,20 @@
+---
+/**
+ * Lightweight client-side error reporter.
+ * Logs uncaught errors to console in dev, can be extended to send to a service.
+ * Privacy-friendly — no PII collected, no external service by default.
+ */
+---
+
+<script is:inline>
+  window.addEventListener('error', function (e) {
+    if (typeof console !== 'undefined') {
+      console.warn('[VerdeX Error]', e.message, e.filename, 'line:', e.lineno);
+    }
+  });
+  window.addEventListener('unhandledrejection', function (e) {
+    if (typeof console !== 'undefined') {
+      console.warn('[VerdeX Unhandled Promise]', e.reason);
+    }
+  });
+</script>

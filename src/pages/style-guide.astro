@@ -1,0 +1,116 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TagBadge from '../components/TagBadge.astro';
+---
+
+<BaseLayout title="Style Guide" description="Visual reference for all blog components and typography.">
+  <div class="max-w-2xl mx-auto px-4 sm:px-6 py-12">
+    <header class="mb-10">
+      <h1 class="text-3xl font-bold text-stone-900 dark:text-stone-50 mb-2">Style Guide</h1>
+      <p class="text-stone-500 dark:text-stone-400">
+        Visual reference for all components used in blog posts.
+      </p>
+    </header>
+
+    <div class="prose-content">
+      <h2>Headings</h2>
+      <h1>Heading 1 — หัวข้อหลัก</h1>
+      <h2>Heading 2 — หัวข้อรอง</h2>
+      <h3>Heading 3 — หัวข้อย่อย</h3>
+      <h4>Heading 4</h4>
+
+      <h2>Paragraphs</h2>
+      <p>
+        This is a regular paragraph with <strong>bold text</strong>, <em>italic text</em>,
+        and <a href="#">a link</a>. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      </p>
+      <p lang="th">
+        นี่คือย่อหน้าภาษาไทย ที่มี<strong>ตัวหนา</strong> <em>ตัวเอียง</em>
+        และ<a href="#">ลิงก์</a>ด้วย
+      </p>
+
+      <h2>Blockquote</h2>
+      <blockquote>
+        <p>"The impediment to action advances action. What stands in the way becomes the way."</p>
+        <p>— Marcus Aurelius</p>
+      </blockquote>
+
+      <h2>Lists</h2>
+      <h3>Unordered</h3>
+      <ul>
+        <li>First item</li>
+        <li>Second item with <strong>bold</strong></li>
+        <li>Third item with <a href="#">a link</a></li>
+      </ul>
+      <h3>Ordered</h3>
+      <ol>
+        <li>Step one</li>
+        <li>Step two</li>
+        <li>Step three</li>
+      </ol>
+
+      <h2>Code</h2>
+      <p>Inline code: <code>npm run build</code></p>
+      <pre><code>// Code block
+const hello = 'world';
+console.log(hello);</code></pre>
+
+      <h2>Horizontal Rule</h2>
+      <hr />
+
+      <h2>Footnotes</h2>
+      <p>
+        This text has a footnote<sup><a href="#fn1">[1]</a></sup> and
+        another one<sup><a href="#fn2">[2]</a></sup>.
+      </p>
+    </div>
+
+    <!-- Component showcase -->
+    <div class="mt-12 pt-8 border-t border-stone-200 dark:border-stone-800">
+      <h2 class="text-xs font-semibold uppercase tracking-widest text-stone-400 dark:text-stone-500 mb-4">
+        Components
+      </h2>
+
+      <h3 class="text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">Tags</h3>
+      <div class="flex flex-wrap gap-2 mb-6">
+        <TagBadge tag="Reading" />
+        <TagBadge tag="Writing" />
+        <TagBadge tag="Personal Growth" />
+      </div>
+
+      <h3 class="text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">Post Type Badges</h3>
+      <div class="flex flex-wrap gap-2 mb-6">
+        <span class="post-type-badge">Essay</span>
+        <span class="post-type-badge">Note</span>
+        <span class="post-type-badge">Lesson</span>
+        <span class="post-type-badge">Story</span>
+      </div>
+
+      <h3 class="text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">Buttons</h3>
+      <div class="flex flex-wrap gap-3 mb-6">
+        <a class="inline-flex items-center px-6 py-2.5 rounded-full text-white text-sm font-medium" style="background-color: #1A3D2B;">
+          Primary Button
+        </a>
+        <a class="inline-flex items-center px-6 py-2.5 rounded-full text-sm font-medium border border-stone-300 dark:border-stone-700 text-stone-700 dark:text-stone-300">
+          Secondary Button
+        </a>
+      </div>
+
+      <h3 class="text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">Colors</h3>
+      <div class="flex flex-wrap gap-3 mb-6">
+        <div class="flex flex-col items-center gap-1">
+          <div class="w-12 h-12 rounded-lg" style="background-color: #1A3D2B;"></div>
+          <span class="text-xs text-stone-500">#1A3D2B</span>
+        </div>
+        <div class="flex flex-col items-center gap-1">
+          <div class="w-12 h-12 rounded-lg" style="background-color: #8BBFAA;"></div>
+          <span class="text-xs text-stone-500">#8BBFAA</span>
+        </div>
+        <div class="flex flex-col items-center gap-1">
+          <div class="w-12 h-12 rounded-lg" style="background-color: #F5F5F0;"></div>
+          <span class="text-xs text-stone-500">#F5F5F0</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

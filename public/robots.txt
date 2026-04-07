@@ -1,4 +1,10 @@
 User-agent: *
 Allow: /
 
+# Block non-content paths from crawlers
+Disallow: /og/
+Disallow: /pagefind/
+Disallow: /_astro/
+Disallow: /style-guide/
+
 Sitemap: https://my-blog-kohl-one.vercel.app/sitemap-index.xml
