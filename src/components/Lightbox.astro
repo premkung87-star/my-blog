@@ -1,0 +1,58 @@
+---
+/**
+ * Image lightbox — click any image inside .prose-content to view full-size.
+ * Pure vanilla JS, no dependencies. ESC or click backdrop to close.
+ */
+---
+
+<div
+  id="lightbox-overlay"
+  style="display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,0.85);cursor:zoom-out;justify-content:center;align-items:center;"
+>
+  <img id="lightbox-img" style="max-width:90vw;max-height:90vh;object-fit:contain;border-radius:4px;" alt="" />
+  <button
+    id="lightbox-close"
+    style="position:absolute;top:16px;right:16px;color:white;background:none;border:none;font-size:28px;cursor:pointer;width:44px;height:44px;display:flex;align-items:center;justify-content:center;"
+    aria-label="Close lightbox"
+  >&times;</button>
+</div>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function () {
+    var overlay = document.getElementById('lightbox-overlay');
+    var lbImg = document.getElementById('lightbox-img');
+    var closeBtn = document.getElementById('lightbox-close');
+    if (!overlay || !lbImg || !closeBtn) return;
+
+    function open(src, alt) {
+      lbImg.src = src;
+      lbImg.alt = alt || '';
+      overlay.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function close() {
+      overlay.style.display = 'none';
+      lbImg.src = '';
+      document.body.style.overflow = '';
+    }
+
+    // Click any image inside prose-content
+    document.addEventListener('click', function (e) {
+      var img = e.target;
+      if (img.tagName === 'IMG' && img.closest('.prose-content')) {
+        e.preventDefault();
+        open(img.src, img.alt);
+      }
+    });
+
+    overlay.addEventListener('click', function (e) {
+      if (e.target !== lbImg) close();
+    });
+    closeBtn.addEventListener('click', close);
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && overlay.style.display === 'flex') close();
+    });
+  });
+</script>

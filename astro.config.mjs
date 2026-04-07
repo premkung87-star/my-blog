@@ -40,6 +40,10 @@ export default defineConfig({
     mdx(),
     ...(isKeystatic ? [react(), keystatic()] : []),
   ],
+  prefetch: {
+    defaultStrategy: 'hover',
+    prefetchAll: false,
+  },
   image: {
     service: { entrypoint: 'astro/assets/services/sharp' },
   },

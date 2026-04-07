@@ -3,6 +3,9 @@ import { ViewTransitions } from 'astro:transitions';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ReadingProgress from '../components/ReadingProgress.astro';
+import Lightbox from '../components/Lightbox.astro';
+import ScrollToTop from '../components/ScrollToTop.astro';
+import LoadingSkeleton from '../components/LoadingSkeleton.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -148,5 +151,8 @@ const finalJsonLd = jsonLd || articleJsonLd;
       <slot />
     </main>
     <Footer />
+    <Lightbox />
+    <ScrollToTop />
+    <LoadingSkeleton />
   </body>
 </html>

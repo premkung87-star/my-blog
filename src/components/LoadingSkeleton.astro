@@ -1,0 +1,58 @@
+---
+/**
+ * Page loading skeleton — shows during view transitions.
+ * Uses Astro's transition lifecycle events.
+ */
+---
+
+<div id="loading-skeleton" style="display:none;position:fixed;inset:0;z-index:9997;background-color:#F5F5F0;padding:80px 24px 24px;">
+  <div style="max-width:640px;margin:0 auto;">
+    <div class="skeleton-line" style="width:40%;height:12px;margin-bottom:24px;"></div>
+    <div class="skeleton-line" style="width:80%;height:28px;margin-bottom:16px;"></div>
+    <div class="skeleton-line" style="width:65%;height:28px;margin-bottom:32px;"></div>
+    <div class="skeleton-line" style="width:100%;height:14px;margin-bottom:10px;"></div>
+    <div class="skeleton-line" style="width:90%;height:14px;margin-bottom:10px;"></div>
+    <div class="skeleton-line" style="width:95%;height:14px;margin-bottom:10px;"></div>
+    <div class="skeleton-line" style="width:70%;height:14px;margin-bottom:32px;"></div>
+    <div class="skeleton-line" style="width:100%;height:14px;margin-bottom:10px;"></div>
+    <div class="skeleton-line" style="width:85%;height:14px;margin-bottom:10px;"></div>
+  </div>
+</div>
+
+<style>
+  .skeleton-line {
+    background: linear-gradient(90deg, #e0e0da 25%, #ececea 50%, #e0e0da 75%);
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.5s infinite;
+    border-radius: 4px;
+  }
+  .dark .skeleton-line {
+    background: linear-gradient(90deg, #292524 25%, #3a3530 50%, #292524 75%);
+    background-size: 200% 100%;
+  }
+  .dark #loading-skeleton {
+    background-color: #0c0a09 !important;
+  }
+  @keyframes skeleton-shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .skeleton-line { animation: none; }
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener('astro:before-preparation', function () {
+    var el = document.getElementById('loading-skeleton');
+    if (el) el.style.display = 'block';
+  });
+  document.addEventListener('astro:after-swap', function () {
+    var el = document.getElementById('loading-skeleton');
+    if (el) el.style.display = 'none';
+  });
+  document.addEventListener('astro:page-load', function () {
+    var el = document.getElementById('loading-skeleton');
+    if (el) el.style.display = 'none';
+  });
+</script>
