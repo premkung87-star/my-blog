@@ -11,7 +11,8 @@
       "Bash(grep ^tags::*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(cat /Users/premmynotnerdyboy/my-blog/dist/_astro/*.css)"
     ]
   }
 }

@@ -1,62 +1,48 @@
 ---
 /**
- * Reading progress bar — thin amber bar fixed at the very top of the viewport.
- * Measures scroll progress through the <article> element only.
+ * Reading progress bar — 4px amber bar fixed at the very top of the viewport.
+ * Uses only inline styles to avoid any Tailwind/CSS conflicts.
+ * Script deferred until DOM is fully parsed.
  */
 ---
 
 <div
-  id="reading-progress"
-  class="fixed top-0 left-0 w-0 h-1 bg-amber-500 z-[100] pointer-events-none"
-  style="will-change: width; transform: translateZ(0);"
-  role="progressbar"
-  aria-label="Reading progress"
-  aria-valuemin="0"
-  aria-valuemax="100"
-  aria-valuenow="0"
+  id="reading-progress-bar"
+  style="position:fixed;top:0;left:0;width:0%;height:4px;background:#d97706;z-index:9999;pointer-events:none;transition:width 80ms linear;transform:translateZ(0);"
 ></div>
 
 <script is:inline>
-  (function () {
-    var bar = document.getElementById('reading-progress');
+  document.addEventListener('DOMContentLoaded', function () {
+    var bar = document.getElementById('reading-progress-bar');
+    if (!bar) return;
+
     var article = document.querySelector('article');
-    if (!bar || !article) return;
+    if (!article) return;
 
     var ticking = false;
 
     function update() {
       ticking = false;
       var scrollY = window.scrollY || window.pageYOffset;
-      var docHeight = document.documentElement.scrollHeight;
       var winHeight = window.innerHeight;
-      var maxScroll = docHeight - winHeight;
 
-      if (maxScroll <= 0) {
-        bar.style.width = '0%';
-        return;
-      }
-
-      // Use the article boundaries to scope progress
       var rect = article.getBoundingClientRect();
-      var articleTop = rect.top + scrollY;
       var articleBottom = rect.bottom + scrollY;
 
-      // Start: when user begins scrolling (top of page)
-      // End: when article bottom reaches the viewport bottom
-      var start = 0;
+      // End point: when article bottom reaches viewport bottom
       var end = articleBottom - winHeight;
 
-      if (end <= start) {
-        // Article fits entirely on screen — show full bar if any scroll happened
+      if (end <= 0) {
+        // Article fits on screen — full bar if scrolled at all
         bar.style.width = scrollY > 10 ? '100%' : '0%';
         return;
       }
 
-      var progress = (scrollY - start) / (end - start);
-      progress = Math.min(Math.max(progress, 0), 1);
+      var progress = scrollY / end;
+      if (progress < 0) progress = 0;
+      if (progress > 1) progress = 1;
 
-      bar.style.width = progress * 100 + '%';
-      bar.setAttribute('aria-valuenow', String(Math.round(progress * 100)));
+      bar.style.width = (progress * 100) + '%';
     }
 
     function onScroll() {
@@ -69,5 +55,5 @@
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', update, { passive: true });
     update();
-  })();
+  });
 </script>
