@@ -21,7 +21,20 @@ const websiteJsonLd = {
   jsonLd={websiteJsonLd}
 >
   <!-- Hero — Medium-style oversized text -->
-  <section class="max-w-5xl mx-auto px-4 sm:px-6 pt-20 sm:pt-28 pb-10 sm:pb-14">
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 pt-20 sm:pt-28 pb-10 sm:pb-14" style="position: relative; overflow: hidden;">
+
+    <!-- Top-left squiggle -->
+    <svg class="hidden sm:block" aria-hidden="true" style="position: absolute; top: 32px; left: 32px; width: 120px; height: 60px; opacity: 0.6;" viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 30C12 10 28 50 40 30C52 10 68 50 80 30C92 10 108 50 118 30" stroke="#8BBFAA" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+    </svg>
+
+    <!-- Bottom-right dot cluster -->
+    <svg class="hidden sm:block" aria-hidden="true" style="position: absolute; bottom: 32px; right: 32px; opacity: 0.3;" width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="4" cy="4" r="2" fill="#1A3D2B"/><circle cx="16" cy="4" r="2" fill="#1A3D2B"/><circle cx="28" cy="4" r="2" fill="#1A3D2B"/>
+      <circle cx="4" cy="16" r="2" fill="#1A3D2B"/><circle cx="16" cy="16" r="2" fill="#1A3D2B"/><circle cx="28" cy="16" r="2" fill="#1A3D2B"/>
+      <circle cx="4" cy="28" r="2" fill="#1A3D2B"/><circle cx="16" cy="28" r="2" fill="#1A3D2B"/><circle cx="28" cy="28" r="2" fill="#1A3D2B"/>
+    </svg>
+
     <h1 class="text-5xl sm:text-7xl md:text-8xl font-bold leading-[1.1] tracking-tight mb-6" style="color: #1A3D2B; font-family: Georgia, 'Times New Roman', serif;">
       Read Then Write<br/>
       Then Read Then Write.....
