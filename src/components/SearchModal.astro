@@ -128,18 +128,28 @@
       return;
     }
 
-    results.innerHTML = data.map((item, i) => `
-      <a
-        href="${item.url}"
-        data-result-index="${i}"
-        class="result-item flex flex-col gap-1 px-4 py-3 hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors duration-100 border-b border-stone-100 dark:border-stone-800 last:border-0"
-      >
-        <span class="text-sm font-medium text-stone-900 dark:text-stone-100 leading-snug">
-          ${item.meta?.title || 'Untitled'}
-        </span>
-        ${item.excerpt ? `<span class="text-xs text-stone-500 dark:text-stone-400 leading-relaxed line-clamp-2">${item.excerpt}</span>` : ''}
-      </a>
-    `).join('');
+    results.innerHTML = '';
+    data.forEach(function (item, i) {
+      var link = document.createElement('a');
+      link.href = item.url;
+      link.setAttribute('data-result-index', String(i));
+      link.className = 'result-item flex flex-col gap-1 px-4 py-3 hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors duration-100 border-b border-stone-100 dark:border-stone-800 last:border-0';
+
+      var titleSpan = document.createElement('span');
+      titleSpan.className = 'text-sm font-medium text-stone-900 dark:text-stone-100 leading-snug';
+      titleSpan.textContent = item.meta?.title || 'Untitled';
+      link.appendChild(titleSpan);
+
+      if (item.excerpt) {
+        var excerptSpan = document.createElement('span');
+        excerptSpan.className = 'text-xs text-stone-500 dark:text-stone-400 leading-relaxed line-clamp-2';
+        // Only allow <mark> tags from Pagefind, strip everything else
+        excerptSpan.innerHTML = item.excerpt.replace(/<(?!\/?mark\b)[^>]*>/gi, '');
+        link.appendChild(excerptSpan);
+      }
+
+      results.appendChild(link);
+    });
 
     activeIndex = -1;
   }
