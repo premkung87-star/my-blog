@@ -8,9 +8,27 @@ export default defineConfig({
   site: 'https://my-blog-kohl-one.vercel.app',
   integrations: [
     tailwind({ applyBaseStyles: false }),
-    sitemap(),
+    sitemap({
+      serialize(item) {
+        // Blog posts get higher priority
+        if (item.url.includes('/blog/') && item.url !== 'https://my-blog-kohl-one.vercel.app/blog/') {
+          item.priority = 0.8;
+        } else if (item.url === 'https://my-blog-kohl-one.vercel.app/') {
+          item.priority = 1.0;
+        } else if (item.url.includes('/tags/')) {
+          item.priority = 0.4;
+        } else {
+          item.priority = 0.6;
+        }
+        item.lastmod = new Date().toISOString();
+        return item;
+      },
+    }),
     mdx(),
   ],
+  image: {
+    service: { entrypoint: 'astro/assets/services/sharp' },
+  },
   markdown: {
     shikiConfig: {
       theme: 'github-light',

@@ -12,11 +12,25 @@ const recentPosts = allPosts.slice(0, 3);
 
 // Collect all unique tags across posts
 const allTags = [...new Set(allPosts.flatMap((p) => p.data.tags))].sort();
+
+const websiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: "Prem's Notes",
+  url: 'https://my-blog-kohl-one.vercel.app',
+  description: 'Solo entrepreneur in Chiang Mai building VerdeX Farm — writing about entrepreneurship, hydroponics, and technology.',
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: 'https://my-blog-kohl-one.vercel.app/blog?q={search_term_string}',
+    'query-input': 'required name=search_term_string',
+  },
+};
 ---
 
 <BaseLayout
   title="Prem's Notes"
   description="Solo entrepreneur in Chiang Mai building VerdeX Farm — a smart hydroponic system for commercial herb growers. Writing about entrepreneurship, technology, and building in public."
+  jsonLd={websiteJsonLd}
 >
   <!-- Hero -->
   <section class="max-w-2xl mx-auto px-4 sm:px-6 pt-16 pb-12">

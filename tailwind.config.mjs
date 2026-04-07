@@ -5,7 +5,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Sarabun', 'Inter', 'system-ui', 'sans-serif'],
+        sans: ['Sarabun', 'Sarabun Fallback', 'Inter', 'system-ui', 'sans-serif'],
       },
       colors: {
         amber: {

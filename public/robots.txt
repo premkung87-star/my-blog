@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://my-blog-kohl-one.vercel.app/sitemap-index.xml

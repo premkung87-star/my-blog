@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+/* CLS prevention: size-adjusted fallback while Sarabun loads */
+@font-face {
+  font-family: 'Sarabun Fallback';
+  src: local('Arial'), local('Helvetica Neue'), local('sans-serif');
+  size-adjust: 104%;
+  ascent-override: 95%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+}
+
 @layer base {
   :root {
     --color-bg: theme('colors.stone.50');

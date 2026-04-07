@@ -1,10 +1,25 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Prem',
+  url: 'https://my-blog-kohl-one.vercel.app/about',
+  jobTitle: 'Solo Entrepreneur',
+  description: 'Building VerdeX Farm — a smart hydroponic system for commercial herb growers. Writing about entrepreneurship, hydroponics, and technology.',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Chiang Mai',
+    addressCountry: 'TH',
+  },
+};
 ---
 
 <BaseLayout
   title="About"
   description="I'm Prem — a solo entrepreneur in Chiang Mai, Thailand, building VerdeX Farm and writing about the journey."
+  jsonLd={personJsonLd}
 >
   <div class="max-w-2xl mx-auto px-4 sm:px-6 py-12">
 
