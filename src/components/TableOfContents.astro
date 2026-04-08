@@ -36,21 +36,25 @@
   // ── Render items into a <ul> ─────────────────────────────────
   function renderItems(items, ulEl) {
     if (!ulEl) return;
+    ulEl.innerHTML = '';
     if (!items.length) {
-      ulEl.innerHTML = '<li class="text-stone-400 dark:text-stone-500 text-xs italic">No headings.</li>';
+      var emptyLi = document.createElement('li');
+      emptyLi.className = 'text-stone-400 dark:text-stone-500 text-xs italic';
+      emptyLi.textContent = 'No headings.';
+      ulEl.appendChild(emptyLi);
       return;
     }
-    ulEl.innerHTML = items.map((item) => `
-      <li class="${item.level === 3 ? 'pl-3' : ''}">
-        <a
-          href="#${item.id}"
-          data-toc-id="${item.id}"
-          class="toc-link block py-1 text-xs leading-snug text-stone-500 dark:text-stone-400
-                 hover:text-amber-700 dark:hover:text-amber-400 transition-colors duration-150
-                 ${item.level === 3 ? 'border-l border-stone-200 dark:border-stone-800 pl-3' : ''}"
-        >${item.text}</a>
-      </li>
-    `).join('');
+    items.forEach(function (item) {
+      var li = document.createElement('li');
+      if (item.level === 3) li.className = 'pl-3';
+      var a = document.createElement('a');
+      a.href = '#' + item.id;
+      a.setAttribute('data-toc-id', item.id);
+      a.className = 'toc-link block py-1 text-xs leading-snug text-stone-500 dark:text-stone-400 hover:text-amber-700 dark:hover:text-amber-400 transition-colors duration-150' + (item.level === 3 ? ' border-l border-stone-200 dark:border-stone-800 pl-3' : '');
+      a.textContent = item.text;
+      li.appendChild(a);
+      ulEl.appendChild(li);
+    });
   }
 
   // ── Active heading highlight (IntersectionObserver) ──────────

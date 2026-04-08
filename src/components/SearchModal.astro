@@ -92,6 +92,8 @@
     results.appendChild(empty);
     empty.textContent = 'Type to search posts…';
     activeIndex = -1;
+    // Restore focus to trigger button
+    if (trigger) trigger.focus();
   }
 
   // ── Load Pagefind once ───────────────────────────────────────

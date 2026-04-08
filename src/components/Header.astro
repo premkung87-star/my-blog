@@ -42,6 +42,7 @@ function isActive(href: string) {
                 : 'opacity-50 hover:opacity-100',
             ]}
             style={isActive(href) ? 'color: #2E7D32; border-color: #2E7D32;' : 'color: var(--color-primary);'}
+            aria-current={isActive(href) ? 'page' : undefined}
           >
             {label}
           </a>
