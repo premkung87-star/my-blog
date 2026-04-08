@@ -43,11 +43,7 @@ const { title, description, pubDate, tags, readingTime, lang = 'en', postType, r
 // ToC shown only for posts > 5 min reading time
 const showToC = readingTime > 5;
 
-const formattedDate = pubDate.toLocaleDateString('en-GB', {
-  day: 'numeric',
-  month: 'long',
-  year: 'numeric',
-});
+const ts = pubDate.toISOString().split('T')[0].replace(/-/g, '.');
 ---
 
 <BaseLayout
@@ -59,117 +55,125 @@ const formattedDate = pubDate.toLocaleDateString('en-GB', {
   tags={tags}
   ogImage={ogImage}
 >
-  <!--
-    Outer wrapper:
-    - showToC  → max-w-5xl, xl:flex (article + sticky sidebar side by side)
-    - !showToC → max-w-2xl, single column (unchanged from original)
-  -->
-  <div class:list={[
-    'mx-auto px-4 sm:px-6 py-12',
-    showToC ? 'max-w-5xl xl:flex xl:gap-16 xl:items-start' : 'max-w-2xl',
-  ]}>
+  <div class="pt-20 w-full max-w-5xl mx-auto px-6 py-12 md:py-24">
 
-    <!-- ── Article ─────────────────────────────────────────── -->
-    <article class="min-w-0 flex-1" data-pagefind-body>
-
-      <!-- Back link -->
-      <a
-        href="/blog"
-        class="inline-flex items-center gap-1.5 text-sm text-stone-400 dark:text-stone-500 hover:text-amber-600 dark:hover:text-amber-400 transition-colors duration-150 mb-8 group py-2"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 group-hover:-translate-x-0.5 transition-transform duration-150" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
-        </svg>
-        All posts
-      </a>
-
-      <!-- Post header -->
-      <header class="mb-10">
-        <div class="flex flex-wrap items-center gap-1.5 mb-4">
-          {postType && (
-            <span class="post-type-badge">{postType}</span>
-          )}
-          {tags.map((tag) => <TagBadge tag={tag} />)}
-        </div>
-
-        <h1 class="text-3xl sm:text-4xl font-bold text-stone-900 dark:text-stone-50 leading-tight mb-4">
-          {title}
-        </h1>
-
-        <p class="text-lg text-stone-600 dark:text-stone-400 leading-relaxed mb-6">
-          {description}
-        </p>
-
-        <div class="flex items-center gap-3 text-sm text-stone-400 dark:text-stone-500 border-t border-stone-200 dark:border-stone-800 pt-4">
-          <time datetime={pubDate.toISOString()} class="font-medium text-stone-500 dark:text-stone-400">
-            {formattedDate}
-          </time>
-          <span aria-hidden="true">·</span>
-          <span>{formatReadingTime(readingTime)}</span>
-        </div>
-      </header>
-
-      <!--
-        Mobile ToC (xl:hidden) — rendered inline above the content.
-        Script in TableOfContents.astro populates #toc-mobile-list.
-      -->
-      {showToC && (
-        <details class="xl:hidden mb-8 rounded-xl border border-stone-200 dark:border-stone-800 bg-white dark:bg-stone-900 overflow-hidden group">
-          <summary class="flex items-center justify-between gap-3 px-4 py-3 cursor-pointer list-none select-none text-sm font-medium text-stone-700 dark:text-stone-300 hover:bg-stone-50 dark:hover:bg-stone-800/50 transition-colors duration-150">
-            <span class="flex items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h10M4 18h7"/>
-              </svg>
-              Contents
-            </span>
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-stone-400 transition-transform duration-200 group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-            </svg>
-          </summary>
-          <nav aria-label="Table of contents" class="px-4 pb-4 pt-1">
-            <ul id="toc-mobile-list" class="space-y-0.5 text-sm">
-              <li class="text-stone-400 dark:text-stone-500 text-xs italic">Loading…</li>
-            </ul>
-          </nav>
-        </details>
-      )}
-
-      <!-- Post body -->
-      <div class="prose-content">
-        <slot />
+    <!-- ═══ TERMINAL HEADER — Article metadata ═══ -->
+    <section class="mb-16 p-8 relative" style="background: var(--color-surface-low); border-left: 4px solid var(--color-primary);">
+      <!-- System metadata -->
+      <div class="font-mono text-[10px] uppercase tracking-widest mb-4 flex flex-wrap gap-4" style="color: var(--color-subtle);">
+        <span>[FILE_ID: {Math.random().toString(36).slice(2, 6).toUpperCase()}]</span>
+        {postType && <span>[SECTOR: {postType.toUpperCase()}]</span>}
+        <span>[STATUS: READ_ONLY]</span>
       </div>
 
-      <!-- Share buttons -->
-      <ShareButtons title={title} />
+      <!-- Title with blinking cursor -->
+      <h1 class="font-display text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-6" style="color: var(--color-primary);">
+        {title}<span class="blink-cursor"></span>
+      </h1>
 
-      <!-- Series navigation -->
-      {series && seriesSlug && seriesPosts.length > 1 && (
-        <SeriesNav seriesName={series} currentSlug={seriesSlug} posts={seriesPosts} />
-      )}
+      <!-- Description -->
+      <p class="text-lg leading-relaxed mb-8" style="color: var(--color-muted);">
+        {description}
+      </p>
 
-      <!-- Newsletter -->
-      <Newsletter />
+      <!-- Author / Date / Reading time grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6 font-display text-xs uppercase tracking-tight" style="border-top: 1px solid var(--color-border);">
+        <div>
+          <p style="color: var(--color-subtle);">AUTHOR</p>
+          <p class="font-bold" style="color: var(--color-primary);">PREM</p>
+        </div>
+        <div>
+          <p style="color: var(--color-subtle);">TIMESTAMP</p>
+          <p class="font-bold" style="color: var(--color-primary);">{ts} // UTC</p>
+        </div>
+        <div>
+          <p style="color: var(--color-subtle);">READ_TIME</p>
+          <p class="font-bold" style="color: var(--color-primary);">{formatReadingTime(readingTime).toUpperCase().replace(' ', '_')}</p>
+        </div>
+      </div>
 
-      <!-- Related posts -->
-      {relatedPosts.length > 0 && <RelatedPosts posts={relatedPosts} />}
+      <!-- Tags -->
+      <div class="flex flex-wrap items-center gap-1.5 mt-6">
+        {tags.map((tag) => <TagBadge tag={tag} />)}
+      </div>
+    </section>
 
-      <!-- Footer nav -->
-      <footer class="mt-12 pt-8 border-t border-stone-200 dark:border-stone-800">
-        <a
-          href="/blog"
-          class="inline-flex items-center gap-2 text-sm text-amber-700 dark:text-amber-400 hover:underline font-medium"
-        >
-          &larr; Back to all posts
-        </a>
-      </footer>
+    <!-- ═══ ARTICLE CONTENT ═══ -->
+    <div class:list={[
+      showToC ? 'flex flex-col xl:flex-row xl:gap-16 xl:items-start' : '',
+    ]}>
 
-      <!-- Comments -->
-      <Giscus />
+      <article class="min-w-0 flex-1 max-w-2xl" data-pagefind-body>
 
-    </article>
+        <!-- Mobile ToC -->
+        {showToC && (
+          <details class="xl:hidden mb-8 overflow-hidden group ghost-border">
+            <summary class="flex items-center justify-between gap-3 px-4 py-3 cursor-pointer list-none select-none text-sm font-display font-medium transition-colors duration-150" style="color: var(--color-primary); background: var(--color-surface-low);">
+              <span class="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" style="color: #2E7D32;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h10M4 18h7"/>
+                </svg>
+                CONTENTS
+              </span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-transform duration-200 group-open:rotate-180" style="color: var(--color-subtle);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </summary>
+            <nav aria-label="Table of contents" class="px-4 pb-4 pt-1" style="background: var(--color-surface-low);">
+              <ul id="toc-mobile-list" class="space-y-0.5 text-sm">
+                <li class="text-xs italic" style="color: var(--color-subtle);">Loading…</li>
+              </ul>
+            </nav>
+          </details>
+        )}
 
-    <!-- ── Desktop ToC sidebar (sibling to article in flex row) ── -->
-    {showToC && <TableOfContents />}
+        <!-- Post body -->
+        <div class="prose-content">
+          <slot />
+        </div>
 
+        <!-- Share buttons -->
+        <ShareButtons title={title} />
+
+        <!-- Series navigation -->
+        {series && seriesSlug && seriesPosts.length > 1 && (
+          <SeriesNav seriesName={series} currentSlug={seriesSlug} posts={seriesPosts} />
+        )}
+
+        <!-- Newsletter -->
+        <Newsletter />
+
+        <!-- Related posts -->
+        {relatedPosts.length > 0 && <RelatedPosts posts={relatedPosts} />}
+
+        <!-- Footer nav -->
+        <footer class="mt-12 pt-8" style="border-top: 1px solid var(--color-border);">
+          <div class="flex gap-4">
+            <a
+              href="/blog"
+              class="px-6 py-3 font-display text-xs uppercase tracking-widest transition-all duration-200 phosphor-glow"
+              style="background: var(--color-primary); color: var(--color-bg);"
+            >
+              EXECUTE_BACK
+            </a>
+            <a
+              href="/"
+              class="px-6 py-3 font-display text-xs uppercase tracking-widest transition-all duration-200"
+              style="border: 1px solid var(--color-border); color: var(--color-primary);"
+            >
+              ROOT_HOME_
+            </a>
+          </div>
+        </footer>
+
+        <!-- Comments -->
+        <Giscus />
+
+      </article>
+
+      <!-- Desktop ToC sidebar -->
+      {showToC && <TableOfContents />}
+
+    </div>
   </div>
 </BaseLayout>
