@@ -1,13 +1,12 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-
-// Replace with your Formspree form ID from https://formspree.io
-const FORMSPREE_ID = 'xzdkoeqq';
+import { siteConfig } from '../config';
 ---
 
 <BaseLayout
   title="Contact"
   description="Get in touch with Prem — questions, collaboration ideas, or just a friendly hello."
+  jsonLd={{ '@context': 'https://schema.org', '@type': 'ContactPage', name: 'Contact', url: `${siteConfig.url}/contact` }}
 >
   <div class="max-w-2xl mx-auto px-4 sm:px-6 py-12">
 
@@ -22,7 +21,7 @@ const FORMSPREE_ID = 'xzdkoeqq';
     <!-- Contact form -->
     <form
       id="contact-form"
-      action={`https://formspree.io/f/${FORMSPREE_ID}`}
+      action={siteConfig.formspree.action}
       method="POST"
       class="space-y-6"
     >

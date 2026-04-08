@@ -25,11 +25,11 @@ interface Props {
 const {
   title,
   description = 'Solo entrepreneur in Chiang Mai building VerdeX Farm — a smart hydroponic system for commercial herb growers. Writing about entrepreneurship, technology, and building in public.',
-  lang = 'en',
+  lang = siteConfig.locale.default,
   canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
   ogType = 'website',
   pubDate,
-  ogImage,
+  ogImage = siteConfig.ogDefaultImage,
   tags = [],
   jsonLd,
 } = Astro.props;
@@ -85,7 +85,7 @@ const finalJsonLd = jsonLd || articleJsonLd;
     <ViewTransitions />
 
     <!-- Plausible Analytics -->
-    <script defer data-domain="my-blog-kohl-one.vercel.app" src="https://plausible.io/js/script.js"></script>
+    <script defer data-domain={siteConfig.domain} src="https://plausible.io/js/script.js"></script>
 
     <!-- hreflang -->
     <link rel="alternate" hreflang={lang} href={canonicalURL} />

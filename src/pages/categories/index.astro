@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { siteConfig } from '../../config';
 import { getCollection } from 'astro:content';
 
 const allPosts = (await getCollection('blog', ({ data }) => !data.draft))
@@ -31,6 +32,13 @@ const categories = [...tagMap.entries()]
 <BaseLayout
   title="Categories"
   description="Browse all topics on VerdeX."
+  jsonLd={{
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Categories',
+    url: `${siteConfig.url}/categories`,
+    isPartOf: { '@type': 'WebSite', name: siteConfig.name, url: siteConfig.url },
+  }}
 >
   <div class="max-w-2xl mx-auto px-4 sm:px-6 py-12">
 

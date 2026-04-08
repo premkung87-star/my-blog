@@ -1,12 +1,10 @@
 ---
 /**
  * Giscus comment widget — powered by GitHub Discussions.
- *
- * Setup:  https://giscus.app
- * 1. Enable Discussions on your GitHub repo
- * 2. Install the Giscus app: https://github.com/apps/giscus
- * 3. Replace the placeholder values below with your own
+ * Config sourced from src/config.ts
  */
+import { siteConfig } from '../config';
+const { repo, repoId, category, categoryId } = siteConfig.giscus;
 ---
 
 <section class="mt-12 pt-8 border-t border-stone-200 dark:border-stone-800">
@@ -14,11 +12,11 @@
   <div id="giscus-container"></div>
 </section>
 
-<script is:inline>
-  var GISCUS_REPO = 'premkung87-star/my-blog';
-  var GISCUS_REPO_ID = 'R_kgDOR7rAoQ';
-  var GISCUS_CATEGORY = 'General';
-  var GISCUS_CATEGORY_ID = 'DIC_kwDOR7rAoc4C6QtU';
+<script is:inline define:vars={{ repo, repoId, category, categoryId }}>
+  var GISCUS_REPO = repo;
+  var GISCUS_REPO_ID = repoId;
+  var GISCUS_CATEGORY = category;
+  var GISCUS_CATEGORY_ID = categoryId;
 
   function getTheme() {
     return document.documentElement.classList.contains('dark')

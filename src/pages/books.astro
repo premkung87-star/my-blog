@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../config';
 
 const books = [
   {
@@ -20,6 +21,7 @@ const books = [
 <BaseLayout
   title="Books"
   description="หนังสือที่ผมอ่านและแนะนำ — books that shaped how I think and build."
+  jsonLd={{ '@context': 'https://schema.org', '@type': 'WebPage', name: 'Bookshelf', url: `${siteConfig.url}/books` }}
 >
   <div class="max-w-2xl mx-auto px-4 sm:px-6 py-12">
     <header class="mb-10">

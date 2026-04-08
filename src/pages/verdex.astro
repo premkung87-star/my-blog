@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../config';
 
 const milestones = [
   { status: 'done',    label: 'Research & concept validation' },
@@ -15,6 +16,7 @@ const milestones = [
 <BaseLayout
   title="VerdeX"
   description="VerdeX — a smart greenhouse farm for growing Sweet Basil, powered by AI. Project status and milestones."
+  jsonLd={{ '@context': 'https://schema.org', '@type': 'WebPage', name: 'VerdeX', url: `${siteConfig.url}/verdex` }}
 >
   <div class="max-w-2xl mx-auto px-4 sm:px-6 py-12">
     <header class="mb-10">

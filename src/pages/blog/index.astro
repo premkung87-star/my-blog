@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { siteConfig } from '../../config';
 import PostCard from '../../components/PostCard.astro';
 import TagBadge from '../../components/TagBadge.astro';
 import { getCollection } from 'astro:content';
@@ -23,6 +24,14 @@ const years = Object.keys(byYear).map(Number).sort((a, b) => b - a);
 <BaseLayout
   title="Blog"
   description="All writing on entrepreneurship, hydroponics, and technology."
+  jsonLd={{
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Blog',
+    description: 'All writing on entrepreneurship, hydroponics, and technology.',
+    url: `${siteConfig.url}/blog`,
+    isPartOf: { '@type': 'WebSite', name: siteConfig.name, url: siteConfig.url },
+  }}
 >
   <div class="max-w-2xl mx-auto px-4 sm:px-6 py-12">
 
