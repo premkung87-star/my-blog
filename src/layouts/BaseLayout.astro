@@ -116,16 +116,11 @@ const finalJsonLd = jsonLd || articleJsonLd;
       <script type="application/ld+json" set:html={JSON.stringify(finalJsonLd)} />
     )}
 
-    <!-- Thai + Latin font: Sarabun from Google Fonts (subset: latin + thai) -->
+    <!-- Fonts: Space Grotesk (headlines), Plus Jakarta Sans (body), Sarabun (Thai) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&subset=latin,thai&family=JetBrains+Mono:wght@400;500;700&display=swap"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&subset=latin,thai&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Sarabun:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&subset=latin,thai&display=swap"
       rel="stylesheet"
     />
     <!--
@@ -143,7 +138,7 @@ const finalJsonLd = jsonLd || articleJsonLd;
     <slot name="head" />
   </head>
 
-  <body class="bg-[#fafafa] text-[#0f3d32] dark:bg-[#0f3d32] dark:text-[#a8d3bf] transition-colors duration-200 min-h-screen flex flex-col font-sans">
+  <body class="transition-colors duration-200 min-h-screen flex flex-col font-sans" style="background-color: var(--color-bg); color: var(--color-text);">
     <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[70] focus:px-4 focus:py-2 focus:bg-amber-600 focus:text-white focus:rounded-lg focus:text-sm focus:font-medium">
       Skip to content
     </a>

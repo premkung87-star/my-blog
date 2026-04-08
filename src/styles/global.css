@@ -2,72 +2,123 @@
 @tailwind components;
 @tailwind utilities;
 
-/* CLS prevention: size-adjusted fallback while Sarabun loads */
-@font-face {
-  font-family: 'Sarabun Fallback';
-  src: local('Arial'), local('Helvetica Neue'), local('sans-serif');
-  size-adjust: 104%;
-  ascent-override: 95%;
-  descent-override: 25%;
-  line-gap-override: 0%;
-}
-
 @layer base {
+  /* ═══════════════════════════════════════════════
+     THE ANCIENT TERMINAL — Design System Tokens
+     ═══════════════════════════════════════════════ */
   :root {
-    --color-bg: #fafafa;
-    --color-surface: theme('colors.white');
-    --color-text: theme('colors.stone.800');
-    --color-muted: theme('colors.stone.500');
-    --color-border: theme('colors.stone.200');
-    --color-accent: #0f3d32;
-    --color-accent-light: #a8d3bf;
-    --font-mono: 'JetBrains Mono', ui-monospace, 'Courier New', monospace;
+    /* Surfaces */
+    --color-bg: #FAFAFA;
+    --color-surface: #FFFFFF;
+    --color-surface-low: #F0F0EC;
+    --color-surface-high: #E8E8E4;
+
+    /* Text */
+    --color-text: #0F3D32;
+    --color-muted: #5A7A6E;
+    --color-subtle: rgba(15, 61, 50, 0.4);
+
+    /* Brand */
+    --color-primary: #0F3D32;
+    --color-secondary: #A8D3BF;
+    --color-tertiary: #2E7D32;
+    --color-border: rgba(15, 61, 50, 0.08);
+
+    /* Fonts */
+    --font-display: 'Space Grotesk', system-ui, sans-serif;
+    --font-body: 'Plus Jakarta Sans', 'Sarabun', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
   }
 
   .dark {
-    --color-bg: #0f3d32;
+    --color-bg: #0F3D32;
     --color-surface: #0a2e24;
-    --color-text: #a8d3bf;
-    --color-muted: #a8d3bf;
-    --color-border: rgba(168, 211, 191, 0.15);
-    --color-accent: #a8d3bf;
-    --color-accent-light: #0f3d32;
+    --color-surface-low: #0d3429;
+    --color-surface-high: #143d33;
+
+    --color-text: #A8D3BF;
+    --color-muted: #A8D3BF;
+    --color-subtle: rgba(168, 211, 191, 0.4);
+
+    --color-primary: #A8D3BF;
+    --color-secondary: #0F3D32;
+    --color-tertiary: #2E7D32;
+    --color-border: rgba(168, 211, 191, 0.1);
   }
 
   html {
     @apply antialiased;
   }
 
-  /* Better Thai text rendering */
   body {
+    font-family: var(--font-body);
     font-feature-settings: "kern" 1, "liga" 1;
     text-rendering: optimizeLegibility;
+    color: var(--color-text);
+    background-color: var(--color-bg);
   }
 
   /* Thai text needs more line-height */
-  [lang="th"],
-  :lang(th) {
+  [lang="th"], :lang(th) {
     line-height: 1.9;
   }
 
-  /* Smooth focus rings */
+  /* ══ ABSOLUTE SQUARENESS — 0px radius everywhere ══ */
+  *, *::before, *::after {
+    border-radius: 0 !important;
+  }
+  /* Exception: avatars and icons keep circular */
+  .avatar-circle, [data-keep-round] {
+    border-radius: 9999px !important;
+  }
+
+  /* ══ SCANLINE OVERLAY — CRT simulation ══ */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 9990;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 2px,
+      rgba(15, 61, 50, 0.015) 2px,
+      rgba(15, 61, 50, 0.015) 4px
+    );
+  }
+
+  .dark body::after {
+    background: repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 2px,
+      rgba(168, 211, 191, 0.03) 2px,
+      rgba(168, 211, 191, 0.03) 4px
+    );
+  }
+
+  /* ══ TYPOGRAPHY HIERARCHY ══ */
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  /* Focus rings — sharp, no rounded */
   :focus-visible {
-    @apply outline-2 outline-offset-2 rounded;
-    outline-color: var(--color-accent);
+    @apply outline-2 outline-offset-2;
+    outline-color: var(--color-secondary);
   }
 
   /* Code block dual-theme (Shiki) */
-  .astro-code,
-  .astro-code span {
+  .astro-code, .astro-code span {
     @apply transition-colors duration-200;
   }
-
   html.dark .astro-code[data-theme="github-light"],
   html.dark .astro-code[data-theme="github-light"] span {
     color: var(--shiki-dark) !important;
     background-color: var(--shiki-dark-bg) !important;
   }
-
   html:not(.dark) .astro-code[data-theme="github-dark"],
   html:not(.dark) .astro-code[data-theme="github-dark"] span {
     color: var(--shiki-light) !important;
@@ -76,165 +127,253 @@
 }
 
 @layer components {
-  .post-type-badge {
-    @apply inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold uppercase tracking-wide;
-    font-family: var(--font-mono);
-    background-color: rgba(15, 61, 50, 0.1);
-    color: #0f3d32;
+
+  /* ═══════════════════════════════════════════════
+     TERMINAL WINDOW — Card Component
+     ═══════════════════════════════════════════════ */
+  .terminal-window {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    position: relative;
   }
 
-  .dark .post-type-badge {
-    background-color: rgba(168, 211, 191, 0.15);
-    color: #a8d3bf;
-  }
-
-  .tag-pill {
-    @apply inline-flex items-center px-2 py-0.5 rounded text-xs font-medium
-           transition-colors duration-150 min-h-[1.5rem];
+  .terminal-header {
+    background: var(--color-primary);
+    color: var(--color-bg);
+    padding: 8px 16px;
     font-family: var(--font-mono);
     font-size: 11px;
-    letter-spacing: 0.02em;
-    color: #0f3d32;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .terminal-dots {
+    display: flex;
+    gap: 6px;
+  }
+  .terminal-dots span {
+    width: 8px;
+    height: 8px;
+    display: block;
+  }
+  .terminal-dots span:nth-child(1) { background: #ff5f57; }
+  .terminal-dots span:nth-child(2) { background: #febc2e; }
+  .terminal-dots span:nth-child(3) { background: #28c840; }
+
+  .terminal-body {
+    padding: 24px;
+  }
+
+  /* ═══════════════════════════════════════════════
+     POST TYPE BADGE
+     ═══════════════════════════════════════════════ */
+  .post-type-badge {
+    @apply inline-flex items-center px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide;
+    font-family: var(--font-mono);
+    background-color: rgba(15, 61, 50, 0.08);
+    color: var(--color-primary);
+  }
+  .dark .post-type-badge {
+    background-color: rgba(168, 211, 191, 0.1);
+    color: var(--color-primary);
+  }
+
+  /* ═══════════════════════════════════════════════
+     TAG PILL — Bracket style [TAG]
+     ═══════════════════════════════════════════════ */
+  .tag-pill {
+    @apply inline-flex items-center px-2 py-0.5 text-xs font-medium
+           transition-all duration-150 min-h-[1.5rem];
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-primary);
     background: transparent;
   }
+  .tag-pill::before { content: '['; opacity: 0.3; margin-right: 2px; }
+  .tag-pill::after  { content: ']'; opacity: 0.3; margin-left: 2px; }
 
-  .tag-pill::before {
-    content: '[';
-    opacity: 0.4;
-    margin-right: 1px;
-  }
-
-  .tag-pill::after {
-    content: ']';
-    opacity: 0.4;
-    margin-left: 1px;
-  }
-
-  .dark .tag-pill {
-    color: #a8d3bf;
-  }
+  .dark .tag-pill { color: var(--color-primary); }
 
   .tag-pill:hover {
-    background-color: rgba(15, 61, 50, 0.08);
-    text-shadow: 0 0 8px #a8d3bf;
+    background-color: rgba(15, 61, 50, 0.06);
+    box-shadow: 0 0 12px rgba(168, 211, 191, 0.15);
   }
-
   .dark .tag-pill:hover {
-    background-color: rgba(168, 211, 191, 0.1);
-    text-shadow: 0 0 8px #a8d3bf;
+    background-color: rgba(168, 211, 191, 0.08);
+    box-shadow: 0 0 12px rgba(168, 211, 191, 0.2);
   }
 
-  /* Footnote superscript links */
+  /* ═══════════════════════════════════════════════
+     SECTION LABEL — System readout style
+     ═══════════════════════════════════════════════ */
+  .section-label {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-muted);
+    margin-bottom: 24px;
+  }
+
+  /* ═══════════════════════════════════════════════
+     CODE-COMMENT DIVIDER
+     ═══════════════════════════════════════════════ */
+  .divider-comment {
+    @apply text-center py-6 select-none;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-subtle);
+  }
+
+  /* ═══════════════════════════════════════════════
+     PHOSPHOR GLOW — CRT hover effect
+     ═══════════════════════════════════════════════ */
+  .phosphor-glow {
+    transition: box-shadow 0.2s ease, text-shadow 0.2s ease;
+  }
+  .phosphor-glow:hover {
+    box-shadow: 0 0 16px rgba(168, 211, 191, 0.2);
+    text-shadow: 0 0 8px rgba(168, 211, 191, 0.4);
+  }
+
+  /* ═══════════════════════════════════════════════
+     GHOST BORDER — faint etching on glass
+     ═══════════════════════════════════════════════ */
+  .ghost-border {
+    border: 1px solid rgba(15, 61, 50, 0.06);
+  }
+  .dark .ghost-border {
+    border-color: rgba(168, 211, 191, 0.08);
+  }
+
+  /* ═══════════════════════════════════════════════
+     DOT MATRIX BACKGROUND — tech-soil texture
+     ═══════════════════════════════════════════════ */
+  .dot-matrix-bg {
+    background-image: radial-gradient(
+      circle,
+      rgba(15, 61, 50, 0.06) 1px,
+      transparent 1px
+    );
+    background-size: 12px 12px;
+  }
+  .dark .dot-matrix-bg {
+    background-image: radial-gradient(
+      circle,
+      rgba(168, 211, 191, 0.06) 1px,
+      transparent 1px
+    );
+  }
+
+  /* ═══════════════════════════════════════════════
+     CIRCUIT LINE — vertical connector for lists
+     ═══════════════════════════════════════════════ */
+  .circuit-line {
+    position: relative;
+    padding-left: 20px;
+  }
+  .circuit-line::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--color-border);
+  }
+
+  /* ═══════════════════════════════════════════════
+     BLINKING CURSOR — hero decoration
+     ═══════════════════════════════════════════════ */
+  .blink-cursor {
+    display: inline-block;
+    width: 10px;
+    height: 20px;
+    background: var(--color-secondary);
+    animation: cursor-blink 1s step-end infinite;
+    vertical-align: text-bottom;
+    margin-left: 4px;
+  }
+  @keyframes cursor-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .blink-cursor { animation: none; }
+  }
+
+  /* ═══════════════════════════════════════════════
+     PROSE CONTENT — Long-form reading
+     ═══════════════════════════════════════════════ */
   .prose-content [data-footnote-ref] {
     @apply font-semibold text-xs no-underline hover:underline align-super ml-0.5;
-    color: var(--color-accent);
+    color: var(--color-primary);
   }
 
-  /* Footnote section at bottom of post */
   .prose-content .footnotes {
-    @apply mt-12 pt-8 border-t text-sm;
-    border-color: var(--color-border);
+    @apply mt-12 pt-8 text-sm;
+    border-top: 1px solid var(--color-border);
   }
-
-  .prose-content .footnotes h2 {
-    @apply sr-only;
-  }
-
+  .prose-content .footnotes h2 { @apply sr-only; }
   .prose-content .footnotes ol {
     @apply list-decimal pl-5 space-y-2;
     color: var(--color-muted);
   }
-
-  .prose-content .footnotes li {
-    @apply pl-1;
-  }
-
+  .prose-content .footnotes li { @apply pl-1; }
   .prose-content .footnotes li:target {
-    @apply -mx-2 px-2 py-1 rounded;
-    background-color: rgba(15, 61, 50, 0.06);
+    @apply -mx-2 px-2 py-1;
+    background-color: rgba(15, 61, 50, 0.04);
   }
-
   .dark .prose-content .footnotes li:target {
-    background-color: rgba(168, 211, 191, 0.08);
+    background-color: rgba(168, 211, 191, 0.06);
   }
 
   .prose-content [data-footnote-backref] {
     @apply no-underline hover:underline ml-1;
-    color: var(--color-accent);
+    color: var(--color-primary);
   }
 
   .prose-content {
+    font-family: var(--font-body);
     @apply prose prose-stone dark:prose-invert
            prose-headings:font-semibold
            prose-a:no-underline hover:prose-a:underline
            prose-code:before:content-none prose-code:after:content-none
-           prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
-           prose-code:text-sm prose-code:font-mono
+           prose-code:px-1.5 prose-code:py-0.5
+           prose-code:text-sm
            max-w-none;
   }
 
+  .prose-content :where(h1),
+  .prose-content :where(h2),
+  .prose-content :where(h3) {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+
   .prose-content :where(a):hover {
-    text-shadow: 0 0 8px #a8d3bf;
+    text-shadow: 0 0 8px rgba(168, 211, 191, 0.3);
   }
 
   .prose-content :where(blockquote) {
-    border-left-color: var(--color-accent);
+    border-left: 3px solid var(--color-secondary);
+    font-style: italic;
   }
 
   .prose-content :where(code) {
     font-family: var(--font-mono);
-    background-color: #0f3d32;
-    color: #a8d3bf;
-    border-radius: 4px;
+    background-color: var(--color-surface-low);
+    color: var(--color-primary);
+    padding: 2px 6px;
   }
-
   .dark .prose-content :where(code) {
-    background-color: rgba(168, 211, 191, 0.12);
-    color: #a8d3bf;
-  }
-
-  /* Section labels — system style */
-  .section-label {
-    @apply font-semibold uppercase mb-6;
-    font-family: var(--font-mono);
-    font-size: 14px;
-    line-height: 1.5;
-    letter-spacing: 0.05em;
-    color: var(--color-muted);
-  }
-
-  /* Code-comment divider */
-  .divider-comment {
-    @apply text-center py-4 select-none;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--color-muted);
-    opacity: 0.5;
-  }
-
-  /* CRT / Phosphor glow — hover states & active links */
-  .neon-glow {
-    transition: text-shadow 0.2s ease;
-  }
-  .neon-glow:hover {
-    text-shadow: 0 0 8px #a8d3bf;
-  }
-
-  /* Scanline overlay for dark sections */
-  .scanline-overlay {
-    position: relative;
-  }
-  .scanline-overlay::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(
-      0deg,
-      rgba(0, 0, 0, 0.03) 0px,
-      rgba(0, 0, 0, 0.03) 1px,
-      transparent 1px,
-      transparent 3px
-    );
-    pointer-events: none;
+    background-color: rgba(168, 211, 191, 0.1);
+    color: var(--color-primary);
   }
 }
