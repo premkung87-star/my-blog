@@ -3,13 +3,13 @@ import ThemeToggle from './ThemeToggle.astro';
 import SearchModal from './SearchModal.astro';
 
 const navLinks = [
-  { href: '/blog',        label: 'Blog'       },
-  { href: '/books',       label: 'Books'      },
-  { href: '/categories',  label: 'Categories' },
-  { href: '/verdex',      label: 'VerdeX'     },
-  { href: '/now',         label: 'Now'        },
-  { href: '/about',       label: 'About'      },
-  { href: '/contact',     label: 'Contact'    },
+  { href: '/blog',        label: 'BLOG'       },
+  { href: '/books',       label: 'BOOKS'      },
+  { href: '/categories',  label: 'CATEGORIES' },
+  { href: '/verdex',      label: 'VERDEX'     },
+  { href: '/now',         label: 'NOW'        },
+  { href: '/about',       label: 'ABOUT'      },
+  { href: '/contact',     label: 'CONTACT'    },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -20,45 +20,48 @@ function isActive(href: string) {
 }
 ---
 
-<header class="sticky top-0 z-50 bg-[#fafafa]/80 dark:bg-[#0f3d32]/90 backdrop-blur-sm border-b border-stone-300/40 dark:border-[#a8d3bf]/15">
-  <div class="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+<header class="fixed top-0 w-full z-50 backdrop-blur-md" style="background: rgba(250,250,250,0.8); box-shadow: 0 4px 32px rgba(15,61,50,0.04);">
+  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
 
-    <!-- VerdeX logo -->
-    <a href="/" class="flex items-center gap-2 transition-opacity duration-150 hover:opacity-70">
-      <img src="/verdex-icon.png" alt="VerdeX" style="height: 28px; width: 28px; border-radius: 50%; object-fit: cover;" />
-      <span class="font-bold text-lg text-[#0f3d32] dark:text-[#a8d3bf]">VerdeX</span>
-    </a>
+    <!-- Logo -->
+    <div class="flex items-center gap-8">
+      <a href="/" class="flex items-center gap-3 transition-opacity duration-150 hover:opacity-70">
+        <img src="/verdex-icon.png" alt="VerdeX" class="avatar-circle" style="height: 28px; width: 28px; object-fit: cover;" />
+        <span class="font-display font-bold text-xl tracking-widest" style="color: var(--color-primary);">VERDEX_OS</span>
+      </a>
 
-    <!-- Nav + search + toggle -->
-    <div class="flex items-center gap-1">
       <!-- Desktop nav -->
-      <nav class="hidden sm:flex items-center gap-1 mr-1" aria-label="Primary navigation">
+      <nav class="hidden md:flex items-center gap-6" aria-label="Primary navigation">
         {navLinks.map(({ href, label }) => (
           <a
             href={href}
             class:list={[
-              'px-3 py-2.5 rounded-lg text-sm transition-all duration-150 min-h-[44px] inline-flex items-center neon-glow',
+              'font-display text-xs tracking-tight uppercase transition-colors duration-200 py-2',
               isActive(href)
-                ? 'font-medium'
-                : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-[#a8d3bf]',
+                ? 'border-b-2 pb-1'
+                : 'opacity-50 hover:opacity-100',
             ]}
-            style={isActive(href) ? 'color: #0f3d32; font-family: var(--font-mono);' : 'font-family: var(--font-mono); font-size: 13px;'}
+            style={isActive(href) ? 'color: #2E7D32; border-color: #2E7D32;' : 'color: var(--color-primary);'}
           >
             {label}
           </a>
         ))}
       </nav>
+    </div>
+
+    <!-- Right side -->
+    <div class="flex items-center gap-2">
       <SearchModal />
       <ThemeToggle />
-      <!-- Mobile hamburger -->
+      <!-- Mobile menu button -->
       <button
         id="mobile-menu-btn"
-        class="sm:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg text-stone-600 dark:text-stone-400 hover:bg-stone-200 dark:hover:bg-stone-800 transition-colors duration-150"
+        class="md:hidden p-2 transition-colors duration-200 hover:bg-[#A8D3BF]/10"
         aria-label="Open menu"
         aria-expanded="false"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 6h16M4 12h16M4 18h16"/>
         </svg>
       </button>
     </div>
@@ -66,29 +69,28 @@ function isActive(href: string) {
   </div>
 </header>
 
-<!-- Fullscreen mobile menu overlay -->
-<div id="mobile-menu" class="mobile-menu-overlay scanline-overlay" aria-hidden="true">
+<!-- Dark mode header override -->
+<style>
+  :global(.dark) header {
+    background: rgba(15, 61, 50, 0.85) !important;
+    box-shadow: none !important;
+  }
+</style>
+
+<!-- Fullscreen mobile menu -->
+<div id="mobile-menu" class="mobile-menu-overlay" aria-hidden="true">
   <div class="mobile-menu-inner">
-    <!-- Close button -->
-    <button id="mobile-menu-close" class="absolute top-4 right-4 w-10 h-10 flex items-center justify-center" aria-label="Close menu" style="color: #a8d3bf;">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-      </svg>
+    <button id="mobile-menu-close" class="absolute top-5 right-5 p-2" aria-label="Close menu" style="color: #A8D3BF;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     </button>
 
-    <!-- Terminal header -->
-    <p class="text-xs mb-8" style="font-family: var(--font-mono); color: #a8d3bf; opacity: 0.5;">
-      // navigation
-    </p>
+    <p class="font-mono text-[10px] tracking-[0.3em] mb-10 uppercase" style="color: #A8D3BF; opacity: 0.4;">// NAVIGATION_MENU</p>
 
-    <nav class="flex flex-col gap-1" aria-label="Mobile navigation">
+    <nav class="flex flex-col gap-0" aria-label="Mobile navigation">
       {navLinks.map(({ href, label }, i) => (
         <a
           href={href}
-          class:list={[
-            'mobile-nav-link',
-            isActive(href) ? 'active' : '',
-          ]}
+          class:list={['mobile-nav-link', isActive(href) ? 'active' : '']}
         >
           <span class="nav-index">{String(i + 1).padStart(2, '0')}</span>
           <span>{label}</span>
@@ -96,10 +98,11 @@ function isActive(href: string) {
       ))}
     </nav>
 
-    <!-- Bottom info -->
-    <p class="absolute bottom-8 left-6 text-xs" style="font-family: var(--font-mono); color: #a8d3bf; opacity: 0.3;">
-      VerdeX — Chiang Mai, Thailand
-    </p>
+    <div class="absolute bottom-8 left-8">
+      <p class="font-mono text-[10px] tracking-widest uppercase" style="color: #A8D3BF; opacity: 0.25;">
+        VERDEX_OS v1.0 // CHIANG_MAI
+      </p>
+    </div>
   </div>
 </div>
 
@@ -108,53 +111,46 @@ function isActive(href: string) {
     position: fixed;
     inset: 0;
     z-index: 100;
-    background-color: #0f3d32;
+    background-color: #0F3D32;
     display: none;
     opacity: 0;
     transition: opacity 0.25s ease;
   }
-
   .mobile-menu-overlay.open {
     display: block;
     opacity: 1;
   }
-
   .mobile-menu-inner {
     position: relative;
-    padding: 60px 24px;
+    padding: 72px 32px;
     height: 100%;
   }
-
   .mobile-nav-link {
     display: flex;
     align-items: center;
     gap: 16px;
-    padding: 12px 0;
-    font-family: var(--font-mono);
-    font-size: 20px;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.7);
+    padding: 14px 0;
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: rgba(255, 255, 255, 0.6);
     text-decoration: none;
     transition: color 0.15s ease;
-    border-bottom: 1px solid rgba(168, 211, 191, 0.1);
+    border-bottom: 1px solid rgba(168, 211, 191, 0.08);
   }
-
-  .mobile-nav-link:hover,
-  .mobile-nav-link.active {
-    color: #a8d3bf;
+  .mobile-nav-link:hover, .mobile-nav-link.active {
+    color: #A8D3BF;
   }
-
   .nav-index {
-    font-size: 12px;
-    color: #a8d3bf;
-    opacity: 0.4;
-    min-width: 20px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: #2E7D32;
+    opacity: 0.5;
+    min-width: 24px;
   }
-
-  @media (min-width: 640px) {
-    .mobile-menu-overlay {
-      display: none !important;
-    }
+  @media (min-width: 768px) {
+    .mobile-menu-overlay { display: none !important; }
   }
 </style>
 
@@ -172,7 +168,6 @@ function isActive(href: string) {
       btn.setAttribute('aria-expanded', 'true');
       document.body.style.overflow = 'hidden';
     }
-
     function close() {
       menu.classList.remove('open');
       menu.setAttribute('aria-hidden', 'true');
@@ -183,7 +178,6 @@ function isActive(href: string) {
 
     btn.addEventListener('click', open);
     closeBtn.addEventListener('click', close);
-
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && menu.classList.contains('open')) close();
     });

@@ -3,81 +3,122 @@ import { siteConfig } from '../config';
 const year = new Date().getFullYear();
 ---
 
-<footer class="border-t border-stone-200 dark:border-stone-800 mt-16">
-  <div class="max-w-3xl mx-auto px-4 sm:px-6 py-8 text-sm text-stone-400 dark:text-stone-500">
+<footer style="background-color: #0F3D32; color: #FAFAFA;" class="mt-16">
+  <div class="max-w-7xl mx-auto px-8 pt-16 pb-12">
 
-    <!-- Newsletter -->
-    <div class="mb-8 pb-8 border-b border-stone-200 dark:border-stone-800">
-      <p class="font-medium text-stone-500 dark:text-stone-400 mb-2">Subscribe to VerdeX Notes</p>
-      <p class="text-xs text-stone-400 dark:text-stone-500 mb-3">
-        บทความใหม่ตรงถึง inbox — no spam, unsubscribe anytime.
-      </p>
-      <form
-        action={siteConfig.buttondown.action}
-        method="post"
-        class="flex flex-col sm:flex-row gap-2 max-w-md"
-      >
-        <label for="bd-email-footer" class="sr-only">Email</label>
-        <input
-          type="email"
-          name="email"
-          id="bd-email-footer"
-          required
-          placeholder="you@example.com"
-          class="flex-1 px-3 py-2 rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100 text-sm placeholder-stone-400 dark:placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-[#0f3d32]/40 min-h-[44px]"
-        />
-        <button
-          type="submit"
-          class="neon-glow px-5 py-2 rounded-xl text-[#fafafa] text-sm font-medium transition-all duration-200 hover:opacity-90 min-h-[44px] bg-[#0f3d32] dark:bg-[#a8d3bf] dark:text-[#0f3d32]"
-          style="font-family: var(--font-mono);"
+    <!-- Newsletter section -->
+    <div class="mb-16 pb-12" style="border-bottom: 1px solid rgba(168,211,191,0.1);">
+      <div class="max-w-2xl mx-auto text-center space-y-6">
+        <span class="font-display text-[10px] tracking-[0.4em] uppercase" style="color: #2E7D32;">SYSTEM_CONNECTION</span>
+        <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tighter uppercase leading-tight">
+          REQUEST_ACCESS_TO<br/>THE_INNER_LOOP
+        </h2>
+        <p class="text-sm" style="color: rgba(168,211,191,0.7);">
+          บทความใหม่ตรงถึง inbox — no noise, just signal.
+        </p>
+        <form
+          action={siteConfig.buttondown.action}
+          method="post"
+          class="flex flex-col sm:flex-row items-end gap-4 pt-4 max-w-lg mx-auto"
         >
-          Subscribe
-        </button>
-      </form>
+          <div class="flex-grow w-full text-left">
+            <label for="bd-email-footer" class="font-display text-[10px] tracking-widest uppercase block mb-2" style="color: rgba(250,250,250,0.5);">
+              USER_IDENTIFICATION (EMAIL)
+            </label>
+            <div class="flex items-center font-display text-lg" style="border-bottom: 2px solid #2E7D32; padding: 8px 0;">
+              <span class="mr-3" style="color: #2E7D32;">&gt;</span>
+              <input
+                type="email"
+                name="email"
+                id="bd-email-footer"
+                required
+                placeholder="YOU@TERMINAL.IO"
+                class="bg-transparent border-none p-0 text-white w-full placeholder:opacity-20 focus:ring-0 focus:outline-none"
+                style="font-family: var(--font-display); font-size: 14px; letter-spacing: 0.05em;"
+              />
+            </div>
+          </div>
+          <button
+            type="submit"
+            class="w-full sm:w-auto px-8 py-3 font-display font-bold uppercase tracking-widest text-xs transition-all duration-200 hover:opacity-90"
+            style="background-color: #2E7D32; color: #0F3D32;"
+          >
+            SUBMIT
+          </button>
+        </form>
+      </div>
     </div>
 
-    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+    <!-- Footer grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
 
-      <!-- Left: identity -->
-      <div>
-        <p class="font-medium text-stone-500 dark:text-stone-400 mb-1">VerdeX</p>
-        <p class="text-xs leading-relaxed max-w-xs">
-          Smart greenhouse farm for growing Sweet Basil, powered by AI.
-          Based in Chiang Mai, Thailand.
+      <div class="space-y-4">
+        <h4 class="font-display text-[11px] tracking-[0.25em] font-bold uppercase" style="color: #2E7D32;">SYSTEM_MANIFESTO</h4>
+        <p class="text-xs leading-relaxed" style="color: rgba(168,211,191,0.5);">
+          VerdeX is an experimental node — synthesizing analog wisdom with digital precision.
+          Smart farming powered by AI, rooted in Chiang Mai.
         </p>
       </div>
 
-      <!-- Right: links -->
-      <div class="flex flex-col items-start sm:items-end gap-3">
-        <!-- Site links -->
-        <nav class="flex items-center gap-3 flex-wrap" aria-label="Site links">
-          <a href="/blog" class="hover:text-stone-700 dark:hover:text-stone-300 transition-colors duration-150 py-2 inline-block">
-            Blog
-          </a>
-          <a href="/books" class="hover:text-stone-700 dark:hover:text-stone-300 transition-colors duration-150 py-2 inline-block">
-            Books
-          </a>
-          <a href="/categories" class="hover:text-stone-700 dark:hover:text-stone-300 transition-colors duration-150 py-2 inline-block">
-            Categories
-          </a>
-          <a href="/about" class="hover:text-stone-700 dark:hover:text-stone-300 transition-colors duration-150 py-2 inline-block">
-            About
-          </a>
-          <a href="/contact" class="hover:text-stone-700 dark:hover:text-stone-300 transition-colors duration-150 py-2 inline-block">
-            Contact
-          </a>
-          <a href="/rss.xml" class="hover:text-stone-700 dark:hover:text-stone-300 transition-colors duration-150 py-2 inline-block">
-            RSS
-          </a>
-          <a href="/sitemap-index.xml" class="hover:text-stone-700 dark:hover:text-stone-300 transition-colors duration-150 py-2 inline-block">
-            Sitemap
-          </a>
-        </nav>
+      <div class="space-y-4">
+        <h4 class="font-display text-[11px] tracking-[0.25em] font-bold uppercase" style="color: #2E7D32;">NAVIGATION</h4>
+        <ul class="font-display text-[10px] tracking-widest uppercase space-y-3">
+          {[
+            { href: '/blog', label: 'ARCHIVE' },
+            { href: '/rss.xml', label: 'RSS_FEED' },
+            { href: '/books', label: 'BOOKSHELF' },
+            { href: '/sitemap-index.xml', label: 'SITEMAP' },
+          ].map(({ href, label }) => (
+            <li>
+              <a href={href} class="footer-nav-link transition-all duration-200" style="color: rgba(250,250,250,0.35);">
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="space-y-4">
+        <h4 class="font-display text-[11px] tracking-[0.25em] font-bold uppercase" style="color: #2E7D32;">SYSTEM_STATS</h4>
+        <div class="font-mono text-[10px] tracking-widest uppercase space-y-2" style="color: rgba(168,211,191,0.35);">
+          <div class="flex justify-between"><span>UPTIME</span><span>99.9%</span></div>
+          <div class="flex justify-between"><span>STACK</span><span>ASTRO_4</span></div>
+          <div class="flex justify-between"><span>DEPLOY</span><span>VERCEL</span></div>
+          <div class="flex justify-between"><span>KERNEL</span><span>v1.0</span></div>
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <h4 class="font-display text-[11px] tracking-[0.25em] font-bold uppercase" style="color: #2E7D32;">ESTABLISH_LINK</h4>
+        <p class="text-xs leading-relaxed" style="color: rgba(168,211,191,0.5);">
+          Transmit inquiries directly to the primary node.
+        </p>
+        <a href="/contact" class="font-display text-[10px] tracking-widest uppercase underline underline-offset-4" style="color: #2E7D32;">
+          CONTACT_FORM
+        </a>
       </div>
 
     </div>
 
-    <p class="mt-6 text-xs">&copy; {year} VerdeX · Chiang Mai, Thailand</p>
+    <!-- Bottom bar -->
+    <div class="flex flex-col md:flex-row justify-between items-center gap-4 pt-8" style="border-top: 1px solid rgba(168,211,191,0.1);">
+      <span class="font-display text-[10px] tracking-widest uppercase" style="color: rgba(250,250,250,0.3);">
+        &copy; {year} VERDEX // SYSTEM_ID: TERMINAL_01
+      </span>
+      <div class="flex gap-6">
+        <span class="font-mono text-[10px] uppercase tracking-widest" style="color: rgba(46,125,50,0.4);">STATUS: NOMINAL</span>
+        <span class="font-mono text-[10px] uppercase tracking-widest" style="color: #2E7D32;">LOC: CHIANG_MAI</span>
+      </div>
+    </div>
 
   </div>
 </footer>
+
+<style>
+  .footer-nav-link:hover {
+    color: #A8D3BF !important;
+  }
+  .footer-nav-link:hover::before {
+    content: '> ';
+  }
+</style>
