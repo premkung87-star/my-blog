@@ -6,7 +6,6 @@ import { getCollection } from 'astro:content';
 const allPosts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-// Build a map: tag slug → { label, count, latestDate }
 const tagMap = new Map<string, { label: string; count: number; latestDate: Date }>();
 
 for (const post of allPosts) {
@@ -23,7 +22,6 @@ for (const post of allPosts) {
   }
 }
 
-// Sort by post count descending
 const categories = [...tagMap.entries()]
   .map(([slug, data]) => ({ slug, ...data }))
   .sort((a, b) => b.count - a.count);
@@ -40,64 +38,56 @@ const categories = [...tagMap.entries()]
     isPartOf: { '@type': 'WebSite', name: siteConfig.name, url: siteConfig.url },
   }}
 >
-  <div class="max-w-2xl mx-auto px-4 sm:px-6 py-12">
+  <div class="pt-20 max-w-5xl mx-auto px-6 py-12 md:py-24">
 
-    <!-- Page header -->
-    <div class="mb-10">
-      <h1 class="text-3xl font-bold text-stone-900 dark:text-stone-50 mb-2">Categories</h1>
-      <p class="text-stone-500 dark:text-stone-400">
-        {categories.length} {categories.length === 1 ? 'topic' : 'topics'} · {allPosts.length} posts total
-      </p>
+    <!-- Terminal header -->
+    <div class="font-mono text-[10px] tracking-widest uppercase mb-2" style="color: var(--color-subtle);">
+      // sys_path: root / categories / {categories.length}_ENTRIES_FOUND
     </div>
 
-    <!-- Category cards grid -->
+    <h1 class="font-display text-4xl sm:text-5xl font-bold tracking-tighter uppercase leading-none mb-4" style="color: var(--color-primary);">
+      CATEGORIES_INDEX<span class="blink-cursor"></span>
+    </h1>
+
+    <p class="font-mono text-xs mb-12" style="color: var(--color-subtle);">
+      // Browse all categorized tags. {allPosts.length} total entries indexed.
+    </p>
+
+    <!-- Category grid -->
     {categories.length > 0 ? (
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {categories.map(({ slug, label, count, latestDate }) => {
-          const formattedDate = latestDate.toLocaleDateString('en-GB', {
-            day: 'numeric',
-            month: 'short',
-            year: 'numeric',
-          });
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0" style="border-left: 1px solid var(--color-border);">
+        {categories.map(({ slug, label, count, latestDate }, i) => {
+          const ts = latestDate.toISOString().split('T')[0].replace(/-/g, '.');
           return (
             <a
               href={`/tags/${slug}`}
-              class="group relative bg-white dark:bg-stone-900 rounded-xl border border-stone-200 dark:border-stone-800 p-6 hover:border-amber-300 dark:hover:border-amber-700 transition-all duration-200 hover:shadow-md hover:shadow-amber-100/50 dark:hover:shadow-amber-900/20 flex flex-col gap-3"
+              class="group p-8 transition-all duration-200 hover:translate-x-1"
+              style={`border-right: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); background: var(--color-surface);`}
             >
-              <!-- Tag label -->
-              <div class="flex items-start justify-between gap-2">
-                <span class="tag-pill">
-                  {label}
+              <div class="flex justify-between items-start mb-6">
+                <span class="font-mono text-[10px] tracking-widest uppercase" style="color: var(--color-subtle);">
+                  LOG_{String(i + 1).padStart(3, '0')}
                 </span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="w-4 h-4 text-stone-300 dark:text-stone-700 group-hover:text-amber-400 dark:group-hover:text-amber-600 transition-colors duration-150 flex-shrink-0 mt-1"
-                  fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
-                >
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
-                </svg>
+                <span class="font-mono text-[10px] tracking-widest" style="color: #2E7D32;">
+                  {count} {count === 1 ? 'ENTRY' : 'ENTRIES'}
+                </span>
               </div>
 
-              <!-- Post count -->
-              <p class="text-2xl font-bold text-stone-900 dark:text-stone-50 leading-none">
-                {count}
-                <span class="text-sm font-normal text-stone-400 dark:text-stone-500 ml-1">
-                  {count === 1 ? 'post' : 'posts'}
-                </span>
-              </p>
+              <h2 class="font-display text-xl font-bold uppercase tracking-tight mb-3 transition-colors duration-200 group-hover:text-[#2E7D32]" style="color: var(--color-primary);">
+                {label.toUpperCase().replace(/\s+/g, '_')}
+              </h2>
 
-              <!-- Latest post date -->
-              <p class="text-xs text-stone-400 dark:text-stone-500">
-                Latest: {formattedDate}
-              </p>
+              <div class="font-mono text-[10px] tracking-widest uppercase" style="color: var(--color-subtle);">
+                LATEST: {ts}
+              </div>
             </a>
           );
         })}
       </div>
     ) : (
-      <p class="text-stone-400 dark:text-stone-500 text-center py-16">
-        No categories yet — check back soon.
-      </p>
+      <div class="p-8" style="background: var(--color-surface-low);">
+        <p class="font-mono text-sm" style="color: var(--color-subtle);">NO_CATEGORIES_FOUND // Write your first post to create categories.</p>
+      </div>
     )}
 
   </div>

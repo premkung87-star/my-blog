@@ -4,47 +4,40 @@ import { siteConfig } from '../config';
 
 const milestones = [
   { status: 'done',    label: 'Research & concept validation' },
-  { status: 'done',    label: 'Sensor selection (temp, humidity, soil moisture, light)' },
+  { status: 'done',    label: 'Sensor selection (temp, humidity, soil, light)' },
   { status: 'done',    label: 'AI decision engine architecture' },
-  { status: 'current', label: 'Greenhouse prototype build in Chiang Mai' },
-  { status: 'next',    label: 'First Sweet Basil grow cycle with AI control' },
+  { status: 'current', label: 'Greenhouse prototype build' },
+  { status: 'next',    label: 'First Sweet Basil grow cycle with AI' },
   { status: 'next',    label: 'Yield data collection & optimization' },
   { status: 'next',    label: 'B2B pilot with local farms' },
 ];
+
+const techStack = ['AI/ML', 'IoT_Sensors', 'Temperature', 'Humidity', 'Soil_Moisture', 'Light', 'Auto_Control', 'Data_Analytics'];
 ---
 
 <BaseLayout
   title="VerdeX"
-  description="VerdeX — a smart greenhouse farm for growing Sweet Basil, powered by AI. Project status and milestones."
+  description="VerdeX — a smart greenhouse farm for growing Sweet Basil, powered by AI."
   jsonLd={{ '@context': 'https://schema.org', '@type': 'WebPage', name: 'VerdeX', url: `${siteConfig.url}/verdex` }}
 >
-  <div class="max-w-2xl mx-auto px-4 sm:px-6 py-12">
-    <header class="mb-10">
-      <div class="flex items-center gap-3 mb-4">
-        <img src="/verdex-icon.png" alt="" style="width: 48px; height: 48px; border-radius: 50%;" />
-        <div>
-          <h1 class="text-3xl font-bold text-stone-900 dark:text-stone-50">VerdeX</h1>
-          <p class="text-sm text-stone-500 dark:text-stone-400">Smart Greenhouse Farm</p>
-        </div>
-      </div>
-      <p class="text-stone-600 dark:text-stone-400 leading-relaxed" lang="th">
-        ฟาร์ม Sweet Basil อัจฉริยะที่ควบคุมด้วย AI ผ่าน Sensor ต่างๆ
-        เพื่อให้ได้ผลผลิตสูงสุดโดยอัตโนมัติ
-      </p>
-      <p class="text-stone-500 dark:text-stone-400 text-sm mt-2">
-        A smart Sweet Basil farm powered by AI, using sensors to automate
-        farm management for maximum yield.
-      </p>
-    </header>
+  <div class="pt-20 max-w-5xl mx-auto px-6 py-12 md:py-24">
 
-    <!-- Tech Stack -->
-    <section class="mb-10">
-      <h2 class="text-xs font-semibold uppercase tracking-widest text-stone-400 dark:text-stone-500 mb-4">
-        Tech Stack
-      </h2>
+    <div class="font-mono text-[10px] tracking-widest uppercase mb-2" style="color: var(--color-subtle);">
+      // verdex / project_status
+    </div>
+    <h1 class="font-display text-4xl sm:text-5xl font-bold tracking-tighter uppercase leading-none mb-4" style="color: var(--color-primary);">
+      VERDEX_SYSTEM<span class="blink-cursor"></span>
+    </h1>
+    <p class="text-sm mb-12" style="color: var(--color-muted);">
+      Smart greenhouse farm for Sweet Basil — AI-powered, sensor-automated. Chiang Mai, Thailand.
+    </p>
+
+    <!-- Tech stack -->
+    <section class="mb-16">
+      <h2 class="font-display text-sm tracking-[0.2em] font-bold uppercase mb-6" style="color: var(--color-primary);">TECHNICAL_NODES</h2>
       <div class="flex flex-wrap gap-2">
-        {['AI/ML', 'IoT Sensors', 'Temperature', 'Humidity', 'Soil Moisture', 'Light Sensor', 'Automated Control', 'Data Analytics'].map((tech) => (
-          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-stone-100 text-stone-600 dark:bg-stone-800 dark:text-stone-400">
+        {techStack.map((tech) => (
+          <span class="font-mono text-[10px] uppercase tracking-widest px-3 py-1.5" style="color: #2E7D32; background: rgba(46,125,50,0.06); border: 1px solid rgba(46,125,50,0.15);">
             {tech}
           </span>
         ))}
@@ -52,33 +45,37 @@ const milestones = [
     </section>
 
     <!-- Milestones -->
-    <section class="mb-10">
-      <h2 class="text-xs font-semibold uppercase tracking-widest text-stone-400 dark:text-stone-500 mb-4">
-        Milestones
-      </h2>
-      <div class="flex flex-col gap-0">
+    <section class="mb-16">
+      <h2 class="font-display text-sm tracking-[0.2em] font-bold uppercase mb-6" style="color: var(--color-primary);">EXECUTION_TIMELINE</h2>
+
+      <div class="space-y-0">
         {milestones.map((m, i) => (
-          <div class="flex items-start gap-3 relative">
+          <div class="flex items-start gap-4 relative">
             {/* Vertical line */}
             {i < milestones.length - 1 && (
-              <div class="absolute left-[9px] top-5 bottom-0 w-px bg-stone-200 dark:bg-stone-700" />
+              <div class="absolute left-[7px] top-5 bottom-0 w-px" style="background: var(--color-border);"></div>
             )}
-            {/* Dot */}
+            {/* Node */}
             <div class:list={[
-              'w-[19px] h-[19px] rounded-full flex-shrink-0 mt-0.5 border-2 relative z-10',
-              m.status === 'done' ? 'bg-green-500 border-green-500' :
-              m.status === 'current' ? 'bg-amber-500 border-amber-500 animate-pulse' :
-              'bg-stone-200 dark:bg-stone-700 border-stone-300 dark:border-stone-600',
-            ]} />
+              'w-[15px] h-[15px] flex-shrink-0 mt-1 relative z-10',
+              m.status === 'current' ? 'animate-pulse' : '',
+            ]} style={
+              m.status === 'done' ? 'background: #2E7D32;' :
+              m.status === 'current' ? 'background: var(--color-secondary); box-shadow: 0 0 12px rgba(168,211,191,0.4);' :
+              'background: var(--color-border);'
+            }></div>
             <p class:list={[
-              'text-sm pb-6',
-              m.status === 'done' ? 'text-stone-500 dark:text-stone-400 line-through' :
-              m.status === 'current' ? 'text-stone-900 dark:text-stone-50 font-medium' :
-              'text-stone-400 dark:text-stone-500',
-            ]}>
+              'font-display text-sm pb-6 uppercase tracking-tight',
+              m.status === 'done' ? 'line-through' : '',
+              m.status === 'current' ? 'font-bold' : '',
+            ]} style={
+              m.status === 'done' ? 'color: var(--color-subtle);' :
+              m.status === 'current' ? 'color: var(--color-primary);' :
+              'color: var(--color-subtle);'
+            }>
               {m.label}
               {m.status === 'current' && (
-                <span class="ml-2 text-xs text-amber-600 dark:text-amber-400 font-normal">← current</span>
+                <span class="font-mono text-[10px] ml-2 tracking-widest" style="color: #2E7D32;">← ACTIVE</span>
               )}
             </p>
           </div>
@@ -88,12 +85,11 @@ const milestones = [
 
     <!-- Location -->
     <section>
-      <h2 class="text-xs font-semibold uppercase tracking-widest text-stone-400 dark:text-stone-500 mb-4">
-        Location
-      </h2>
-      <p class="text-sm text-stone-600 dark:text-stone-400">
-        Chiang Mai, Thailand 🇹🇭
+      <h2 class="font-display text-sm tracking-[0.2em] font-bold uppercase mb-4" style="color: var(--color-primary);">DEPLOY_LOCATION</h2>
+      <p class="font-mono text-xs uppercase tracking-widest" style="color: var(--color-subtle);">
+        CHIANG_MAI // THAILAND // 18.7883°N, 98.9853°E
       </p>
     </section>
+
   </div>
 </BaseLayout>

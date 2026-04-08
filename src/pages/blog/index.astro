@@ -11,7 +11,6 @@ const allPosts = (await getCollection('blog', ({ data }) => !data.draft))
 
 const allTags = [...new Set(allPosts.flatMap((p) => p.data.tags))].sort();
 
-// Group posts by year for the timeline feel
 const byYear: Record<number, typeof allPosts> = {};
 for (const post of allPosts) {
   const y = post.data.pubDate.getFullYear();
@@ -33,31 +32,38 @@ const years = Object.keys(byYear).map(Number).sort((a, b) => b - a);
     isPartOf: { '@type': 'WebSite', name: siteConfig.name, url: siteConfig.url },
   }}
 >
-  <div class="max-w-2xl mx-auto px-4 sm:px-6 py-12">
+  <div class="pt-20 max-w-5xl mx-auto px-6 py-12 md:py-24">
 
-    <!-- Page header -->
-    <div class="mb-10">
-      <h1 class="text-3xl font-bold text-stone-900 dark:text-stone-50 mb-2">Blog</h1>
-      <p class="text-stone-500 dark:text-stone-400">
-        {allPosts.length} {allPosts.length === 1 ? 'post' : 'posts'} · honest notes from the process
-      </p>
+    <!-- Terminal header -->
+    <div class="font-mono text-[10px] tracking-widest uppercase mb-2" style="color: var(--color-subtle);">
+      // archive / {allPosts.length}_ENTRIES_INDEXED
     </div>
 
-    <!-- Tag filter row -->
+    <h1 class="font-display text-4xl sm:text-5xl font-bold tracking-tighter uppercase leading-none mb-4" style="color: var(--color-primary);">
+      DATA_ARCHIVE<span class="blink-cursor"></span>
+    </h1>
+
+    <p class="font-mono text-xs mb-8" style="color: var(--color-subtle);">
+      // Chronological audit log. {allPosts.length} {allPosts.length === 1 ? 'entry' : 'entries'}.
+    </p>
+
+    <!-- Tag filter -->
     {allTags.length > 0 && (
-      <div class="flex flex-wrap gap-2 mb-8">
+      <div class="flex flex-wrap gap-2 mb-12">
         {allTags.map((tag) => <TagBadge tag={tag} />)}
       </div>
     )}
 
-    <!-- Posts grouped by year -->
+    <!-- Posts by year -->
     {years.map((year) => (
-      <section class="mb-10">
-        <h2 class="text-xs font-semibold uppercase tracking-widest text-stone-400 dark:text-stone-500 mb-4 flex items-center gap-3">
-          {year}
-          <span class="flex-1 border-t border-stone-200 dark:border-stone-800"></span>
-        </h2>
-        <div class="flex flex-col gap-4">
+      <section class="mb-12">
+        <div class="flex items-center gap-4 mb-4">
+          <h2 class="font-display text-sm tracking-[0.2em] font-bold uppercase" style="color: var(--color-primary);">
+            SECTOR_{year}
+          </h2>
+          <div class="h-px flex-grow" style="background: var(--color-border);"></div>
+        </div>
+        <div class="space-y-4">
           {byYear[year].map((post) => (
             <PostCard
               slug={post.slug}
@@ -74,9 +80,11 @@ const years = Object.keys(byYear).map(Number).sort((a, b) => b - a);
     ))}
 
     {allPosts.length === 0 && (
-      <p class="text-stone-400 dark:text-stone-500 text-center py-16">
-        No posts yet — check back soon.
-      </p>
+      <div class="p-8" style="background: var(--color-surface-low);">
+        <p class="font-mono text-sm" style="color: var(--color-subtle);">
+          NO_ENTRIES_FOUND // Write your first post to populate the archive.
+        </p>
+      </div>
     )}
 
   </div>

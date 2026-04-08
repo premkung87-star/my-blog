@@ -8,12 +8,8 @@ const personJsonLd = {
   name: siteConfig.author,
   url: `${siteConfig.url}/about`,
   jobTitle: 'Solo Entrepreneur',
-  description: 'Building VerdeX Farm — a smart hydroponic system for commercial herb growers. Writing about entrepreneurship, hydroponics, and technology.',
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: 'Chiang Mai',
-    addressCountry: 'TH',
-  },
+  description: 'Building VerdeX Farm — a smart hydroponic system for commercial herb growers.',
+  address: { '@type': 'PostalAddress', addressLocality: 'Chiang Mai', addressCountry: 'TH' },
 };
 ---
 
@@ -22,77 +18,77 @@ const personJsonLd = {
   description="I'm Prem — a solo entrepreneur in Chiang Mai, Thailand, building VerdeX Farm and writing about the journey."
   jsonLd={personJsonLd}
 >
-  <div class="max-w-2xl mx-auto px-4 sm:px-6 py-12">
+  <div class="pt-20 max-w-5xl mx-auto px-6 py-12 md:py-24">
 
-    <!-- Header -->
-    <div class="mb-10">
-      <div class="flex items-start gap-4 mb-6">
-        <div class="flex-shrink-0">
-          <img src="/verdex-icon.png" alt="VerdeX" style="width: 64px; height: 64px; border-radius: 50%;" />
+    <!-- Terminal header -->
+    <div class="font-mono text-[10px] tracking-widest uppercase mb-6" style="color: var(--color-subtle);">
+      // about / user_profile
+    </div>
+
+    <!-- Hero section -->
+    <div class="flex flex-col md:flex-row gap-8 mb-16">
+      <div class="md:w-1/3 flex flex-col items-center md:items-start">
+        <div class="w-32 h-32 mb-4 relative" style="background: var(--color-primary);">
+          <img src="/verdex-icon.png" alt="Prem" class="w-full h-full object-contain p-4 opacity-60" style="mix-blend-mode: screen;" />
+          <div class="absolute top-2 left-2 font-mono text-[8px] uppercase tracking-widest" style="color: #2E7D32;">SYSTEM_ID</div>
         </div>
-        <div>
-          <h1 class="text-3xl font-bold text-stone-900 dark:text-stone-50 mb-1">เปรม / Prem</h1>
-          <p class="text-stone-500 dark:text-stone-400">Solo Entrepreneur · Chiang Mai, Thailand</p>
+        <span class="font-mono text-[10px] tracking-widest uppercase" style="color: var(--color-subtle);">STATUS: ACTIVE</span>
+      </div>
+
+      <div class="md:w-2/3">
+        <h1 class="font-display text-5xl md:text-7xl font-bold tracking-tighter uppercase leading-none mb-4" style="color: var(--color-primary);">
+          PREM<span class="blink-cursor"></span>
+        </h1>
+        <p class="font-display text-sm tracking-wide mb-8" style="color: var(--color-muted);">
+          Solo entrepreneur, builder, writer.
+        </p>
+
+        <div class="prose-content">
+          <p lang="th">
+            สวัสดีครับ ผมชื่อเปรม กำลังสร้าง VerdeX —
+            ฟาร์ม Sweet Basil อัจฉริยะที่ควบคุมด้วย AI
+            ผ่าน Sensor ต่างๆ เพื่อให้ฟาร์มดูแลตัวเองได้
+            ตั้งอยู่ที่เชียงใหม่ ประเทศไทย
+          </p>
+          <p>
+            Hi, I'm Prem. I'm building VerdeX — a smart Sweet Basil farm powered by AI,
+            using sensors to automate farm management. Based in Chiang Mai, Thailand.
+          </p>
         </div>
       </div>
     </div>
 
-    <!-- Bio content -->
-    <div class="prose-content">
-      <p lang="th">
-        สวัสดีครับ ผมชื่อเปรม กำลังสร้าง VerdeX —
-        ฟาร์ม Sweet Basil อัจฉริยะที่ควบคุมด้วย AI
-        ผ่าน Sensor ต่างๆ เพื่อให้ฟาร์มดูแลตัวเองได้
-        ตั้งอยู่ที่เชียงใหม่ ประเทศไทย
-      </p>
+    <!-- Why I write -->
+    <section class="mb-16 p-8" style="background: var(--color-surface-low); border-left: 4px solid var(--color-primary);">
+      <h2 class="font-display text-xl font-bold uppercase tracking-widest mb-6" style="color: var(--color-primary);">WHY_I_WRITE</h2>
+      <div class="prose-content">
+        <p lang="th">
+          ผมเชื่อในสิ่งพื้นฐานสองอย่างที่ทำให้คนเก่งขึ้น คือ การอ่าน และ การเขียน
+        </p>
+        <p lang="th">
+          การอ่านเปิดโลกให้คุณพบความรู้ใหม่ๆ การเขียนบันทึกและตกผลึกความรู้นั้น
+          และเมื่อเราเชื่อว่าสิ่งที่เขียนมีประโยชน์ เราก็อยากส่งต่อให้คนอื่น
+          นั่นคือเหตุผลที่ผมเขียน
+        </p>
+        <p>
+          I believe in two fundamentals: reading and writing.
+          Reading opens you to new knowledge. Writing crystallizes it.
+          That's why I write.
+        </p>
+      </div>
+    </section>
 
-      <p>
-        Hi, I'm Prem. I'm building VerdeX — a smart
-        Sweet Basil farm powered by AI, using sensors
-        to automate farm management.
-        Based in Chiang Mai, Thailand.
-      </p>
-
-      <h2>Why I write</h2>
-
-      <p lang="th">
-        ผมเชื่อในสิ่งพื้นฐานสองอย่างที่ทำให้คนเก่งขึ้น
-        คือ การอ่าน และ การเขียน
-      </p>
-
-      <p lang="th">
-        การอ่านเปิดโลกให้คุณพบความรู้ใหม่ๆ
-        การเขียนบันทึกและตกผลึกความรู้นั้น
-        และเมื่อเราเชื่อว่าสิ่งที่เขียนมีประโยชน์
-        เราก็อยากส่งต่อให้คนอื่น
-      </p>
-
-      <p lang="th">
-        นั่นคือเหตุผลที่ผมเขียน
-      </p>
-
-      <p>
-        I believe in two fundamentals that make
-        people better: reading and writing.
-      </p>
-
-      <p>
-        Reading opens you to new knowledge.
-        Writing records and crystallizes it.
-        And when you believe what you've written
-        has value — you want to share it.
-      </p>
-
-      <p>
-        That's why I write.
-      </p>
-
-      <h2>Get in touch</h2>
-
-      <p>
-        <a href="/contact">Send me a message</a> or find me on the links in the footer.
-      </p>
-    </div>
+    <!-- Get in touch -->
+    <section>
+      <div class="flex gap-4">
+        <a href="/contact" class="px-8 py-3 font-display text-xs uppercase tracking-widest transition-all duration-200 phosphor-glow" style="background: var(--color-primary); color: var(--color-bg);">
+          ESTABLISH_LINK
+        </a>
+        <a href="/verdex" class="px-8 py-3 font-display text-xs uppercase tracking-widest transition-all duration-200" style="border: 1px solid var(--color-border); color: var(--color-primary);">
+          VIEW_VERDEX_
+        </a>
+      </div>
+    </section>
 
   </div>
 </BaseLayout>

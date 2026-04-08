@@ -8,48 +8,65 @@ import { siteConfig } from '../config';
   description="What I'm focused on right now — updated monthly."
   jsonLd={{ '@context': 'https://schema.org', '@type': 'WebPage', name: 'Now', url: `${siteConfig.url}/now` }}
 >
-  <div class="max-w-2xl mx-auto px-4 sm:px-6 py-12">
-    <header class="mb-10">
-      <h1 class="text-3xl font-bold text-stone-900 dark:text-stone-50 mb-2">Now</h1>
-      <p class="text-stone-500 dark:text-stone-400 text-sm">
-        Last updated: April 2026 · Chiang Mai, Thailand
-      </p>
-    </header>
+  <div class="pt-20 max-w-5xl mx-auto px-6 py-12 md:py-24">
 
-    <div class="prose-content">
-      <h2 lang="th">กำลังทำอะไรอยู่ตอนนี้</h2>
-
-      <h3>🌿 Building VerdeX</h3>
-      <p lang="th">
-        กำลังสร้าง prototype ฟาร์มโรงเรือนอัจฉริยะสำหรับปลูก Sweet Basil
-        โดยใช้ AI ควบคุมผ่าน Sensor ต่างๆ อยู่ในขั้นตอนการสร้าง greenhouse
-        และทดสอบระบบ sensor
-      </p>
-
-      <h3>📝 Writing</h3>
-      <p lang="th">
-        เขียน blog เกี่ยวกับการอ่าน การเขียน และการสร้างธุรกิจ
-        เป้าหมายคือเขียนอย่างน้อย 2 บทความต่อเดือน
-      </p>
-
-      <h3>📚 Reading</h3>
-      <ul>
-        <li><em>Stillness Is the Key</em> — Ryan Holiday</li>
-        <li><em>How to Be Better at Almost Everything</em> — Pat Flynn</li>
-      </ul>
-
-      <h3>🧠 Learning</h3>
-      <p lang="th">
-        ศึกษาเรื่อง AI/ML สำหรับ agriculture, IoT sensor integration,
-        และการทำ smart farming ในประเทศไทย
-      </p>
-
-      <hr />
-
-      <p class="text-sm text-stone-500 dark:text-stone-400">
-        This page is inspired by <a href="https://nownownow.com/about" target="_blank" rel="noopener">nownownow.com</a>.
-        It's a snapshot of what I'm doing right now, not a permanent record.
-      </p>
+    <div class="font-mono text-[10px] tracking-widest uppercase mb-2" style="color: var(--color-subtle);">
+      // system_status / last_update: 2026.04
     </div>
+    <h1 class="font-display text-4xl sm:text-5xl font-bold tracking-tighter uppercase leading-none mb-4" style="color: var(--color-primary);">
+      CURRENT_STATE<span class="blink-cursor"></span>
+    </h1>
+    <p class="font-mono text-xs mb-12" style="color: var(--color-subtle);">
+      // What I'm focused on right now — Chiang Mai, Thailand
+    </p>
+
+    <div class="grid md:grid-cols-2 gap-0" style="border: 1px solid var(--color-border);">
+
+      <!-- Building -->
+      <div class="p-8" style="border-bottom: 1px solid var(--color-border); border-right: 1px solid var(--color-border);">
+        <span class="font-mono text-[10px] tracking-widest uppercase block mb-3" style="color: #2E7D32;">PROCESS_01</span>
+        <h2 class="font-display text-lg font-bold uppercase tracking-tight mb-3" style="color: var(--color-primary);">BUILDING_VERDEX</h2>
+        <p class="text-sm leading-relaxed" lang="th" style="color: var(--color-muted);">
+          กำลังสร้าง prototype ฟาร์มโรงเรือนอัจฉริยะสำหรับปลูก Sweet Basil
+          โดยใช้ AI ควบคุมผ่าน Sensor ต่างๆ
+        </p>
+      </div>
+
+      <!-- Writing -->
+      <div class="p-8" style="border-bottom: 1px solid var(--color-border);">
+        <span class="font-mono text-[10px] tracking-widest uppercase block mb-3" style="color: #2E7D32;">PROCESS_02</span>
+        <h2 class="font-display text-lg font-bold uppercase tracking-tight mb-3" style="color: var(--color-primary);">WRITING_NOTES</h2>
+        <p class="text-sm leading-relaxed" lang="th" style="color: var(--color-muted);">
+          เขียน blog เกี่ยวกับการอ่าน การเขียน และการสร้างธุรกิจ
+          เป้าหมายคือเขียนอย่างน้อย 2 บทความต่อเดือน
+        </p>
+      </div>
+
+      <!-- Reading -->
+      <div class="p-8" style="border-right: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+        <span class="font-mono text-[10px] tracking-widest uppercase block mb-3" style="color: #2E7D32;">PROCESS_03</span>
+        <h2 class="font-display text-lg font-bold uppercase tracking-tight mb-3" style="color: var(--color-primary);">READING_QUEUE</h2>
+        <ul class="text-sm space-y-1" style="color: var(--color-muted);">
+          <li class="font-mono text-xs">→ Stillness Is the Key — Ryan Holiday</li>
+          <li class="font-mono text-xs">→ How to Be Better — Pat Flynn</li>
+        </ul>
+      </div>
+
+      <!-- Learning -->
+      <div class="p-8" style="border-bottom: 1px solid var(--color-border);">
+        <span class="font-mono text-[10px] tracking-widest uppercase block mb-3" style="color: #2E7D32;">PROCESS_04</span>
+        <h2 class="font-display text-lg font-bold uppercase tracking-tight mb-3" style="color: var(--color-primary);">LEARNING_STACK</h2>
+        <p class="text-sm leading-relaxed" lang="th" style="color: var(--color-muted);">
+          ศึกษาเรื่อง AI/ML สำหรับ agriculture, IoT sensor integration,
+          และการทำ smart farming
+        </p>
+      </div>
+
+    </div>
+
+    <div class="mt-8 font-mono text-[10px] tracking-widest uppercase" style="color: var(--color-subtle);">
+      // Inspired by <a href="https://nownownow.com/about" target="_blank" rel="noopener" class="underline underline-offset-2" style="color: #2E7D32;">nownownow.com</a>
+    </div>
+
   </div>
 </BaseLayout>
